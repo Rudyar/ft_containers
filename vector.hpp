@@ -6,33 +6,56 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/04 13:21:56 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/04 18:40:41 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <memory>
+#include <iostream>
+
 namespace ft
 {
-	template <class T, class Allocator = allocator<T> >
+	template <class T, class Allocator = std::allocator<T> >
 	class vector
 	{
+		private:
+			size_type	_size;
+			size_type	_capacity;
+			Allocator	_alloc;
+			T			*_vec;
+
 		public:
 			// types:
-			typedef typename Allocator::reference reference;
-			typedef typename Allocator::const_reference const_reference;
-			typedef implementation defined iterator;
-			typedef implementation defined const_iterator;
-			typedef implementation defined size_type;
-			typedef implementation defined difference_type;
-			typedef T value_type;
-			typedef Allocator allocator_type;
-			typedef typename Allocator::pointer pointer;
-			typedef typename Allocator::const_pointer const_pointer
-			typedef std::reverse_iterator<iterator> reverse_iterator;
-			typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+			typedef typename Allocator::reference			reference;
+			typedef typename Allocator::const_reference		const_reference;
+			typedef typename Allocator::const_pointer		const_pointer
+			typedef Allocator								allocator_type;
+			typedef size_t									size_type;
+			typedef int										difference_type;
+			typedef T										value_type;
+			typedef typename Allocator::pointer				pointer;
+			// typedef std::reverse_iterator<iterator>			reverse_iterator;
+			// typedef std::reverse_iterator<const_iterator>	const_reverse_iterator;
+			// typedef implementation defined					iterator;
+			// typedef implementation defined					const_iterator;
 
 			// Canonical
-			explicit vector(const Allocator& = Allocator());
-			explicit vector(size_type n, const T& value = T(), const Allocator& = Allocator());
+			explicit vector(const Allocator& alloc = Allocator())
+			{
+				_size = 0;
+				_capacity = 0;
+				_alloc = alloc;
+				_vec = alloc.allocate(0);
+			}
+
+			explicit vector(size_type n, const T& value = T(), const Allocator& alloc = Allocator())
+			{
+				_size = n;
+				_capacity = n;
+				_alloc = alloc;
+				_vec = alloc.allocate(n);
+			}
+
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
 			vector(const vector<T,Allocator>& x);

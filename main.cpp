@@ -6,11 +6,16 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/04 11:25:25 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/04 13:58:59 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include <vector.hpp>
+#include <vector>
+
 int	main(void)
 {
+	std::vector<int> test;
+	test.size();
 	return 0;
 }
