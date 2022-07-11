@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/11 10:40:12 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/11 13:25:53 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ namespace ft
 
 		public:
 			// Canonical
-			explicit vector(const Allocator& alloc = Allocator())
+			explicit vector(const allocator_type& alloc = allocator_type())
 			{
 				_size = 0;
 				_capacity = 0;
@@ -51,20 +51,19 @@ namespace ft
 				_vec = _alloc.allocate(0);
 			}
 
-			explicit vector(size_type n, const T& value = T(), const Allocator& alloc = Allocator())
+			explicit vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
 				_size = n;
 				_capacity = n;
-				_alloc = alloc;
-				_vec = alloc.allocate(n);
+				_vec = _alloc.allocate(n);
 				for (size_t i = 0; i < n; i++)
-					_alloc.construct(_vec, value);
+					_alloc.construct(_vec + i, value);
 			}
 
-			template <class InputIterator>
-			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
+			// template <class InputIterator>
+			// vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
 
-			vector(const vector<T,Allocator>& x);
+			// vector(const vector<T,Allocator>& x);
 
 			~vector()
 			{
@@ -72,7 +71,17 @@ namespace ft
 				_alloc.deallocate(_vec, _capacity);
 			}
 
-			// vector<T,Allocator>& operator=(const vector<T,Allocator>& x);
+			// vector& operator=(const vector& x) appeler assign d'apres la doc
+			// {
+			// 	if (*this == x)
+			// 		return *this;
+			// 	clear();
+			// 	for (size_t i = 0; i < count; i++)
+			// 	{
+			// 		/* code */
+			// 	}
+			// }
+
 			// template <class InputIterator>
 			// void assign(InputIterator first, InputIterator last);
 			// void assign(size_type n, const T& u);
@@ -149,14 +158,49 @@ namespace ft
 			}
 
 			// element access:
-			// reference operator[](size_type n);
-			// const_reference operator[](size_type n) const;
-			// const_reference at(size_type n) const;
-			// reference at(size_type n);
-			// reference front();
-			// const_reference front() const;
-			// reference back();
-			// const_reference back() const;
+			reference operator[](size_type n)
+			{
+				return *(_vec + n);
+			}
+
+			const_reference operator[](size_type n) const
+			{
+				return *(_vec + n);
+			}
+
+			const_reference at(size_type n) const
+			{
+				if (n < 0 || n >= size())
+					throw(std::out_of_range("vector : at const"));
+				return *(_vec + n);
+			}
+
+			reference at(size_type n)
+			{
+				if (n < 0 || n >= size())
+					throw(std::out_of_range("vector : at"));
+				return *(_vec + n);
+			}
+
+			reference front()
+			{
+				return *_vec;
+			}
+
+			const_reference front() const
+			{
+				return *_vec;
+			}
+
+			reference back()
+			{
+				return *(_vec + (_size - 1));
+			}
+
+			const_reference back() const
+			{
+				return *(_vec + (_size - 1));
+			}
 
 			// modifiers:
 			void push_back(const T& x)								// Surement d'autres choses à gérer
@@ -167,7 +211,11 @@ namespace ft
 				_alloc.construct(end, x);
 			}
 
-			// void pop_back();
+			void pop_back()											// Comportement indef si _vec empty, je laisse segfault ??
+			{
+				_alloc.destroy(&_vec[_size]);
+				_size--;
+			}
 			// iterator insert(iterator position, const T& x);
 			// void insert(iterator position, size_type n, const T& x);
 			// template <class InputIterator>
@@ -175,7 +223,14 @@ namespace ft
 			// InputIterator first, InputIterator last);
 			// iterator erase(iterator position);
 			// iterator erase(iterator first, iterator last);
-			// void swap(vector<T,Allocator>&);
+
+			void swap(vector& x)
+			{
+				// if (*this == x)
+				// 	return ;
+				vector swap(*(x._vec));
+			}
+
 			void clear()
 			{
 				for (; _size != 0; _size--)
@@ -203,6 +258,12 @@ namespace ft
 	};
 
 	template <class T, class Allocator>
+	void swap(vector<T,Allocator>& x, vector<T,Allocator>& y)
+	{
+		x.swap(y);
+	}
+
+	template <class T, class Allocator>
 	bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
 
 	template <class T, class Allocator>
@@ -221,6 +282,4 @@ namespace ft
 	bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
 
 	// specialized algorithms:
-	template <class T, class Allocator>
-	void swap(vector<T,Allocator>& x, vector<T,Allocator>& y);
 }
