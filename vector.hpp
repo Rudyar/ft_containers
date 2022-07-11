@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/11 17:20:46 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/11 17:58:34 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ namespace ft
 			typedef typename Allocator::pointer				pointer;
 			// typedef std::reverse_iterator<iterator>			reverse_iterator;
 			// typedef std::reverse_iterator<const_iterator>	const_reverse_iterator;
-			// typedef implementation defined					iterator;
-			// typedef implementation defined					const_iterator;
+			typedef implementation defined					iterator;
+			typedef implementation defined					const_iterator;
 
 		private:
 			size_type		_size;
@@ -63,7 +63,7 @@ namespace ft
 			}
 
 			// template <class InputIterator>
-			// vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
+			// vector(InputIterator first, InputIterator last, const Allocator& = Allocator());					Utilise is_integral
 
 			vector(const vector& x) : _size(x._size)
 			{
@@ -86,19 +86,22 @@ namespace ft
 			// 	if (*this == x)
 			// 		return *this;
 			// 	clear();
-			// 	for (size_type i = 0; i < count; i++)
-			// 	{
-			// 		/* code */
-			// 	}
+			// 	assign
 			// }
 
 			// template <class InputIterator>
 			// void assign(InputIterator first, InputIterator last);
 			// void assign(size_type n, const T& u);
-			// allocator_type get_allocator() const;
+			allocator_type get_allocator() const
+			{
+				return _alloc;
+			}
 
 			// iterators:
-			// iterator begin();
+			iterator begin()
+			{
+				return iterator()
+			}
 			// const_iterator begin() const;
 			// iterator end();
 			// const_iterator end() const;
@@ -229,8 +232,7 @@ namespace ft
 			// iterator insert(iterator position, const T& x);
 			// void insert(iterator position, size_type n, const T& x);
 			// template <class InputIterator>
-			// void insert(iterator position,
-			// InputIterator first, InputIterator last);
+			// void insert(iterator position, InputIterator first, InputIterator last);
 			// iterator erase(iterator position);
 			// iterator erase(iterator first, iterator last);
 
