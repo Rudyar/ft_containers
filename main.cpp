@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/11 12:14:18 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/11 17:21:36 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,16 @@
 int	main(void)
 {
 	ft::vector<int> test (3, 100);
-	ft::vector<int> test1 (5, 200);
 
 	test.printVec();
-	test1.printVec();
-
-	test.swap(test1);
-
+	std::cout << "Capacity : " << test.capacity() << std::endl;
+	std::cout << "Size : " << test.size() << std::endl;
+	ft::vector<int> bla(test);
+	bla.push_back(10000000);
 	test.printVec();
-	test1.printVec();
-	// std::cout << "Capacity : " << test.capacity() << std::endl;
-	// std::cout << "Size : " << test.size() << std::endl;
-
+	bla.printVec();
+	std::cout << "Capacity : " << bla.capacity() << std::endl;
+	std::cout << "Size : " << bla.size() << std::endl;
 	return 0;
 }
 
@@ -61,16 +59,14 @@ int	main(void)
 // 	for (size_t i = 0; i < test.size(); i++)
 // 		std::cout << test[i] << std::endl;
 
-// 	std::cout << "test front = " << test.front() << std::endl;
-// 	std::cout << "test back = " << test.back() << std::endl;
-// 	test.front() -= test.back();
-// 	std::cout << "test front = " << test.front() << std::endl;
-// 	std::cout << "test back = " << test.back() << std::endl;
-
-// 	for (size_t i = 0; i < test.size(); i++)
-// 		std::cout << test[i] << std::endl;
-
 // 	std::cout << "Capacity : " << test.capacity() << std::endl;
 // 	std::cout << "Size : " << test.size() << std::endl;
+// 	std::vector<int> bla(test);
+// 	test[0] = 10000000;
+
+// 	for (size_t i = 0; i < bla.size(); i++)
+// 		std::cout << bla[i] << std::endl;
+// 	std::cout << "Capacity : " << bla.capacity() << std::endl;
+// 	std::cout << "Size : " << bla.size() << std::endl;
 // 	return 0;
 // }

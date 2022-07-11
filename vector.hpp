@@ -6,10 +6,12 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/11 13:25:53 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/11 17:20:46 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 #include <memory>
 #include <exception>
 #include <iostream>
@@ -56,14 +58,22 @@ namespace ft
 				_size = n;
 				_capacity = n;
 				_vec = _alloc.allocate(n);
-				for (size_t i = 0; i < n; i++)
+				for (size_type i = 0; i < n; i++)
 					_alloc.construct(_vec + i, value);
 			}
 
 			// template <class InputIterator>
 			// vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
 
-			// vector(const vector<T,Allocator>& x);
+			vector(const vector& x) : _size(x._size)
+			{
+				_alloc = x._alloc;
+				_capacity = _size;
+				if (size())
+					_vec = _alloc.allocate(_size);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(_vec + i, *(x._vec + i));
+			}
 
 			~vector()
 			{
@@ -76,7 +86,7 @@ namespace ft
 			// 	if (*this == x)
 			// 		return *this;
 			// 	clear();
-			// 	for (size_t i = 0; i < count; i++)
+			// 	for (size_type i = 0; i < count; i++)
 			// 	{
 			// 		/* code */
 			// 	}
@@ -147,7 +157,7 @@ namespace ft
 					size_type old_capacity = _capacity;
 					_capacity = n;
 					tmp = _alloc.allocate(_capacity);
-					for (size_t i = 0; i < _size; i++)
+					for (size_type i = 0; i < _size; i++)
 					{
 						_alloc.construct(tmp + i, *(_vec + i));
 						_alloc.destroy(&_vec[i]);
@@ -226,9 +236,19 @@ namespace ft
 
 			void swap(vector& x)
 			{
-				// if (*this == x)
-				// 	return ;
-				vector swap(*(x._vec));
+				if (*this == x)
+					return ;
+				size_type		tmp_size = x._size;
+				size_type		tmp_capacity = x._capacity;
+				T				*tmp_vec = x._vec;
+
+				x._size = _size;
+				x._capacity = _capacity;
+				x._vec = _vec;
+
+				_size = tmp_size;
+				_capacity = tmp_capacity;
+				_vec = tmp_vec;
 			}
 
 			void clear()
@@ -242,7 +262,7 @@ namespace ft
 				if (size() != 0)
 				{
 					std::cout << "-----------------" << std::endl;
-					for (size_t i = 0; i < _size; i++)
+					for (size_type i = 0; i < _size; i++)
 					{
 							std::cout << "Vec i : " << _vec[i] << std::endl;
 					}
@@ -258,19 +278,28 @@ namespace ft
 	};
 
 	template <class T, class Allocator>
-	void swap(vector<T,Allocator>& x, vector<T,Allocator>& y)
+	bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
 	{
-		x.swap(y);
+		if (x.size() != y.size())
+			return false;
+		for (size_t i = 0; i < x.size(); i++)
+		{
+			if (x[i] != y[i])
+				return false;
+		}
+		return true;
 	}
 
 	template <class T, class Allocator>
-	bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+	bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+	{
+		if (x == y)
+			return true;
+		return false;
+	}
 
 	template <class T, class Allocator>
-	bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y);
-
-	template <class T, class Allocator>
-	bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+	bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y); //	utiliser lexicographical_compare et utiliser < pour les autres comp
 
 	template <class T, class Allocator>
 	bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y);
@@ -282,4 +311,11 @@ namespace ft
 	bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
 
 	// specialized algorithms:
+	template <class T, class Allocator>
+	void swap(vector<T,Allocator>& x, vector<T,Allocator>& y)
+	{
+		x.swap(y);
+	}
 }
+
+#endif
