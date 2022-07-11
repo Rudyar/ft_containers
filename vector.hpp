@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/05 18:11:20 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/11 10:40:12 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,16 @@ namespace ft
 
 			~vector()
 			{
-				// _alloc.destroy(_vec, _size);
-				// Appeler clear et deallocate
+				clear();
+				_alloc.deallocate(_vec, _capacity);
 			}
 
-			vector<T,Allocator>& operator=(const vector<T,Allocator>& x);
-			template <class InputIterator>
-			void assign(InputIterator first, InputIterator last);
-			void assign(size_type n, const T& u);
-			allocator_type get_allocator() const;
+			// vector<T,Allocator>& operator=(const vector<T,Allocator>& x);
+			// template <class InputIterator>
+			// void assign(InputIterator first, InputIterator last);
+			// void assign(size_type n, const T& u);
+			// allocator_type get_allocator() const;
+
 			// iterators:
 			// iterator begin();
 			// const_iterator begin() const;
@@ -98,7 +99,22 @@ namespace ft
 				return _alloc.max_size();
 			}
 
-			void resize(size_type size, T c = T()); // Appeler reserve !
+			void resize(size_type n, T c = T())
+			{
+				if (n > max_size())
+					throw(std::length_error("vector : resize"));
+				if (n <= size())
+				{
+					for (; _size > n ; _size--)
+						_alloc.destroy(&_vec[_size]);
+				}
+				else
+				{
+					reserve(n);
+					for (; _size < n; _size++)
+						_alloc.construct(_vec + _size, c);			// Peut etre mieux avec des iterators (insert) ??
+				}
+			}
 
 			size_type capacity() const
 			{
@@ -124,7 +140,7 @@ namespace ft
 					tmp = _alloc.allocate(_capacity);
 					for (size_t i = 0; i < _size; i++)
 					{
-						_alloc.construct(tmp + i, *_vec + i);
+						_alloc.construct(tmp + i, *(_vec + i));
 						_alloc.destroy(&_vec[i]);
 					}
 					_alloc.deallocate(_vec, old_capacity);
@@ -160,16 +176,29 @@ namespace ft
 			// iterator erase(iterator position);
 			// iterator erase(iterator first, iterator last);
 			// void swap(vector<T,Allocator>&);
-			// void clear();
+			void clear()
+			{
+				for (; _size != 0; _size--)
+					_alloc.destroy(&_vec[_size]);
+			}
 
 			void	printVec()
 			{
-				std::cout << "-----------------" << std::endl;
-				for (size_t i = 0; i < _size; i++)
+				if (size() != 0)
 				{
-						std::cout << "Vec i : " << _vec[i] << std::endl;
+					std::cout << "-----------------" << std::endl;
+					for (size_t i = 0; i < _size; i++)
+					{
+							std::cout << "Vec i : " << _vec[i] << std::endl;
+					}
+					std::cout << "-----------------" << std::endl;
 				}
-				std::cout << "-----------------" << std::endl;
+				else
+				{
+					std::cout << "-----------------" << std::endl;
+					std::cout << "Vec's empty !" << std::endl;
+					std::cout << "-----------------" << std::endl;
+				}
 			}
 	};
 
