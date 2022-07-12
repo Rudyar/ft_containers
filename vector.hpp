@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/11 17:58:34 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/12 16:04:21 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <memory>
 #include <exception>
 #include <iostream>
+#include "iterators/random_access_iterator.hpp"
 
 namespace ft
 {
