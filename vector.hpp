@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/12 16:04:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/15 16:25:51 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <memory>
 #include <exception>
 #include <iostream>
-#include "iterators/random_access_iterator.hpp"
+#include "iterators/VectorIterator.hpp"
 
 namespace ft
 {
@@ -27,22 +27,22 @@ namespace ft
 			// types:
 			typedef typename Allocator::reference			reference;
 			typedef typename Allocator::const_reference		const_reference;
+			typedef typename Allocator::pointer				pointer;
 			typedef typename Allocator::const_pointer		const_pointer;
 			typedef Allocator								allocator_type;
 			typedef size_t									size_type;
 			typedef int										difference_type;
 			typedef T										value_type;
-			typedef typename Allocator::pointer				pointer;
-			// typedef std::reverse_iterator<iterator>			reverse_iterator;
-			// typedef std::reverse_iterator<const_iterator>	const_reverse_iterator;
-			typedef implementation defined					iterator;
-			typedef implementation defined					const_iterator;
+			typedef ft::VectorIterator<pointer>				iterator;
+			typedef ft::VectorIterator<const_pointer>		const_iterator;
+			// typedef ft::reverse_iterator<iterator>			reverse_iterator;
+			// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 		private:
 			size_type		_size;
 			size_type		_capacity;
 			allocator_type	_alloc;
-			T				*_vec;
+			value_type		*_vec;
 
 		public:
 			// Canonical
@@ -93,18 +93,19 @@ namespace ft
 			// template <class InputIterator>
 			// void assign(InputIterator first, InputIterator last);
 			// void assign(size_type n, const T& u);
+
 			allocator_type get_allocator() const
 			{
 				return _alloc;
 			}
 
 			// iterators:
-			iterator begin()
-			{
-				return iterator()
-			}
+			// iterator begin()
+			// {
+			// 	return iterator()
+			// }
 			// const_iterator begin() const;
-			// iterator end();
+			// iterator end(); pas le dernier elem, mais celui d'apres
 			// const_iterator end() const;
 			// reverse_iterator rbegin();
 			// const_reverse_iterator rbegin() const;
@@ -217,7 +218,7 @@ namespace ft
 			}
 
 			// modifiers:
-			void push_back(const T& x)								// Surement d'autres choses à gérer
+			void push_back(const T& x)
 			{
 				reserve(_size + 1);
 				T	*end = &_vec[_size];
