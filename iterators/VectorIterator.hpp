@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   VectorIterator.hpp                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
+/*   Updated: 2022/07/21 18:05:48 by arudy            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+	// https://m.cplusplus.com/reference/iterator/RandomAccessIterator/
+	// https://gcc.gnu.org/onlinedocs/gcc-4.6.2/libstdc++/api/a01052_source.html
+
 #ifndef VECTORITERATOR_HPP
 #define VECTORITERATOR_HPP
 
 #include "iterator_traits.hpp"
-
-	// https://m.cplusplus.com/reference/iterator/RandomAccessIterator/
-	// https://gcc.gnu.org/onlinedocs/gcc-4.6.2/libstdc++/api/a01052_source.html
 
 namespace ft
 {
@@ -30,11 +42,121 @@ namespace ft
 			explicit VectorIterator(Iterator x) : _current(x) {}
 			VectorIterator(const VectorIterator &x) : _current(x._current) {}
 			template<typename Iter> VectorIterator(const VectorIterator<Iter> &x) : _current(x.base()) {}
+			VectorIterator	operator=(VectorIterator const &src)
+			{
+				if (*this == src)
+					return *this;
+				_current = src->_current;
+				return *this;
+			}
+
 			iterator_type base() const
 			{
 				return _current;
 			}
+
+			reference	operator*() const
+			{
+				Iterator tmp = _current;
+				return (*tmp);
+			}
+
+			pointer		operator->() const
+			{
+				return &(operator*());
+			}
+
+			VectorIterator	&operator++() // ++n
+			{
+				_current++;
+				return *this;
+			}
+
+			VectorIterator	operator++(int) // n++
+			{
+				VectorIterator tmp(*this);
+				_current++;
+				return tmp;
+			}
+
+			VectorIterator	&operator--() // --n
+			{
+				_current--;
+				return *this;
+			}
+
+			VectorIterator	operator--(int) // n--
+			{
+				VectorIterator tmp(*this);
+				_current--;
+				return tmp;
+			}
+
+			VectorIterator	operator+(difference_type _n) const
+			{
+				return VectorIterator(_current + _n);
+			}
+
+			VectorIterator	operator-(difference_type _n) const
+			{
+				return VectorIterator(_current - _n);
+			}
+
+			VectorIterator	operator+=(difference_type _n)
+			{
+				_current += _n;
+				return *this;
+			}
+
+			VectorIterator	operator -=(difference_type _n)
+			{
+				_current -= _n;
+				return *this;
+			}
+
+			reference	operator[](difference_type const &_n) const
+			{
+				return *(_current + _n);
+			}
 	};
+
+	template<typename _IterL, typename _IterR>
+	bool	operator==(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
+
+	template<typename _IterL, typename _IterR>
+	bool	operator!=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
+	{
+		return (lhs.base() != rhs.base());
+	}
+
+	template<typename _IterL, typename _IterR>
+	bool	operator<(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
+	{
+		return (lhs.base() < rhs.base());
+	}
+
+	template<typename _IterL, typename _IterR>
+	bool	operator>(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
+	{
+		return (lhs.base() > rhs.base());
+	}
+
+	template<typename _IterL, typename _IterR>
+	bool	operator<=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
+	{
+		return (lhs.base() <= rhs.base());
+	}
+
+	template<typename _IterL, typename _IterR>
+	bool	operator>=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
+	{
+		return (lhs.base() >= rhs.base());
+	}
+
+// Rajouter les templates pour le ops + - ??
 }
 
 #endif

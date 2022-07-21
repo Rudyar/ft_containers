@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/15 16:25:51 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/21 16:14:55 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,22 @@ namespace ft
 			}
 
 			// iterators:
-			// iterator begin()
-			// {
-			// 	return iterator()
-			// }
-			// const_iterator begin() const;
-			// iterator end(); pas le dernier elem, mais celui d'apres
-			// const_iterator end() const;
+			iterator begin()
+			{
+				return iterator(_vec);
+			}
+			const_iterator begin() const
+			{
+				return const_iterator(_vec);
+			}
+			iterator end()
+			{
+				return iterator(_vec + size);
+			}
+			const_iterator end() const
+			{
+				return const_iterator(_vec + size);
+			}
 			// reverse_iterator rbegin();
 			// const_reverse_iterator rbegin() const;
 			// reverse_iterator rend();
