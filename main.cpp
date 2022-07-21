@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/11 17:21:36 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/21 11:11:35 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ int	main(void)
 {
 	ft::vector<int> test (3, 100);
 
-	test.printVec();
-	std::cout << "Capacity : " << test.capacity() << std::endl;
-	std::cout << "Size : " << test.size() << std::endl;
-	ft::vector<int> bla(test);
-	bla.push_back(10000000);
-	test.printVec();
-	bla.printVec();
-	std::cout << "Capacity : " << bla.capacity() << std::endl;
-	std::cout << "Size : " << bla.size() << std::endl;
+	ft::vector<int>::iterator iter;
+	static_cast<void>(iter);
+	// test.printVec();
+	// std::cout << "Capacity : " << test.capacity() << std::endl;
+	// std::cout << "Size : " << test.size() << std::endl;
+	// ft::vector<int> bla(test);
+	// bla.push_back(10000000);
+	// test.printVec();
+	// bla.printVec();
+	// std::cout << "Capacity : " << bla.capacity() << std::endl;
+	// std::cout << "Size : " << bla.size() << std::endl;
 	return 0;
 }
 
