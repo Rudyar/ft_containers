@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/21 16:14:55 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/22 14:33:06 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <exception>
 #include <iostream>
 #include "iterators/VectorIterator.hpp"
+#include "iterators/reverse_iterator.hpp"
 
 namespace ft
 {
@@ -35,8 +36,8 @@ namespace ft
 			typedef T										value_type;
 			typedef ft::VectorIterator<pointer>				iterator;
 			typedef ft::VectorIterator<const_pointer>		const_iterator;
-			// typedef ft::reverse_iterator<iterator>			reverse_iterator;
-			// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+			typedef ft::reverse_iterator<iterator>			reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 		private:
 			size_type		_size;
@@ -110,16 +111,28 @@ namespace ft
 			}
 			iterator end()
 			{
-				return iterator(_vec + size);
+				return iterator(_vec + size());
 			}
 			const_iterator end() const
 			{
-				return const_iterator(_vec + size);
+				return const_iterator(_vec + size());
 			}
-			// reverse_iterator rbegin();
-			// const_reverse_iterator rbegin() const;
-			// reverse_iterator rend();
-			// const_reverse_iterator rend() const;
+			reverse_iterator rbegin()
+			{
+				return reverse_iterator(end());
+			}
+			const_reverse_iterator rbegin() const
+			{
+				return reverse_iterator(end());
+			}
+			reverse_iterator rend()
+			{
+				return reverse_iterator(_vec);
+			}
+			const_reverse_iterator rend() const
+			{
+				return reverse_iterator(_vec);
+			}
 
 			// capacity:
 			size_type size() const

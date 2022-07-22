@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/21 18:05:48 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/22 12:24:01 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ namespace ft
 
 		public:
 			typedef Iterator													iterator_type;
+			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
 			typedef typename ft::iterator_traits<Iterator>::value_type			value_type;
 			typedef typename ft::iterator_traits<Iterator>::difference_type		difference_type;
 			typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
 			typedef typename ft::iterator_traits<Iterator>::reference			reference;
-			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
 
 			VectorIterator() : _current() {}
 			explicit VectorIterator(Iterator x) : _current(x) {}
