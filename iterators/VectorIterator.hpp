@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/22 12:24:01 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/26 10:27:22 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ namespace ft
 				return VectorIterator(_current - _n);
 			}
 
-			VectorIterator	operator+=(difference_type _n)
+			VectorIterator	&operator+=(difference_type _n)
 			{
 				_current += _n;
 				return *this;
 			}
 
-			VectorIterator	operator -=(difference_type _n)
+			VectorIterator	&operator -=(difference_type _n)
 			{
 				_current -= _n;
 				return *this;
@@ -147,16 +147,26 @@ namespace ft
 	template<typename _IterL, typename _IterR>
 	bool	operator<=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() <= rhs.base());
+		return (lhs.base() < rhs.base());
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator>=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() >= rhs.base());
+		return (lhs.base() > rhs.base());
 	}
 
-// Rajouter les templates pour le ops + - ??
+	template<typename _Iter>
+	VectorIterator<_Iter>	operator+(typename VectorIterator<_Iter>::difference_type _n, const VectorIterator<_Iter> &_x)
+	{
+		return VectorIterator<_Iter>(_x.base() + _n);
+	}
+
+	template<typename _IterL, typename _IterR>
+	typename VectorIterator<_IterL>::difference_type	operator-(const VectorIterator<_IterL> &lhs, const VectorIterator<_IterR> &rhs)
+	{
+		return lhs.base() - rhs.base();
+	}
 }
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/22 14:34:22 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/26 18:50:46 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,11 @@ int	main(void)
 	test.push_back(300);
 	test.push_back(400);
 
-	__MACRO::vector<int>::reverse_iterator iter = test.rbegin();
+	__MACRO::vector<int>::iterator iter = test.begin();
 	__MACRO::vector<int>::iterator iter2 = test.end();
-	// __MACRO::vector<int>::reverse_iterator iter2 = test.rbegin();
-	// --iter;
-	std::cout << *iter << std::endl;
-	std::cout << *iter2 << std::endl;
+	iter2--;
 
-	// static_cast<void>(iter);
-	// test.printVec();
-	// std::cout << "Capacity : " << test.capacity() << std::endl;
-	// std::cout << "Size : " << test.size() << std::endl;
-	// ft::vector<int> bla(test);
-	// bla.push_back(10000000);
-	// test.printVec();
-	// bla.printVec();
-	// std::cout << "Capacity : " << bla.capacity() << std::endl;
-	// std::cout << "Size : " << bla.size() << std::endl;
+	std::cout << (*iter + *iter2) << std::endl;
+	// std::cout << *iter2 << std::endl;
 	return 0;
 }
