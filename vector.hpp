@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/26 09:46:35 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/27 11:18:06 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ namespace ft
 				{
 					reserve(n);
 					for (; _size < n; _size++)
-						_alloc.construct(_vec + _size, c);			// Peut etre mieux avec des iterators (insert) ??
+						_alloc.construct(_vec + _size, c);
 				}
 			}
 
@@ -257,8 +257,28 @@ namespace ft
 			// void insert(iterator position, size_type n, const T& x);
 			// template <class InputIterator>
 			// void insert(iterator position, InputIterator first, InputIterator last);
-			// iterator erase(iterator position);
-			// iterator erase(iterator first, iterator last);
+			iterator erase(iterator position)
+			{
+				iterator it = position;
+				iterator ite = end();
+				if (position + 1 == ite)
+					pop_back();
+				else
+				{
+					for (; it + 1 != ite; it++)
+					{
+						_alloc.destroy(it.base());
+						_alloc.construct(it.base(), *(it + 1));
+					}
+				}
+				_size--;
+				return position;
+			}
+
+			iterator erase(iterator first, iterator last)
+			{
+
+			}
 
 			void swap(vector& x)
 			{
@@ -281,25 +301,6 @@ namespace ft
 			{
 				for (; _size != 0; _size--)
 					_alloc.destroy(&_vec[_size]);
-			}
-
-			void	printVec()
-			{
-				if (size() != 0)
-				{
-					std::cout << "-----------------" << std::endl;
-					for (size_type i = 0; i < _size; i++)
-					{
-							std::cout << "Vec i : " << _vec[i] << std::endl;
-					}
-					std::cout << "-----------------" << std::endl;
-				}
-				else
-				{
-					std::cout << "-----------------" << std::endl;
-					std::cout << "Vec's empty !" << std::endl;
-					std::cout << "-----------------" << std::endl;
-				}
 			}
 	};
 

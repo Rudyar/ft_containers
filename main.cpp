@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/26 18:50:46 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/27 11:18:42 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD__VECTOR    // A commenter pour avoir ft::vector
+#define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # define __MACRO ft
@@ -26,19 +26,44 @@
 #include <string>
 #include <stdio.h>
 
+void print_vec(__MACRO::vector<int> vec)
+{
+	__MACRO::vector<int>::iterator it = vec.begin();
+	__MACRO::vector<int>::iterator ite = vec.end();
+	if (vec.size())
+	{
+		std::cout << "-----------------" << std::endl;
+		for (; it != ite; it++)
+			std::cout << "Vec : " << *it << std::endl;
+		std::cout << "Size : " << vec.size() << std::endl;
+		std::cout << "Capacity : " << vec.capacity() << std::endl;
+		std::cout << "-----------------" << std::endl;
+	}
+	else
+	{
+		std::cout << "-----------------" << std::endl;
+		std::cout << "Vec's empty !" << std::endl;
+		std::cout << "-----------------" << std::endl;
+	}
+}
+
 int	main(void)
 {
 	__MACRO::vector<int> test;
-	test.push_back(1);
-	test.push_back(34);
+	test.push_back(100);
+	test.push_back(200);
 	test.push_back(300);
 	test.push_back(400);
 
-	__MACRO::vector<int>::iterator iter = test.begin();
-	__MACRO::vector<int>::iterator iter2 = test.end();
-	iter2--;
+	// __MACRO::vector<int>::iterator it = test.begin();
+	__MACRO::vector<int>::iterator ite = test.end();
 
-	std::cout << (*iter + *iter2) << std::endl;
-	// std::cout << *iter2 << std::endl;
+	std::cout << test.size() << std::endl;
+	ite--;
+	ite--;
+	ite--;
+	test.erase(ite);
+	print_vec(test);
+
 	return 0;
 }
