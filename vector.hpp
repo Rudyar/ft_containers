@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/27 11:18:06 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/29 13:10:12 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,16 @@ namespace ft
 
 			iterator erase(iterator first, iterator last)
 			{
-
+				std::cout << "Mine erase" << std::endl;
+				iterator it = first;
+				// for (; first != last; ++first)
+				// 	erase(it);
+				while (first != last)
+				{
+					++first;
+					erase(it);
+				}
+				return first;
 			}
 
 			void swap(vector& x)
