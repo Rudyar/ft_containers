@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/29 13:10:12 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/29 16:54:21 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ namespace ft
 				_vec = _alloc.allocate(0);
 			}
 
-			explicit vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type()) : _alloc(alloc)
+			explicit vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type())
 			{
 				_size = n;
 				_capacity = n;
+				_alloc = alloc;
 				_vec = _alloc.allocate(n);
-				for (size_type i = 0; i < n; i++)
+				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(_vec + i, value);
 			}
 
@@ -250,42 +251,48 @@ namespace ft
 
 			void pop_back()											// Comportement indef si _vec empty, je laisse segfault ??
 			{
-				_alloc.destroy(&_vec[_size]);
-				_size--;
+				if (!empty())
+				{
+					_alloc.destroy(&_vec[_size - 1]);
+					_size--;
+				}
 			}
+
 			// iterator insert(iterator position, const T& x);
 			// void insert(iterator position, size_type n, const T& x);
 			// template <class InputIterator>
 			// void insert(iterator position, InputIterator first, InputIterator last);
+
 			iterator erase(iterator position)
 			{
+				std::cout << "POSITION : " << *position << std::endl;
 				iterator it = position;
 				iterator ite = end();
 				if (position + 1 == ite)
+				{
+					std::cout << "1" << std::endl;
 					pop_back();
+				}
 				else
 				{
+					std::cout << "2" << std::endl;
 					for (; it + 1 != ite; it++)
 					{
+						std::cout << "3" << std::endl;
 						_alloc.destroy(it.base());
 						_alloc.construct(it.base(), *(it + 1));
 					}
+					std::cout << "4" << std::endl;
+					_size--;
 				}
-				_size--;
 				return position;
 			}
 
 			iterator erase(iterator first, iterator last)
 			{
-				std::cout << "Mine erase" << std::endl;
 				iterator it = first;
-				// for (; first != last; ++first)
-				// 	erase(it);
-				while (first != last)
-				{
-					++first;
+				for (; first != last; ++first)
 					erase(it);
-				}
 				return first;
 			}
 
@@ -308,8 +315,9 @@ namespace ft
 
 			void clear()
 			{
-				for (; _size != 0; _size--)
-					_alloc.destroy(&_vec[_size]);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(_vec + i);
+				_size = 0;
 			}
 	};
 
