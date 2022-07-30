@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/30 11:56:55 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/30 18:16:52 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD__VECTOR    // A commenter pour avoir ft::vector
+// #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # define __MACRO ft
@@ -36,28 +36,18 @@ int	main(void)
 	test.push_back(100);
 	test.push_back(200);
 	test.push_back(300);
-	test.push_back(400);
-	test.push_back(500);
-	__MACRO::vector<int>::iterator it = test.begin();
-	__MACRO::vector<int>::iterator ite = test.end();
-	it++;
-	it++;
-	// ite--;
-	test.erase(it, ite);
+	// test.push_back(400);
+	// test.push_back(500);
+
+	test.pop_back();
+	test.pop_back();
+	test.pop_back();
+
 	print_vec(test);
-
-
-	// test.pop_back();
-	// test.pop_back();
-	// test.pop_back();
-	// std::cout << "print 1" << std::endl;
 	// std::cout << "Capacity : " << test.capacity() << std::endl;
 	// std::cout << "Size : " << test.size() << std::endl;
-	// print_vec(test);
-	// std::cout << "print 2" << std::endl;
-	// test.push_back(200);
-	// std::cout << "print 3" << std::endl;
-	// print_vec(test);
+	test.push_back(200);
+	print_vec(test);
 
 	return 0;
 }
@@ -69,8 +59,6 @@ void print_vec(__MACRO::vector<int> vec)
 		std::cout << "-----------------" << std::endl;
 		std::cout << "Vec's empty !" << std::endl;
 		std::cout << "-----------------" << std::endl;
-		std::cout << "End empty vec" << std::endl;
-		return ;
 	}
 	else
 	{
@@ -83,5 +71,4 @@ void print_vec(__MACRO::vector<int> vec)
 		std::cout << "Size : " << vec.size() << std::endl;
 		std::cout << "Capacity : " << vec.capacity() << std::endl;
 	}
-	std::cout << "End print vec" << std::endl;
 }

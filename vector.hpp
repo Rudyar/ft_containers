@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/30 11:57:20 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/30 18:18:25 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,20 @@ namespace ft
 			// template <class InputIterator>
 			// vector(InputIterator first, InputIterator last, const Allocator& = Allocator());					Utilise is_integral
 
-			vector(const vector& x) : _size(x._size)
+			vector(const vector& x)
 			{
 				_alloc = x._alloc;
-				_capacity = _size;
-				if (size())
-					_vec = _alloc.allocate(_size);
+				_size = x._size;
+				_capacity = x._capacity;
+				_vec = _alloc.allocate(_capacity);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(_vec + i, *(x._vec + i));
 			}
 
 			~vector()
 			{
-				// std::cout << "Destructor 1" << std::endl;
 				clear();
-				// std::cout << "Destructor 2" << std::endl;
 				_alloc.deallocate(_vec, _capacity);
-				// std::cout << "Destructor 3" << std::endl;
 			}
 
 			// vector& operator=(const vector& x) appeler assign d'apres la doc
