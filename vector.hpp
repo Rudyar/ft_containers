@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/29 16:54:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/07/30 11:57:20 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ namespace ft
 
 			~vector()
 			{
+				// std::cout << "Destructor 1" << std::endl;
 				clear();
+				// std::cout << "Destructor 2" << std::endl;
 				_alloc.deallocate(_vec, _capacity);
+				// std::cout << "Destructor 3" << std::endl;
 			}
 
 			// vector& operator=(const vector& x) appeler assign d'apres la doc
@@ -243,18 +246,18 @@ namespace ft
 			// modifiers:
 			void push_back(const T& x)
 			{
-				reserve(_size + 1);
+				reserve(_size + 2);
 				T	*end = &_vec[_size];
 				_size++;
 				_alloc.construct(end, x);
 			}
 
-			void pop_back()											// Comportement indef si _vec empty, je laisse segfault ??
+			void pop_back()		// Indef behavior if _vec empty
 			{
 				if (!empty())
 				{
-					_alloc.destroy(&_vec[_size - 1]);
 					_size--;
+					_alloc.destroy(&_vec[_size]);
 				}
 			}
 
@@ -265,24 +268,17 @@ namespace ft
 
 			iterator erase(iterator position)
 			{
-				std::cout << "POSITION : " << *position << std::endl;
 				iterator it = position;
 				iterator ite = end();
 				if (position + 1 == ite)
-				{
-					std::cout << "1" << std::endl;
 					pop_back();
-				}
 				else
 				{
-					std::cout << "2" << std::endl;
 					for (; it + 1 != ite; it++)
 					{
-						std::cout << "3" << std::endl;
 						_alloc.destroy(it.base());
 						_alloc.construct(it.base(), *(it + 1));
 					}
-					std::cout << "4" << std::endl;
 					_size--;
 				}
 				return position;
