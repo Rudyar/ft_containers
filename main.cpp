@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/01 12:35:38 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/01 15:14:09 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ void print_vec(__MACRO::vector<int> vec);
 
 int	main(void)
 {
-	__MACRO::vector<int> test(3, 0);
-	__MACRO::vector<int> test2(5, 0);
+	__MACRO::vector<int> test (4,10);
+	__MACRO::vector<int> test2 (2,100);
 
-	test2 = test;
-	test = __MACRO::vector<int>();
-	std::cout << "Size test : " << test.size() << std::endl;
-	std::cout << "Size test2 : " << test2.size() << std::endl;
-
+	std::cout << (test==test2) << std::endl;
+	std::cout << (test!=test2) << std::endl;
+	std::cout << (test< test2) << std::endl;
+	std::cout << (test> test2) << std::endl;
+	std::cout << (test<=test2) << std::endl;
+	std::cout << (test>=test2) << std::endl;
 	return 0;
 }
 

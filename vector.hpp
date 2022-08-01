@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/01 12:53:09 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/01 15:08:03 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <iostream>
 #include "iterators/VectorIterator.hpp"
 #include "iterators/reverse_iterator.hpp"
+#include "utils/lexicographical_compare.hpp"
 
 namespace ft
 {
@@ -95,7 +96,8 @@ namespace ft
 			}
 
 			// template <class InputIterator>
-			// void assign(InputIterator first, InputIterator last);
+			// void assign(InputIterator first, InputIterator last); Utilse enableif
+
 			void assign(size_type n, const T& val)
 			{
 				clear();
@@ -341,21 +343,33 @@ namespace ft
 	bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
 	{
 		if (x == y)
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 
 	template <class T, class Allocator>
-	bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y); //	utiliser lexicographical_compare et utiliser < pour les autres comp
+	bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+	{
+		return lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
+	}
 
 	template <class T, class Allocator>
-	bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+	bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+	{
+		return y < x;
+	}
 
 	template <class T, class Allocator>
-	bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+	bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+	{
+		return !(x < y);
+	}
 
 	template <class T, class Allocator>
-	bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+	bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+	{
+		return !(y < x);
+	}
 
 	// specialized algorithms:
 	template <class T, class Allocator>
