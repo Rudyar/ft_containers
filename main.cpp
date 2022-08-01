@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/30 18:16:52 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/01 12:35:38 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,13 @@ void print_vec(__MACRO::vector<int> vec);
 
 int	main(void)
 {
-	__MACRO::vector<int> test;
+	__MACRO::vector<int> test(3, 0);
+	__MACRO::vector<int> test2(5, 0);
 
-	test.push_back(100);
-	test.push_back(200);
-	test.push_back(300);
-	// test.push_back(400);
-	// test.push_back(500);
-
-	test.pop_back();
-	test.pop_back();
-	test.pop_back();
-
-	print_vec(test);
-	// std::cout << "Capacity : " << test.capacity() << std::endl;
-	// std::cout << "Size : " << test.size() << std::endl;
-	test.push_back(200);
-	print_vec(test);
+	test2 = test;
+	test = __MACRO::vector<int>();
+	std::cout << "Size test : " << test.size() << std::endl;
+	std::cout << "Size test2 : " << test2.size() << std::endl;
 
 	return 0;
 }

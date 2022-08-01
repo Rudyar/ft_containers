@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/30 18:18:25 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/01 12:53:09 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,24 @@ namespace ft
 				_alloc.deallocate(_vec, _capacity);
 			}
 
-			// vector& operator=(const vector& x) appeler assign d'apres la doc
-			// {
-			// 	if (*this == x)
-			// 		return *this;
-			// 	clear();
-			// 	assign
-			// }
+			vector& operator=(const vector& rhs)
+			{
+				if (*this == rhs)
+					return *this;
+				clear();
+				for (const_iterator it = rhs.begin(); it != rhs.end(); it++)
+					this->push_back(*it);
+				return *this;
+			}
 
 			// template <class InputIterator>
 			// void assign(InputIterator first, InputIterator last);
-			// void assign(size_type n, const T& u);
+			void assign(size_type n, const T& val)
+			{
+				clear();
+				for (size_t i = 0; i < n; i++)
+					push_back(val);
+			}
 
 			allocator_type get_allocator() const
 			{
@@ -243,7 +250,10 @@ namespace ft
 			// modifiers:
 			void push_back(const T& x)
 			{
-				reserve(_size + 2);
+				if (_capacity == 0)
+					reserve(_size + 2);
+				if (_size == _capacity)
+					reserve(_size * 2);
 				T	*end = &_vec[_size];
 				_size++;
 				_alloc.construct(end, x);
