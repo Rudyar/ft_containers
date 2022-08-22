@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/01 15:14:09 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/22 16:40:47 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD__VECTOR    // A commenter pour avoir ft::vector
+#define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # define __MACRO ft
@@ -31,15 +31,11 @@ void print_vec(__MACRO::vector<int> vec);
 
 int	main(void)
 {
-	__MACRO::vector<int> test (4,10);
-	__MACRO::vector<int> test2 (2,100);
+	// __MACRO::vector<int> test (4, 10);
+	// __MACRO::vector<int> test1 (test.begin(), test.end());
+	// (void)test;
+	// (void)test1;
 
-	std::cout << (test==test2) << std::endl;
-	std::cout << (test!=test2) << std::endl;
-	std::cout << (test< test2) << std::endl;
-	std::cout << (test> test2) << std::endl;
-	std::cout << (test<=test2) << std::endl;
-	std::cout << (test>=test2) << std::endl;
 	return 0;
 }
 

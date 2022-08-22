@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/01 15:15:32 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/22 16:37:38 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "iterators/VectorIterator.hpp"
 #include "iterators/reverse_iterator.hpp"
 #include "utils/lexicographical_compare.hpp"
+#include "utils/enable_if.hpp"
+#include "utils/is_integral.hpp"
 
 namespace ft
 {
@@ -66,8 +68,15 @@ namespace ft
 					_alloc.construct(_vec + i, value);
 			}
 
-			// template <class InputIterator>
-			// vector(InputIterator first, InputIterator last, const Allocator& = Allocator());					Utilise is_integral
+			template <class InputIterator>
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) // Check if is_integral, if yes, it's not an Iterator
+			{
+				_size = 0;
+				_capacity = 0;
+				_alloc = alloc;
+				_vec = _alloc.allocate(0);
+				assign(first, last);
+			}
 
 			vector(const vector& x)
 			{
@@ -89,14 +98,20 @@ namespace ft
 			{
 				if (*this == rhs)
 					return *this;
-				clear();
-				for (const_iterator it = rhs.begin(); it != rhs.end(); it++)
-					this->push_back(*it);
+				assign(rhs.begin(), rhs.end());
+				// clear();
+				// for (const_iterator it = rhs.begin(); it != rhs.end(); it++)
+				// 	this->push_back(*it);
 				return *this;
 			}
 
-			// template <class InputIterator>
-			// void assign(InputIterator first, InputIterator last); Utilse enableif
+			template <class InputIterator>
+			void assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) // Check if is_integral, if yes, it's not an Iterator
+			{
+				clear();
+				for (; first != last; first++)
+					push_back(*first);
+			}
 
 			void assign(size_type n, const T& val)
 			{

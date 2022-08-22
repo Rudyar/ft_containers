@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 10:07:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/22 10:49:26 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/22 15:19:27 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@
 #ifndef ENABLE_IF_HPP
 #define ENABLE_IF_HPP
 
-template <bool B, class T = void>
-struct enable_if {};
-
-template <class T>
-struct enable_if<true, T>
+namespace ft
 {
-	typedef T type;
-};
+	template <bool B, class T = void>
+	struct enable_if {};
+
+	template <class T>
+	struct enable_if<true, T>
+	{
+		typedef T type;
+	};
+} // namespace ft
 
 #endif

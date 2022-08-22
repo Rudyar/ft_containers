@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
-/*   Updated: 2022/07/26 10:27:22 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/22 16:32:54 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ namespace ft
 			{
 				if (*this == src)
 					return *this;
-				_current = src->_current;
+				_current = src._current;
 				return *this;
 			}
 
