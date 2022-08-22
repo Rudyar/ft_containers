@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/01 15:08:03 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/01 15:15:32 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ namespace ft
 				_alloc.construct(end, x);
 			}
 
-			void pop_back()		// Indef behavior if _vec empty
+			void pop_back()
 			{
 				if (!empty())
 				{
