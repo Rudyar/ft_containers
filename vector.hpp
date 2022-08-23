@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/23 11:59:39 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/23 14:43:30 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,7 @@ namespace ft
 			{
 				iterator it = position;
 				iterator ite = end();
+				iterator ret = it;
 				if (position + 1 == ite)
 					pop_back();
 				else
@@ -350,15 +351,16 @@ namespace ft
 					}
 					_size--;
 				}
-				return position;
+				return ret;
 			}
 
 			iterator erase(iterator first, iterator last)
 			{
 				iterator it = first;
+				iterator ret;
 				for (; first != last; ++first)
-					erase(it);
-				return first;
+					ret = erase(it);
+				return ret;
 			}
 
 			void swap(vector& x)

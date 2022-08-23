@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/22 16:32:54 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/23 15:09:31 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,37 +123,37 @@ namespace ft
 	template<typename _IterL, typename _IterR>
 	bool	operator==(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() == rhs.base());
+		return lhs.base() == rhs.base();
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator!=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() != rhs.base());
+		return lhs.base() != rhs.base();
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator<(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() < rhs.base());
+		return lhs.base() < rhs.base();
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator>(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() > rhs.base());
+		return rhs < lhs;
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator<=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() < rhs.base());
+		return !(rhs < lhs);
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator>=(const VectorIterator<_IterL>& lhs, const VectorIterator<_IterR>& rhs)
 	{
-		return (lhs.base() > rhs.base());
+		return !(lhs < rhs);
 	}
 
 	template<typename _Iter>
