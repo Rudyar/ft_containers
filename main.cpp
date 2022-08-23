@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/22 16:40:47 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/23 10:17:10 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD__VECTOR    // A commenter pour avoir ft::vector
+// #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # define __MACRO ft
@@ -31,10 +31,27 @@ void print_vec(__MACRO::vector<int> vec);
 
 int	main(void)
 {
-	// __MACRO::vector<int> test (4, 10);
-	// __MACRO::vector<int> test1 (test.begin(), test.end());
-	// (void)test;
-	// (void)test1;
+	__MACRO::vector<int> myvector (3,100);
+	__MACRO::vector<int>::iterator it;
+
+	it = myvector.begin();
+	it = myvector.insert ( it , 200 );
+
+	myvector.insert (it,2,300);
+
+	// "it" no longer valid, get a new one:
+	it = myvector.begin();
+
+	__MACRO::vector<int> anothervector (2,400);
+	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+	int myarray [] = { 501,502,503 };
+	myvector.insert (myvector.begin(), myarray, myarray+3);
+
+	std::cout << "myvector contains:";
+	for (it=myvector.begin(); it<myvector.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
 
 	return 0;
 }

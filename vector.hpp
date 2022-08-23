@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/22 16:37:38 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/23 10:10:50 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,10 +285,54 @@ namespace ft
 				}
 			}
 
-			// iterator insert(iterator position, const T& x);
-			// void insert(iterator position, size_type n, const T& x);
-			// template <class InputIterator>
-			// void insert(iterator position, InputIterator first, InputIterator last);
+			iterator insert(iterator position, const T& x)
+			{
+				size_type	diff = position - begin();
+				if (_size + 1 > _capacity)
+					reserve(_size + 1);
+				for (size_type i = _size; i > diff; i--)
+				{
+					_alloc.construct(&_vec[i], _vec[i - 1]);
+					_alloc.destroy(&_vec[i - 1]);
+				}
+				_alloc.construct(&_vec[diff], x);
+				_size++;
+				return position;
+			}
+			void insert(iterator position, size_type n, const T& x)
+			{
+				size_type	diff = position - begin();
+				if (_size + n > _capacity)
+					reserve(_size + n);
+				for (size_type i = _size; i > diff; i--)
+				{
+					_alloc.construct(&_vec[i + n - 1], _vec[i - 1]);
+					_alloc.destroy(&_vec[i - 1]);
+				}
+				for (size_type i = 0; i < n; i++)
+					_alloc.construct(&_vec[diff + i], x);
+				_size += n;
+			}
+
+			template <class InputIterator>
+			void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
+			{
+				size_type	dist = last - first;
+				size_type	diff = position - begin();
+				if (_size + dist > _capacity)
+					reserve(_size + dist);
+				for (size_type i = _size; i > diff; i--)
+				{
+					_alloc.construct(&_vec[i + dist - 1], _vec[i - 1]);
+					_alloc.destroy(&_vec[i - 1]);
+				}
+				for (size_type i = 0; i < dist; i++)\
+				{
+					_alloc.construct(&_vec[diff + i], *first);
+					first++;
+				}
+				_size += dist;
+			}
 
 			iterator erase(iterator position)
 			{
