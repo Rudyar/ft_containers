@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/23 10:10:50 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/23 11:59:39 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,8 +297,9 @@ namespace ft
 				}
 				_alloc.construct(&_vec[diff], x);
 				_size++;
-				return position;
+				return begin() + diff;
 			}
+
 			void insert(iterator position, size_type n, const T& x)
 			{
 				size_type	diff = position - begin();
