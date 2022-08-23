@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/23 14:43:30 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/23 16:16:33 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ namespace ft
 			void reserve(size_type n)
 			{
 				if (n > max_size())
-					throw(std::length_error("vector : max size"));
+					throw(std::length_error("vector : reserve"));
 				if (n > capacity())
 				{
 					T	*tmp;
@@ -268,7 +268,7 @@ namespace ft
 			void push_back(const T& x)
 			{
 				if (_capacity == 0)
-					reserve(_size + 2);
+					reserve(1);
 				if (_size == _capacity)
 					reserve(_size * 2);
 				T	*end = &_vec[_size];
