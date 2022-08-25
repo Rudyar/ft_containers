@@ -6,13 +6,14 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/23 17:07:42 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/25 14:42:13 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
+# include "stack.hpp"
 # define __MACRO ft
 #else
 # include <vector>
@@ -51,7 +52,10 @@ void print_vec(__MACRO::vector<int> vec)
 
 int	main(void)
 {
-	vector_tests();
+	// vector_tests();
+	__MACRO::stack<int> test;
+	test.push(12);
+	std::cout << test.size() << std::endl;
 	return 0;
 }
 
