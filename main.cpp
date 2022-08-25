@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/25 14:42:13 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/25 16:34:20 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD__VECTOR    // A commenter pour avoir ft::vector
+#define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <list>
 
 void vector_tests();
 
@@ -53,9 +54,38 @@ void print_vec(__MACRO::vector<int> vec)
 int	main(void)
 {
 	// vector_tests();
-	__MACRO::stack<int> test;
-	test.push(12);
-	std::cout << test.size() << std::endl;
+
+	std::list<int> lst;
+	std::list<int>::iterator lst_it;
+	for (size_t i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+
+	__MACRO::vector<int> vct(lst.begin(), lst.end());
+	print_vec(vct);
+
+	lst_it = lst.begin();
+	for (size_t i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	print_vec(vct);
+
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	print_vec(vct);
+
+	// __MACRO::vector<int> vct;
+	// vct.push_back(1);
+	// vct.push_back(2);
+	// vct.push_back(3);
+	// vct.push_back(4);
+
+	// __MACRO::vector<int>::reverse_iterator rit = vct.rbegin();
+	// __MACRO::vector<int>::reverse_iterator rite = vct.rend();
+	// rite--;
+	// std::cout << "rbegin : " << *rit << std::endl;
+	// std::cout << "rend : " << *rite << std::endl;
+	// std::cout << "rend - rbegin " << rite - rit << std::endl;
+	// print_vec(vct);
+
 	return 0;
 }
 

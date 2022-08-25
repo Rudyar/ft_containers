@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/25 15:49:24 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/25 16:33:25 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,7 +318,9 @@ namespace ft
 			template <class InputIterator>
 			void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 			{
-				difference_type	dist = last - first;
+				difference_type	dist = 0;
+				for (InputIterator tmp = last; tmp != first; tmp--)
+					dist++;
 				difference_type	diff = position - begin();
 				if (_size + dist > _capacity)
 					reserve(_size + dist);
@@ -327,7 +329,7 @@ namespace ft
 					_alloc.construct(&_vec[i + dist - 1], _vec[i - 1]);
 					_alloc.destroy(&_vec[i - 1]);
 				}
-				for (difference_type i = 0; i < dist; i++)\
+				for (difference_type i = 0; i < dist; i++)
 				{
 					_alloc.construct(&_vec[diff + i], *first);
 					first++;

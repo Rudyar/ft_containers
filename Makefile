@@ -6,7 +6,7 @@
 #    By: arudy <arudy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 11:24:40 by arudy             #+#    #+#              #
-#    Updated: 2022/07/21 10:56:55 by arudy            ###   ########.fr        #
+#    Updated: 2022/08/25 15:31:58 by arudy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,6 @@ fclean: clean
 re: fclean all
 
 rc: re
-	${RM} ${OBJS} && clear
+	${RM} ${OBJS} && clear && ./ft_containers
 
 .PHONY: all clean fclean re
