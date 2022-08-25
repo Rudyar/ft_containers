@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/23 16:16:33 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/25 15:49:24 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,16 +318,16 @@ namespace ft
 			template <class InputIterator>
 			void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 			{
-				size_type	dist = last - first;
-				size_type	diff = position - begin();
+				difference_type	dist = last - first;
+				difference_type	diff = position - begin();
 				if (_size + dist > _capacity)
 					reserve(_size + dist);
-				for (size_type i = _size; i > diff; i--)
+				for (difference_type i = _size; i > diff; i--)
 				{
 					_alloc.construct(&_vec[i + dist - 1], _vec[i - 1]);
 					_alloc.destroy(&_vec[i - 1]);
 				}
-				for (size_type i = 0; i < dist; i++)\
+				for (difference_type i = 0; i < dist; i++)\
 				{
 					_alloc.construct(&_vec[diff + i], *first);
 					first++;
@@ -404,9 +404,7 @@ namespace ft
 	template <class T, class Allocator>
 	bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
 	{
-		if (x == y)
-			return false;
-		return true;
+		return !(x == y);
 	}
 
 	template <class T, class Allocator>

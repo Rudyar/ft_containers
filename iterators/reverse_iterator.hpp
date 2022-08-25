@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:28:29 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/23 16:01:53 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/25 15:54:17 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ namespace ft
 			typedef typename ft::iterator_traits<Iterator>::reference			reference;
 
 			reverse_iterator() : _current() {}
+
 			explicit reverse_iterator(Iterator x) : _current(x) {}
+
 			reverse_iterator(const reverse_iterator &x) : _current(x._current) {}
+
 			template<typename Iter> reverse_iterator(const reverse_iterator<Iter> &x) : _current(x.base()) {}
+
 			reverse_iterator	operator=(reverse_iterator const &src)
 			{
 				if (*this == src)
@@ -129,19 +133,19 @@ namespace ft
 	template<typename _IterL, typename _IterR>
 	bool	operator!=(const reverse_iterator<_IterL> &lhs, const reverse_iterator<_IterR> &rhs)
 	{
-		return lhs.base() != rhs.base();
+		return !(lhs.base() == rhs.base());
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator<(const reverse_iterator<_IterL> &lhs, const reverse_iterator<_IterR> &rhs)
 	{
-		return lhs.base() < rhs.base();
+		return rhs.base() < lhs.base();
 	}
 
 	template<typename _IterL, typename _IterR>
 	bool	operator>(const reverse_iterator<_IterL> &lhs, const reverse_iterator<_IterR> &rhs)
 	{
-		return lhs < rhs;
+		return rhs < lhs;
 	}
 
 	template<typename _IterL, typename _IterR>
