@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 09:41:48 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/25 14:41:54 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/25 18:18:14 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,42 @@ namespace ft
 			const value_type&	top() const		{return c.back();}
 			void				pop()			{return c.pop_back();}
 			void	push(const value_type& x)	{return c.push_back(x);}
+
+			// Use of these 2 operators from underlying Container (vector)
+			friend bool operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+			{
+				return lhs.c == rhs.c;
+			}
+
+			friend bool operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+			{
+				return lhs.c < rhs.c;
+			}
 	};
+
+	template <class T, class Container>
+	bool operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class T, class Container>
+	bool operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	template <class T, class Container>
+	bool operator <=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class T, class Container>
+	bool operator >=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return !(lhs < rhs);
+	}
 
 } // namespace ff
 

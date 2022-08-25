@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/25 16:34:20 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/25 18:47:05 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD__VECTOR    // A commenter pour avoir ft::vector
+// #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
@@ -26,9 +26,11 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <deque>
 #include <list>
 
 void vector_tests();
+void stack_tests();
 
 void print_vec(__MACRO::vector<int> vec)
 {
@@ -53,42 +55,113 @@ void print_vec(__MACRO::vector<int> vec)
 
 int	main(void)
 {
-	// vector_tests();
-
-	std::list<int> lst;
-	std::list<int>::iterator lst_it;
-	for (size_t i = 1; i < 5; ++i)
-		lst.push_back(i * 3);
-
-	__MACRO::vector<int> vct(lst.begin(), lst.end());
-	print_vec(vct);
-
-	lst_it = lst.begin();
-	for (size_t i = 1; lst_it != lst.end(); ++i)
-		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
-	print_vec(vct);
-
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
-	print_vec(vct);
-
-	// __MACRO::vector<int> vct;
-	// vct.push_back(1);
-	// vct.push_back(2);
-	// vct.push_back(3);
-	// vct.push_back(4);
-
-	// __MACRO::vector<int>::reverse_iterator rit = vct.rbegin();
-	// __MACRO::vector<int>::reverse_iterator rite = vct.rend();
-	// rite--;
-	// std::cout << "rbegin : " << *rit << std::endl;
-	// std::cout << "rend : " << *rite << std::endl;
-	// std::cout << "rend - rbegin " << rite - rit << std::endl;
-	// print_vec(vct);
-
+	vector_tests();
+	std::cout << "\n\n";
+	std::cout << "==================================================================" << std::endl;
+	std::cout << "==================================================================";
+	std::cout << "\n\n\n";
+	stack_tests();
 	return 0;
 }
 
+void	stack_tests(void)
+{
+	std::cout << "------------------------------------------------------------------" << std::endl;
+	std::cout << "---------------             STACK TESTS            ---------------" << std::endl;
+	std::cout << "------------------------------------------------------------------" << std::endl;
+	{
+		std::cout << "                          CONSTRUCTORS                      " << std::endl;
+		std::deque<int> mydeque (3,100);          // deque with 3 elements
+		__MACRO::vector<int> myvector (2,200);        // vector with 2 elements
+
+		__MACRO::stack<int> first;                    // empty stack
+		__MACRO::stack<int, std::deque<int> > second (mydeque);         // stack initialized to copy of deque
+
+		__MACRO::stack<int,__MACRO::vector<int> > third;  // empty stack using vector
+		__MACRO::stack<int,__MACRO::vector<int> > fourth (myvector);
+
+		std::cout << "size of first: " << first.size() << '\n';
+		std::cout << "size of second: " << second.size() << '\n';
+		std::cout << "size of third: " << third.size() << '\n';
+		std::cout << "size of fourth: " << fourth.size() << '\n';
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          EMPTY                      " << std::endl;
+		__MACRO::stack<int> mystack;
+		int sum (0);
+
+		for (int i=1;i<=10;i++)
+			mystack.push(i);
+		while (!mystack.empty())
+		{
+			sum += mystack.top();
+			mystack.pop();
+		}
+		std::cout << "total: " << sum << '\n';
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          SIZE                      " << std::endl;
+		__MACRO::stack<int> myints;
+
+		std::cout << "0. size: " << myints.size() << '\n';
+		for (int i=0; i<5; i++) myints.push(i);
+		std::cout << "1. size: " << myints.size() << '\n';
+
+		myints.pop();
+		std::cout << "2. size: " << myints.size() << '\n';
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          TOP                      " << std::endl;
+		__MACRO::stack<int> mystack;
+
+		mystack.push(10);
+		mystack.push(20);
+
+		mystack.top() -= 5;
+
+		std::cout << "mystack.top() is now " << mystack.top() << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          PUSH & POP                      " << std::endl;
+		__MACRO::stack<int> mystack;
+
+		for (int i=0; i<5; ++i)
+			mystack.push(i);
+
+		std::cout << "Popping out elements...";
+		while (!mystack.empty())
+		{
+			std::cout << ' ' << mystack.top();
+			mystack.pop();
+		}
+		std::cout << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          RELATIONAL OPERATOR                      " << std::endl;
+		__MACRO::stack<int> foo;
+		__MACRO::stack<int> bar;
+
+		foo.push(100);
+		foo.push(100);
+		foo.push(100);
+
+		bar.push(200);
+		bar.push(200);
+
+		if (foo==bar) std::cout << "foo and bar are equal\n";
+		if (foo!=bar) std::cout << "foo and bar are not equal\n";
+		if (foo< bar) std::cout << "foo is less than bar\n";
+		if (foo> bar) std::cout << "foo is greater than bar\n";
+		if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+		if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+}
 
 void	vector_tests(void)
 {
