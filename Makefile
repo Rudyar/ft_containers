@@ -6,7 +6,7 @@
 #    By: arudy <arudy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 11:24:40 by arudy             #+#    #+#              #
-#    Updated: 2022/08/25 17:40:46 by arudy            ###   ########.fr        #
+#    Updated: 2022/08/31 16:52:50 by arudy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,23 +15,24 @@ NAME	= ft_containers
 SRCS	= main.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
+DEPS	= $(SRCS:.cpp=.d)
 
 CC		= c++
 
 RM		= rm -f
 
-CFLAGS	= -Wall -Werror -Wextra -pedantic -std=c++98
+CFLAGS	= -Wall -Werror -Wextra -pedantic -MMD -MP -std=c++98
 
 all: $(NAME)
-
-.cpp.o:
-		${CC} ${CFLAGS} -c $< -o $@
 
 $(NAME): $(OBJS)
 		$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
+%.o : %.cpp
+		${CC} ${CFLAGS} -c $< -o $@
+
 clean:
-	${RM} ${OBJS}
+	${RM} ${OBJS} ${DEPS}
 
 fclean: clean
 	${RM} ${NAME}
@@ -41,4 +42,6 @@ re: fclean all
 rc: re
 	${RM} ${OBJS} && clear
 
-.PHONY: all clean fclean re
+-include $(DEPS)
+
+.PHONY: all clean fclean re rc

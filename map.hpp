@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/31 12:31:54 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/31 19:37:18 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ namespace ft
 				public :
 					bool operator()(const value_type& x, const value_type& y) const { return comp(x.first, y.first); }
 			};
-		private :
+		// private :
 			// red_black_tree	_tree;
 		public :
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) // use of explicit to not implicity convert type during construction
@@ -141,12 +141,149 @@ namespace ft
 
 			// size_type max_size() const
 			// {
-				// return _tree.max_size() ??
+				// return _tree.max_size();
 			// }
 
+			// ==================== Elements access
+
+			// mapped_type& operator[](const key_type& x)
+			// {
+					// An alternative way to insert elements in a map is by using member function map::operator[]. From ref insert
+			// }
+
+			// ==================== Modifiers
+
+			// pair<iterator, bool> insert(const value_type& x)
+			// {
+			// }
+
+			// iterator insert(iterator position, const value_type& x)
+			// {
+			// }
+
+			// template<class InputIterator>
+			// void insert(InputIterator first, InputIterator last)
+			// {
+			// }
+
+			// void erase(iterator position)
+			// {
+			// }
+
+			// size_type erase(const key_type& x)
+			// {
+			// }
+
+			// void erase(iterator forst, iterator last)
+			// {
+			// }
+
+			// void swap(map& x)
+			// {
+			// }
+
+			// void clear()
+			// {
+			// }
+
+			// ==================== Observers
+
+			// key_compare key_comp() const
+			// {
+				// return key_compare();
+			// }
+
+			// value_compare value_comp() const
+			// {
+				// return value_compare();
+			// }
+
+			// ==================== Operations
+
+			// iterator find(const key_type& k)
+			// {
+			// }
+
+			// const_iterator find(const key_type& k) const
+			// {
+			// }
+
+			// size_type count(const key_type& k) const
+			// {
+			// }
+
+			// iterator lower_bound(const key_type& k)
+			// {
+			// }
+
+			// const_iterator lower_bound(const key_type& k) const
+			// {
+			// }
+
+			// iterator upper_bound(const key_type& k)
+			// {
+			// }
+
+			// const_iterator upper_bound(const key_type& k) const
+			// {
+			// }
+
+			// pair<iterator, iterator> equal_range(const key_type& k)
+			// {
+			// }
+
+			// pair<const_iterator, const_iterator> equal_range(const key_type& k) const
+			// {
+			// }
+
+			allocator_type get_allocator() const
+			{
+				return allocator_type();
+			}
 	};
 
-} // namespace ft
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator==(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return true; // ???
+	}
 
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator!=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+	// template<class Key, class T, class Compare, class Alloc>
+	// void swap(map<Key, T, Compare, Alloc>& lhs, map<Key, T, Compare, Alloc>& rhs)
+	// {
+	// 	return lhs.swap(rhs);
+	// }
+
+} // namespace ft
 
 #endif

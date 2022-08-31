@@ -6,14 +6,15 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/31 10:17:31 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/31 16:41:16 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD__VECTOR    // A commenter pour avoir ft::vector
+// #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
+# include "map.hpp"
 # define __MACRO ft
 #else
 # include <vector>
@@ -59,13 +60,13 @@ void print_vec(__MACRO::vector<int> vec)
 int	main(void)
 {
 	__MACRO::map<int, std::string> test;
-	test.insert(std::pair<int, std::string>(1, "coucou"));
-	test.insert(std::pair<int, std::string>(10, "salut"));
-	test.insert(std::pair<int, std::string>(-10, "salut"));
+	// test.insert(std::pair<int, std::string>(1, "coucou"));
+	// test.insert(std::pair<int, std::string>(10, "salut"));
+	// test.insert(std::pair<int, std::string>(-10, "salut"));
 
-	__MACRO::map<int, std::string>::iterator it;
-	for (it = test.begin(); it != test.end(); it++)
-		std::cout << "Key : " << it->first << " Value : " << it->second << std::endl;
+	// __MACRO::map<int, std::string>::iterator it;
+	// for (it = test.begin(); it != test.end(); it++)
+	// 	std::cout << "Key : " << it->first << " Value : " << it->second << std::endl;
 
 	// vector_tests();
 	// stack_tests();
