@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/25 18:47:05 by arudy            ###   ########.fr       */
+/*   Updated: 2022/08/31 10:17:31 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD__VECTOR    // A commenter pour avoir ft::vector
+#define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
@@ -18,6 +18,7 @@
 #else
 # include <vector>
 # include <stack>
+# include <map>
 # include <iterator>
 # include <memory>
 # define __MACRO std
@@ -53,16 +54,25 @@ void print_vec(__MACRO::vector<int> vec)
 	}
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 int	main(void)
 {
-	vector_tests();
-	std::cout << "\n\n";
-	std::cout << "==================================================================" << std::endl;
-	std::cout << "==================================================================";
-	std::cout << "\n\n\n";
-	stack_tests();
+	__MACRO::map<int, std::string> test;
+	test.insert(std::pair<int, std::string>(1, "coucou"));
+	test.insert(std::pair<int, std::string>(10, "salut"));
+	test.insert(std::pair<int, std::string>(-10, "salut"));
+
+	__MACRO::map<int, std::string>::iterator it;
+	for (it = test.begin(); it != test.end(); it++)
+		std::cout << "Key : " << it->first << " Value : " << it->second << std::endl;
+
+	// vector_tests();
+	// stack_tests();
 	return 0;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 void	stack_tests(void)
 {
@@ -594,4 +604,8 @@ void	vector_tests(void)
 	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
 
 	}
+	std::cout << "\n\n";
+	std::cout << "==================================================================" << std::endl;
+	std::cout << "==================================================================";
+	std::cout << "\n\n\n";
 }
