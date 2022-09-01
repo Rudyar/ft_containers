@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/31 19:37:18 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/01 16:56:53 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <iostream>
 #include <functional>
 #include "utils/pair.hpp"
+#include "utils/red_black_tree.hpp"
 
 namespace ft
 {
@@ -25,21 +26,25 @@ namespace ft
 	class map
 	{
 		public :
-			typedef Key									key_type;
-			typedef T									mapped_type;
-			typedef pair<const Key, T>					value_type;
-			typedef Compare								key_compare;
-			typedef Allocator 							allocator_type;
-			typedef typename Allocator::reference		reference;
-			typedef typename Allocator::const_reference	const_reference;
-			typedef typename Allocator::pointer			pointer;
-			typedef typename Allocator::const_pointer	const_pointer;
-			// typedef red_black_tree					iterator;
-			// typedef red_black_tree					const_iterator;
-			// typedef red_black_tree					size_type;
-			// typedef red_black_tree					difference_type;
-			// typedef red_black_tree					reverse_iterator;
-			// typedef red_black_tree					const_reverse_iterator;
+			typedef Key																		key_type;
+			typedef T																		mapped_type;
+			typedef pair<const Key, T>														value_type;
+			typedef Compare																	key_compare;
+			typedef Allocator 																allocator_type;
+			typedef size_t																	size_type;
+			typedef typename Allocator::reference											reference;
+			typedef typename Allocator::const_reference										const_reference;
+			typedef typename Allocator::pointer												pointer;
+			typedef typename Allocator::const_pointer										const_pointer;
+			typedef typename ft::red_black_tree<value_type, key_compare, allocator_type>	tree_type;
+			//////////////////////////////////////////////
+			typedef typename tree_type::iterator											iterator;
+			typedef typename tree_type::const_iterator										const_iterator;
+			// typedef tree_type...					const_itera	tor;
+			// typedef tree_type...					size_type;
+			// typedef tree_type...					difference_type;
+			// typedef tree_type...					reverse_iterator;
+			// typedef tree_type...					const_reverse_iterator;
 
 			class value_compare : std::binary_function<value_type, value_type, bool>
 			{
@@ -50,10 +55,12 @@ namespace ft
 				public :
 					bool operator()(const value_type& x, const value_type& y) const { return comp(x.first, y.first); }
 			};
-		// private :
-			// red_black_tree	_tree;
+
+		private :
+			tree_type	_tree;
+
 		public :
-			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) // use of explicit to not implicity convert type during construction
+			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 			{
 				static_cast<void>(comp);
 				static_cast<void>(alloc);
@@ -87,10 +94,10 @@ namespace ft
 
 			// ==================== Iterators
 
-			// iterator begin()
-			// {
-				// return _tree.begin();
-			// }
+			iterator begin()
+			{
+				return _tree.begin();
+			}
 
 			// const_iterator begin() const
 			// {
@@ -129,20 +136,21 @@ namespace ft
 
 			// ==================== Capacity
 
-			// bool empty() const
-			// {
-			// 	return tree size = 0 ?
-			// }
+			bool empty() const
+			{
+				return _tree.empty();
+			}
 
-			// size_type size() const
-			// {
-				// return _tree.size();
-			// }
+			size_type size() const
+			{
+				_tree.test();
+				return _tree.size();
+			}
 
-			// size_type max_size() const
-			// {
-				// return _tree.max_size();
-			// }
+			size_type max_size() const
+			{
+				return _tree.max_size();
+			}
 
 			// ==================== Elements access
 
@@ -157,9 +165,11 @@ namespace ft
 			// {
 			// }
 
-			// iterator insert(iterator position, const value_type& x)
-			// {
-			// }
+			iterator insert(iterator position, const value_type& x)
+			{
+				_tree.insert(x);
+				return position;
+			}
 
 			// template<class InputIterator>
 			// void insert(InputIterator first, InputIterator last)

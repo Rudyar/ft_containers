@@ -1,3 +1,4 @@
 .vscode
 ft_containers
 *.o
+*.d

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/01 12:22:17 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/01 17:13:53 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 #include <functional>
 #include "pair.hpp"
 
+
+#include <map>
+
 enum e_color
 {
 	RED,
@@ -34,7 +37,15 @@ namespace ft
 	template <typename T, class Compare, class Alloc> // T is a pair
 	class red_black_tree
 	{
-		private : // Private nested struct, can't access outside tree, for each nodes
+		private :
+			typedef T														value_type;
+			typedef size_t													size_type;
+			typedef Alloc													allocator_type;
+			typedef Compare													compare_type;
+			typedef value_type*												pointer;
+			typedef const value_type&										const_reference;
+
+			// Private nested struct, can't access outside tree, for each nodes
 			struct Node
 			{
 				T			data;
@@ -45,14 +56,13 @@ namespace ft
 
 				// Constructor, need to modif maybe
 				Node() : data(), left(NULL), right(NULL), parent(NULL) {}
+				pointer data_ptr() // Helper, to move maybe
+				{
+					return &data;
+				}
 			};
-
-			typedef T												value_type;
-			typedef size_t											size_type;
-			typedef Alloc											allocator_type;
-			typedef allocator_type::template rebind<Node>::other	node_allocator; // rebind is for allocating mem for a type that diff from the element type of the class being implemented
-			typedef	Compare											compare_type;
-			// More typedef ??
+			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
+ 			// rebind is for allocating mem for a type that diff from the element type of the class being implemented
 
 			Node				*_root;
 			Node				*_start;
@@ -62,6 +72,89 @@ namespace ft
 			node_allocator		_node_alloc;
 			compare_type		_comp;
 
+			public :
+				// Define Iterators here
+				typedef typename std::map<value_type, value_type>::iterator				iterator;
+				typedef typename std::map<value_type, value_type>::const_iterator		const_iterator;
+
+				red_black_tree(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
+				{
+					_alloc = alloc;
+					_node_alloc = node_allocator();
+					_start = create_node();
+					_end = create_node();
+					_start->color = BLACK;	// ??
+					_end->color = BLACK;	// ??
+					_root = _end;
+					_size = 0;
+					_comp = comp;
+					std::cout << "Coucou" << std::endl;
+				}
+
+				Node *create_node(const_reference value = value_type())
+				{
+					Node *node = _node_alloc.allocate(1);
+					_node_alloc.construct(node, Node());
+					_alloc.construct(node->data_ptr(), value);
+					return node;
+				}
+
+			// ==================== Capacity
+				bool empty() const
+				{
+					return _size == 0;
+				}
+
+				size_type size() const
+				{
+					return _size;
+				}
+
+				size_type max_size() const
+				{
+					return _node_alloc.max_size();
+				}
+
+				void test() const
+				{
+					iterator it;
+					// std::cout << *it << std::endl;
+				}
+
+			// ==================== Accessor
+			iterator begin()
+			{
+				if (empty())
+					return end();
+				return iterator(_start);
+			}
+
+			iterator end()
+			{
+				return iterator(_end);
+			}
+
+			// ==================== Modifiers
+			Node *bst_insert()
+			{
+
+			}
+
+			void	insert(const_reference val)
+			{
+				Node *node = create_node(val);
+				if (empty())
+				{
+					_root = node;
+					_root->left = _start;
+					_root->right = _end;
+					_start->parent = _root;
+					_end->parent = _root;
+					if (_root.color == BLACK)
+						std::cout << "BLACK" << std::endl;
+				}
+				_size++;
+			}
 
 	};
 
