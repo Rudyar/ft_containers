@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/23 15:09:31 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/02 14:20:32 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@
 namespace ft
 {
 	template <typename Iterator>
-	class VectorIterator : public iterator <typename	ft::iterator_traits<Iterator>::value_type,
-											typename	ft::iterator_traits<Iterator>::difference_type,
-											typename	ft::iterator_traits<Iterator>::pointer,
-											typename	ft::iterator_traits<Iterator>::reference,
-											typename	ft::iterator_traits<Iterator>::iterator_category>
+	class VectorIterator
 	{
 		protected:
 			Iterator _current;
