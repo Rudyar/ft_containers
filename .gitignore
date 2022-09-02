@@ -2,3 +2,5 @@
 ft_containers
 *.o
 *.d
+*.out
+./*.out

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/01 17:16:29 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/02 14:00:19 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void print_vec(__MACRO::vector<int> vec)
 int	main(void)
 {
 	__MACRO::map<int, std::string> test;
-	__MACRO::map<int, std::string>::iterator it;
-	it = test.begin();
+	// __MACRO::map<int, std::string>::iterator it;
+	// it = test.begin();
 	// test.insert(it, );
 
-	std::cout << it->first << std::endl;
+	// std::cout << it->first << std::endl;
 	std::cout << test.size() << std::endl;
 	std::cout << test.empty() << std::endl;
 	std::cout << test.max_size() << std::endl;

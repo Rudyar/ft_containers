@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/01 17:13:53 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/02 10:03:18 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,20 @@ namespace ft
 				}
 
 			// ==================== Accessor
-			iterator begin()
-			{
-				if (empty())
-					return end();
-				return iterator(_start);
-			}
+			// iterator begin()
+			// {
+			// 	Node *tmp = _root;
+			// 	if (empty())
+			// 		return end();
+			// 	while (tmp->left && tmp->left != NULL)
+			// 		tmp = tmp->left;
+			// 	return iterator(tmp);
+			// }
 
-			iterator end()
-			{
-				return iterator(_end);
-			}
+			// iterator end()
+			// {
+			// 	return _end;
+			// }
 
 			// ==================== Modifiers
 			Node *bst_insert()
