@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 10:03:24 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/02 19:56:02 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ namespace ft
 			typedef typename ft::red_black_tree<value_type, key_compare, allocator_type>	tree_type;
 			//////////////////////////////////////////////
 			typedef typename tree_type::iterator											iterator;
-			typedef typename tree_type::const_iterator										const_iterator;
-			// typedef tree_type...					const_itera	tor;
-			// typedef tree_type...					size_type;
-			// typedef tree_type...					difference_type;
+			// typedef typename tree_type::const_iterator										const_iterator;
 			// typedef tree_type...					reverse_iterator;
 			// typedef tree_type...					const_reverse_iterator;
 
@@ -94,20 +91,20 @@ namespace ft
 
 			// ==================== Iterators
 
-			// iterator begin()
+			iterator begin()
+			{
+				return _tree.begin();
+			}
+
+			// const_iterator begin() const
 			// {
 			// 	return _tree.begin();
 			// }
 
-			// const_iterator begin() const
-			// {
-				// return _tree.begin();
-			// }
-
-			// iterator end() // Try to iter in a loop with end (see jbonniva Discord msg)
-			// {
-				// return _tree.end();
-			// }
+			iterator end() // Try to iter in a loop with end (see jbonniva Discord msg)
+			{
+				return _tree.end();
+			}
 
 			// const_iterator end() const
 			// {

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 10:03:18 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/02 19:55:31 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <iostream>
 #include <functional>
 #include "pair.hpp"
+#include "../iterators/tree_iterator.hpp"
 
 
 #include <map>
@@ -61,8 +62,9 @@ namespace ft
 					return &data;
 				}
 			};
-			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
  			// rebind is for allocating mem for a type that diff from the element type of the class being implemented
+			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
+			typedef typename node_allocator::pointer						node_pointer;
 
 			Node				*_root;
 			Node				*_start;
@@ -72,96 +74,92 @@ namespace ft
 			node_allocator		_node_alloc;
 			compare_type		_comp;
 
-			public :
-				// Define Iterators here
-				typedef typename std::map<value_type, value_type>::iterator				iterator;
-				typedef typename std::map<value_type, value_type>::const_iterator		const_iterator;
+		public :
+			// Define Iterators here
+			typedef typename ft::tree_iterator<node_pointer, value_type, compare_type>			iterator;
 
-				red_black_tree(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
-				{
-					_alloc = alloc;
-					_node_alloc = node_allocator();
-					_start = create_node();
-					_end = create_node();
-					_start->color = BLACK;	// ??
-					_end->color = BLACK;	// ??
-					_root = _end;
-					_size = 0;
-					_comp = comp;
-					std::cout << "Coucou" << std::endl;
-				}
-
-				Node *create_node(const_reference value = value_type())
-				{
-					Node *node = _node_alloc.allocate(1);
-					_node_alloc.construct(node, Node());
-					_alloc.construct(node->data_ptr(), value);
-					return node;
-				}
-
-			// ==================== Capacity
-				bool empty() const
-				{
-					return _size == 0;
-				}
-
-				size_type size() const
-				{
-					return _size;
-				}
-
-				size_type max_size() const
-				{
-					return _node_alloc.max_size();
-				}
-
-				void test() const
-				{
-					iterator it;
-					// std::cout << *it << std::endl;
-				}
-
-			// ==================== Accessor
-			// iterator begin()
-			// {
-			// 	Node *tmp = _root;
-			// 	if (empty())
-			// 		return end();
-			// 	while (tmp->left && tmp->left != NULL)
-			// 		tmp = tmp->left;
-			// 	return iterator(tmp);
-			// }
-
-			// iterator end()
-			// {
-			// 	return _end;
-			// }
-
-			// ==================== Modifiers
-			Node *bst_insert()
+			red_black_tree(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
 			{
-
+				_alloc = alloc;
+				_node_alloc = node_allocator();
+				_start = create_node();
+				_end = create_node();
+				_start->color = BLACK;	// ??
+				_end->color = BLACK;	// ??
+				_root = _end;
+				_size = 0;
+				_comp = comp;
 			}
 
-			void	insert(const_reference val)
+			Node *create_node(const_reference value = value_type())
 			{
-				Node *node = create_node(val);
-				if (empty())
-				{
-					_root = node;
-					_root->left = _start;
-					_root->right = _end;
-					_start->parent = _root;
-					_end->parent = _root;
-					if (_root.color == BLACK)
-						std::cout << "BLACK" << std::endl;
-				}
-				_size++;
+				Node *node = _node_alloc.allocate(1);
+				_node_alloc.construct(node, Node());
+				_alloc.construct(node->data_ptr(), value);
+				return node;
 			}
+
+		// ==================== Capacity
+			bool empty() const
+			{
+				return _size == 0;
+			}
+
+			size_type size() const
+			{
+				return _size;
+			}
+
+			size_type max_size() const
+			{
+				return _node_alloc.max_size();
+			}
+
+			void test() const
+			{
+				iterator it;
+				// std::cout << *it << std::endl;
+			}
+
+		// ==================== Accessor
+		iterator begin()
+		{
+			Node *tmp = _root;
+			if (empty())
+				return end();
+			while (tmp->left && tmp->left != NULL)
+				tmp = tmp->left;
+			return iterator(tmp);
+		}
+
+		iterator end()
+		{
+			return _end;
+		}
+
+		// ==================== Modifiers
+		Node *bst_insert()
+		{
+
+		}
+
+		void	insert(const_reference val)
+		{
+			Node *node = create_node(val);
+			if (empty())
+			{
+				_root = node;
+				_root->left = _start;
+				_root->right = _end;
+				_start->parent = _root;
+				_end->parent = _root;
+				if (_root.color == BLACK)
+					std::cout << "BLACK" << std::endl;
+			}
+			_size++;
+		}
 
 	};
-
-
 
 } // namespace ft
 

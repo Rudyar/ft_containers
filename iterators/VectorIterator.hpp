@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 14:20:32 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/02 15:57:30 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 namespace ft
 {
 	template <typename Iterator>
-	class VectorIterator
+	class VectorIterator : public ft::iterator<ft::random_access_iterator_tag, Iterator>
 	{
 		protected:
 			Iterator _current;

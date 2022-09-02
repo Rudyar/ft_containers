@@ -6,25 +6,28 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:02:18 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 14:55:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/02 15:54:27 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+	// https://m.cplusplus.com/reference/iterator/iterator/
+	// https://m.cplusplus.com/reference/iterator/iterator_traits/
+	
 #ifndef ITERATOR_TRAITS_HPP
 #define ITERATOR_TRAITS_HPP
 
 #include <cstddef> // ptrdiff_t
 
-	// https://m.cplusplus.com/reference/iterator/iterator/
-	// https://m.cplusplus.com/reference/iterator/iterator_traits/
 namespace ft
 {
+	// Define iterators categories
 	struct input_iterator_tag {};
 	struct output_iterator_tag {};
 	struct forward_iterator_tag : public input_iterator_tag {};
 	struct bidirectional_iterator_tag : public forward_iterator_tag {};
 	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
+	// Define Iterator struct
 	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 		struct iterator
 		{
@@ -35,6 +38,7 @@ namespace ft
 			typedef Category	iterator_category;
 		};
 
+	// Default struct for iterator_traits
 	template <class Iterator>
 		struct iterator_traits
 		{
@@ -45,6 +49,7 @@ namespace ft
 			typedef typename Iterator::iterator_category	iterator_category;
 		};
 
+	// Spe struct for iterator_traits for pointer
 	template <class T>
 		struct iterator_traits<T*>
 		{
@@ -55,6 +60,7 @@ namespace ft
 			typedef random_access_iterator_tag	iterator_category;
 		};
 
+	// Spe struct for iterator_traits for const pointer
 	template <class T>
 		struct iterator_traits<const T*>
 		{
