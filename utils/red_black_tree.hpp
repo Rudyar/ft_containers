@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 19:55:31 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/05 08:26:39 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ enum e_color
 
 namespace ft
 {
-	template <typename T, class Compare, class Alloc> // T is a pair
+	template <typename T, typename K, class Compare, class Alloc> // T is a pair, do I need to keep K ?
 	class red_black_tree
 	{
 		private :
@@ -56,7 +56,7 @@ namespace ft
 				Node		*parent;
 
 				// Constructor, need to modif maybe
-				Node() : data(), left(NULL), right(NULL), parent(NULL) {}
+				Node() : data(), left(NULL), right(NULL), parent(NULL) {} // Not sur
 				pointer data_ptr() // Helper, to move maybe
 				{
 					return &data;
@@ -73,10 +73,11 @@ namespace ft
 			allocator_type		_alloc;
 			node_allocator		_node_alloc;
 			compare_type		_comp;
+			K					_key; // Not sur if needed ?
 
 		public :
 			// Define Iterators here
-			typedef typename ft::tree_iterator<node_pointer, value_type, compare_type>			iterator;
+			typedef typename ft::tree_iterator<value_type, node_pointer, compare_type>			iterator;
 
 			red_black_tree(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
 			{
@@ -115,12 +116,6 @@ namespace ft
 				return _node_alloc.max_size();
 			}
 
-			void test() const
-			{
-				iterator it;
-				// std::cout << *it << std::endl;
-			}
-
 		// ==================== Accessor
 		iterator begin()
 		{
@@ -134,7 +129,7 @@ namespace ft
 
 		iterator end()
 		{
-			return _end;
+			return iterator(_end);
 		}
 
 		// ==================== Modifiers
@@ -143,7 +138,7 @@ namespace ft
 
 		}
 
-		void	insert(const_reference val)
+		void	insert(const_reference val) // Check ret value
 		{
 			Node *node = create_node(val);
 			if (empty())
@@ -153,7 +148,7 @@ namespace ft
 				_root->right = _end;
 				_start->parent = _root;
 				_end->parent = _root;
-				if (_root.color == BLACK)
+				if (_root->color == BLACK)
 					std::cout << "BLACK" << std::endl;
 			}
 			_size++;

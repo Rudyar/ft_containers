@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 19:54:04 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/05 09:03:40 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 namespace ft
 {
 
-	template <typename N, typename T, typename Compare> // Keep N or T ??
+	template <typename T, typename N, class Compare> // Keep N or T ??
 	class tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
 	{
 		public :
@@ -27,19 +27,19 @@ namespace ft
 			typedef typename ft::iterator_traits<N>::difference_type	difference_type;
 			typedef typename ft::iterator_traits<N>::pointer			pointer;
 			typedef typename ft::iterator_traits<N>::reference			reference;
-			typedef T*													node_ptr; // N or T ??
+			typedef N													node_pointer; // N or T ??
 
 		protected :
-			node_ptr _current;
+			node_pointer _current;
 
 		public :
 			tree_iterator() : _current(NULL) {}
-			tree_iterator(node_ptr node) : _current(node) {}
+			tree_iterator(node_pointer node) : _current(node) {}
 			tree_iterator(const tree_iterator &x) : _current(x._current) {}
 
 			tree_iterator& operator=(const tree_iterator& rhs)
 			{
-				if (*this = rhs)
+				if (this == &rhs)
 					return *this;
 				_current = rhs._current;
 				return *this;
@@ -65,7 +65,7 @@ namespace ft
 				}
 				else
 				{
-					node_ptr tmp = _current->parent;
+					node_pointer tmp = _current->parent;
 					while (_current == tmp->right)
 					{
 						_current = tmp;
@@ -79,7 +79,7 @@ namespace ft
 
 			tree_iterator operator++(int) // n++;
 			{
-				node_ptr tmp(*this);
+				node_pointer tmp(*this);
 				operator++();
 				return tmp;
 			}
@@ -94,7 +94,7 @@ namespace ft
 				}
 				else
 				{
-					node_ptr tmp = _current->parent;
+					node_pointer tmp = _current->parent;
 					while (_current == tmp->left)
 					{
 						_current = tmp;

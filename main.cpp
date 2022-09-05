@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 19:56:22 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/05 08:23:02 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	main(void)
 {
 	__MACRO::map<int, std::string> test;
 	__MACRO::map<int, std::string>::iterator it;
-	it = test.begin();
-	// test.insert(it, );
+	// it = test.begin();
+	test.insert(__MACRO::pair<int , std::string>(1, "coucou"));
 
 	// std::cout << it->first << std::endl;
 	std::cout << test.size() << std::endl;

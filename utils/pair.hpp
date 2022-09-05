@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:29:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/30 18:59:27 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/05 08:58:27 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ namespace ft
 
 		pair(const T1& x, const T2& y) : first(x), second(y) {}
 
-		template<class U, class V> pair(const pair<U, V> &p) : first(p.first), second(p.second) {}
+		template<class U, class V>
+		pair(const pair<U, V> &p) : first(p.first), second(p.second) {}
 
 		pair& operator=(const pair& p)
 		{

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 19:56:02 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/05 08:25:10 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ namespace ft
 		public :
 			typedef Key																		key_type;
 			typedef T																		mapped_type;
-			typedef pair<const Key, T>														value_type;
+			typedef ft::pair<const key_type, mapped_type>									value_type;
 			typedef Compare																	key_compare;
 			typedef Allocator 																allocator_type;
 			typedef size_t																	size_type;
-			typedef typename Allocator::reference											reference;
-			typedef typename Allocator::const_reference										const_reference;
-			typedef typename Allocator::pointer												pointer;
-			typedef typename Allocator::const_pointer										const_pointer;
-			typedef typename ft::red_black_tree<value_type, key_compare, allocator_type>	tree_type;
+			typedef ptrdiff_t																difference_type;
+			typedef typename allocator_type::reference										reference;
+			typedef typename allocator_type::const_reference								const_reference;
+			typedef typename allocator_type::pointer										pointer;
+			typedef typename allocator_type::const_pointer									const_pointer;
+			typedef typename ft::red_black_tree<value_type, key_type, key_compare, allocator_type>	tree_type;
 			//////////////////////////////////////////////
 			typedef typename tree_type::iterator											iterator;
 			// typedef typename tree_type::const_iterator										const_iterator;
@@ -140,7 +141,6 @@ namespace ft
 
 			size_type size() const
 			{
-				_tree.test();
 				return _tree.size();
 			}
 
@@ -158,15 +158,17 @@ namespace ft
 
 			// ==================== Modifiers
 
-			// pair<iterator, bool> insert(const value_type& x)
-			// {
-			// }
-
-			iterator insert(iterator position, const value_type& x)
+			pair<iterator, bool> insert(const value_type& x) // Check ret value
 			{
 				_tree.insert(x);
-				return position;
+				return x;
 			}
+
+			// iterator insert(iterator position, const value_type& x)
+			// {
+			// 	_tree.insert(x);
+			// 	return position;
+			// }
 
 			// template<class InputIterator>
 			// void insert(InputIterator first, InputIterator last)
