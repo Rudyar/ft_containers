@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/05 08:25:10 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 11:46:39 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,30 @@ namespace ft
 	class map
 	{
 		public :
-			typedef Key																		key_type;
-			typedef T																		mapped_type;
-			typedef ft::pair<const key_type, mapped_type>									value_type;
-			typedef Compare																	key_compare;
-			typedef Allocator 																allocator_type;
-			typedef size_t																	size_type;
-			typedef ptrdiff_t																difference_type;
-			typedef typename allocator_type::reference										reference;
-			typedef typename allocator_type::const_reference								const_reference;
-			typedef typename allocator_type::pointer										pointer;
-			typedef typename allocator_type::const_pointer									const_pointer;
+			typedef Key																				key_type;
+			typedef T																				mapped_type;
+			typedef ft::pair<const key_type, mapped_type>											value_type;
+			typedef Compare																			key_compare;
+			typedef Allocator 																		allocator_type;
+			typedef size_t																			size_type;
+			typedef ptrdiff_t																		difference_type;
+			typedef typename allocator_type::reference												reference;
+			typedef typename allocator_type::const_reference										const_reference;
+			typedef typename allocator_type::pointer												pointer;
+			typedef typename allocator_type::const_pointer											const_pointer;
 			typedef typename ft::red_black_tree<value_type, key_type, key_compare, allocator_type>	tree_type;
 			//////////////////////////////////////////////
-			typedef typename tree_type::iterator											iterator;
-			// typedef typename tree_type::const_iterator										const_iterator;
-			// typedef tree_type...					reverse_iterator;
-			// typedef tree_type...					const_reverse_iterator;
+			typedef typename tree_type::iterator													iterator;
+			// typedef typename tree_type::const_iterator											const_iterator;
+			// typedef reverse ?																	reverse_iterator;
+			// typedef reverse ?																	const_reverse_iterator;
 
 			class value_compare : std::binary_function<value_type, value_type, bool>
 			{
 				friend class map;
 				protected :
-					Compare comp;
-					value_compare(Compare c) : comp(c) {}
+					key_compare comp;
+					value_compare(key_compare c) : comp(c) {}
 				public :
 					bool operator()(const value_type& x, const value_type& y) const { return comp(x.first, y.first); }
 			};
@@ -160,8 +160,10 @@ namespace ft
 
 			pair<iterator, bool> insert(const value_type& x) // Check ret value
 			{
-				_tree.insert(x);
-				return x;
+				std::cout << "Insert map \n";
+				// _tree.insert(x);
+				// // return x;
+				return _tree.insert(x);
 			}
 
 			// iterator insert(iterator position, const value_type& x)

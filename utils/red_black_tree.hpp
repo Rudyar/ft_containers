@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/05 08:26:39 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 11:47:19 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ namespace ft
 	class red_black_tree
 	{
 		private :
-			typedef T														value_type;
-			typedef size_t													size_type;
-			typedef Alloc													allocator_type;
-			typedef Compare													compare_type;
-			typedef value_type*												pointer;
-			typedef const value_type&										const_reference;
+			typedef T						value_type;
+			typedef size_t					size_type;
+			typedef Alloc					allocator_type;
+			typedef Compare					compare_type;
+			typedef value_type*				pointer;
+			typedef const value_type&		const_reference;
 
 			// Private nested struct, can't access outside tree, for each nodes
 			struct Node
@@ -56,7 +56,8 @@ namespace ft
 				Node		*parent;
 
 				// Constructor, need to modif maybe
-				Node() : data(), left(NULL), right(NULL), parent(NULL) {} // Not sur
+				Node(const T& p = T()) : data(p), left(NULL), right(NULL), parent(NULL) {} // Not sur
+
 				pointer data_ptr() // Helper, to move maybe
 				{
 					return &data;
@@ -94,7 +95,8 @@ namespace ft
 
 			Node *create_node(const_reference value = value_type())
 			{
-				Node *node = _node_alloc.allocate(1);
+				// Node *node = _node_alloc.allocate(1);
+				node_pointer node = _node_alloc.allocate(1);
 				_node_alloc.construct(node, Node());
 				_alloc.construct(node->data_ptr(), value);
 				return node;
@@ -129,29 +131,37 @@ namespace ft
 
 		iterator end()
 		{
-			return iterator(_end);
+			return iterator(_end); // To change
 		}
 
 		// ==================== Modifiers
-		Node *bst_insert()
-		{
+		// Node *bst_insert()
+		// {
 
-		}
+		// }
 
-		void	insert(const_reference val) // Check ret value
+		ft::pair<iterator, bool>	insert(const_reference val) // Check ret value
 		{
-			Node *node = create_node(val);
-			if (empty())
-			{
-				_root = node;
-				_root->left = _start;
-				_root->right = _end;
-				_start->parent = _root;
-				_end->parent = _root;
-				if (_root->color == BLACK)
-					std::cout << "BLACK" << std::endl;
-			}
-			_size++;
+			std::cout << "Insert RB tree\n";
+			node_pointer test = create_node(val);
+			ft::pair<iterator, bool> ret;
+
+			ret = ft::make_pair(iterator(test), true);
+			return ret;
+
+			// Node *node = create_node(val);
+
+			// if (empty())
+			// {
+			// 	_root = node;
+			// 	_root->left = _start;
+			// 	_root->right = _end;
+			// 	_start->parent = _root;
+			// 	_end->parent = _root;
+			// 	if (_root->color == BLACK)
+			// 		std::cout << "BLACK" << std::endl;
+			// }
+			// _size++;
 		}
 
 	};

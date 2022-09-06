@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/05 08:23:02 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 11:36:55 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,18 @@ int	main(void)
 {
 	__MACRO::map<int, std::string> test;
 	__MACRO::map<int, std::string>::iterator it;
-	// it = test.begin();
+	it = test.begin();
+	std::cout << it->first << std::endl;
+	std::cout << it->second << std::endl;
+	__MACRO::map<int, std::string>::iterator it2(it);
+
 	test.insert(__MACRO::pair<int , std::string>(1, "coucou"));
+	// __MACRO::pair<int, int> lol(5, 5);
 
 	// std::cout << it->first << std::endl;
 	std::cout << test.size() << std::endl;
-	std::cout << test.empty() << std::endl;
-	std::cout << test.max_size() << std::endl;
+	// std::cout << test.empty() << std::endl;
+	// std::cout << test.max_size() << std::endl;
 	// test.insert(std::pair<int, std::string>(1, "coucou"));
 	// test.insert(std::pair<int, std::string>(10, "salut"));
 	// test.insert(std::pair<int, std::string>(-10, "salut"));
