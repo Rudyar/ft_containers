@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 11:47:19 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 18:43:08 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ enum e_color
 
 namespace ft
 {
-	template <typename T, typename K, class Compare, class Alloc> // T is a pair, do I need to keep K ?
+	template <typename T, typename K, class Compare, class Alloc> // T is a pair, do I need to keep K (key type of map) ?
 	class red_black_tree
 	{
 		private :
@@ -49,27 +49,22 @@ namespace ft
 			// Private nested struct, can't access outside tree, for each nodes
 			struct Node
 			{
-				T			data;
+				value_type	data;
 				e_color		color;
 				Node		*left;
 				Node		*right;
 				Node		*parent;
 
-				// Constructor, need to modif maybe
-				Node(const T& p = T()) : data(p), left(NULL), right(NULL), parent(NULL) {} // Not sur
-
-				pointer data_ptr() // Helper, to move maybe
-				{
-					return &data;
-				}
+				Node(const T& p = T()) : data(p), left(NULL), right(NULL), parent(NULL) {}
 			};
  			// rebind is for allocating mem for a type that diff from the element type of the class being implemented
 			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
-			typedef typename node_allocator::pointer						node_pointer;
+			typedef	Node*													node_pointer;
+			// typedef typename node_allocator::pointer						node_pointer; // From les boss, need to erase i think
 
-			Node				*_root;
-			Node				*_start;
-			Node				*_end;
+			node_pointer		_root;
+			node_pointer		_start;
+			node_pointer		_end;
 			size_type			_size;
 			allocator_type		_alloc;
 			node_allocator		_node_alloc;
@@ -86,19 +81,17 @@ namespace ft
 				_node_alloc = node_allocator();
 				_start = create_node();
 				_end = create_node();
-				_start->color = BLACK;	// ??
-				_end->color = BLACK;	// ??
+				_start->color = BLACK;
+				_end->color = BLACK;
 				_root = _end;
 				_size = 0;
 				_comp = comp;
 			}
 
-			Node *create_node(const_reference value = value_type())
+			node_pointer create_node(const_reference value = value_type())
 			{
-				// Node *node = _node_alloc.allocate(1);
 				node_pointer node = _node_alloc.allocate(1);
-				_node_alloc.construct(node, Node());
-				_alloc.construct(node->data_ptr(), value);
+				_node_alloc.construct(node, Node(value));
 				return node;
 			}
 
@@ -121,12 +114,9 @@ namespace ft
 		// ==================== Accessor
 		iterator begin()
 		{
-			Node *tmp = _root;
 			if (empty())
 				return end();
-			while (tmp->left && tmp->left != NULL)
-				tmp = tmp->left;
-			return iterator(tmp);
+			return iterator(_start->parent);
 		}
 
 		iterator end()
@@ -135,33 +125,43 @@ namespace ft
 		}
 
 		// ==================== Modifiers
-		// Node *bst_insert()
+		// node_pointer bst_insert()
 		// {
 
 		// }
 
 		ft::pair<iterator, bool>	insert(const_reference val) // Check ret value
 		{
-			std::cout << "Insert RB tree\n";
-			node_pointer test = create_node(val);
+			node_pointer node = create_node(val);
 			ft::pair<iterator, bool> ret;
 
-			ret = ft::make_pair(iterator(test), true);
+			if (empty())
+				return insert_empty(node);
+
+
+			// Insert
+			// Fix violations
+
+			ret = ft::make_pair(iterator(node), false);
 			return ret;
+		}
 
-			// Node *node = create_node(val);
+	private :
+		ft::pair<iterator, bool> insert_empty(node_pointer node)
+		{
+			_root = node;
+			_root->left = _start;
+			_root->right = _end;
+			_start->parent = _root;
+			_end->parent = _root;
+			_root->color = BLACK;
+			_size++;
+			return ft::make_pair(iterator(_root), true);
+		}
 
-			// if (empty())
-			// {
-			// 	_root = node;
-			// 	_root->left = _start;
-			// 	_root->right = _end;
-			// 	_start->parent = _root;
-			// 	_end->parent = _root;
-			// 	if (_root->color == BLACK)
-			// 		std::cout << "BLACK" << std::endl;
-			// }
-			// _size++;
+		pointer data_ptr()
+		{
+			return &data;
 		}
 
 	};

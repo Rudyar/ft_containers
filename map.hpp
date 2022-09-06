@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 11:46:39 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 17:01:32 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,8 @@ namespace ft
 
 			// ==================== Modifiers
 
-			pair<iterator, bool> insert(const value_type& x) // Check ret value
+			pair<iterator, bool> insert(const_reference x) // Check ret value
 			{
-				std::cout << "Insert map \n";
-				// _tree.insert(x);
-				// // return x;
 				return _tree.insert(x);
 			}
 

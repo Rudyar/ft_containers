@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 11:33:16 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 18:34:42 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@
 namespace ft
 {
 
-	template <typename T, typename N, class Compare> // Keep N or T ??
+	template <typename T, typename N, class Compare> // Keep T, if not change T to N ??
 	class tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
 	{
 		public :
 			typedef typename ft::iterator_traits<N>::iterator_category	iterator_category;
 			typedef typename ft::iterator_traits<N>::value_type			value_type;
 			typedef typename ft::iterator_traits<N>::difference_type	difference_type;
-			// typedef typename ft::iterator_traits<N>::pointer			pointer;
-			typedef T*													pointer;
+			typedef typename ft::iterator_traits<N>::pointer			pointer;
 			typedef typename ft::iterator_traits<N>::reference			reference;
 			typedef N													node_pointer;
 
@@ -35,20 +34,11 @@ namespace ft
 			node_pointer _current;
 
 		public :
-			tree_iterator() : _current(NULL)
-			{
-				std::cout << "Default it tree ctor \n";
-			}
+			tree_iterator() : _current(NULL) {}
 
-			tree_iterator(node_pointer node) : _current(node)
-			{
-				std::cout << "Node arg it tree ctor \n";
-			}
+			tree_iterator(node_pointer node) : _current(node) {}
 
-			tree_iterator(const tree_iterator &x) : _current(x._current)
-			{
-				std::cout << "Copy it tree ctor \n";
-			}
+			tree_iterator(const tree_iterator &x) : _current(x._current) {}
 
 			tree_iterator& operator=(const tree_iterator& rhs)
 			{
@@ -92,7 +82,7 @@ namespace ft
 
 			tree_iterator operator++(int) // n++;
 			{
-				node_pointer tmp(*this);
+				tree_iterator tmp(*this);
 				operator++();
 				return tmp;
 			}
@@ -116,6 +106,13 @@ namespace ft
 					_current = tmp;
 				}
 				return *this;
+			}
+
+			tree_iterator operator--(int) // n--
+			{
+				tree_iterator tmp(*this);
+				operator--();
+				return tmp;
 			}
 	};
 
