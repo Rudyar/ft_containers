@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 18:43:08 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 19:56:37 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,6 @@ namespace ft
 		}
 
 		// ==================== Modifiers
-		// node_pointer bst_insert()
-		// {
-
-		// }
 
 		ft::pair<iterator, bool>	insert(const_reference val) // Check ret value
 		{
@@ -137,7 +133,7 @@ namespace ft
 
 			if (empty())
 				return insert_empty(node);
-
+			ret = bst_insert(node);
 
 			// Insert
 			// Fix violations
@@ -159,9 +155,15 @@ namespace ft
 			return ft::make_pair(iterator(_root), true);
 		}
 
-		pointer data_ptr()
+		ft::pair<iterator, bool> bst_insert(node_pointer node) // return a bool ??
 		{
-			return &data;
+			/* find place to insert
+			if find return 0, there is the same key in the tree and need to return the pos as it (i guess??)
+			else
+				??
+			*/
+			// node_pointer to_find = bst_find(node->data); //
+			return ft::make_pair(iterator(node), true);
 		}
 
 	};

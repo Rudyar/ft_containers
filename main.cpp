@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 18:26:38 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/06 19:46:32 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD__VECTOR    // A commenter pour avoir ft::vector
+// #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
@@ -56,6 +56,29 @@ void print_vec(__MACRO::vector<int> vec)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
+//   void printHelper(NodePtr root, string indent, bool last) {
+//     if (root != TNULL) {
+//       cout << indent;
+//       if (last) {
+//         cout << "R----";
+//         indent += "   ";
+//       } else {
+//         cout << "L----";
+//         indent += "|  ";
+//       }
+
+//       string sColor = root->color ? "RED" : "BLACK";
+//       cout << root->data << "(" << sColor << ")" << endl;
+//       printHelper(root->left, indent, false);
+//       printHelper(root->right, indent, true);
+//     }
+//   }
+
+//   void printTree() {
+//     if (root) {
+//       printHelper(this->root, "", true);
+//     }
 
 int	main(void)
 {
