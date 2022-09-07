@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/07 15:40:58 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/07 20:08:33 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void print_vec(__MACRO::vector<int> vec)
 int	main(void)
 {
 	__MACRO::map<int, std::string> test;
-	test.insert(__MACRO::pair<int , std::string>(2, "root"));
-	test.insert(__MACRO::pair<int , std::string>(1, "coucou"));
-	test.insert(__MACRO::pair<int , std::string>(10, "bloup"));
-	test.insert(__MACRO::pair<int , std::string>(9, "bla"));
-	test.insert(__MACRO::pair<int , std::string>(0, "bli"));
-	test.insert(__MACRO::pair<int , std::string>(-1, "bli"));
-	test.insert(__MACRO::pair<int , std::string>(-2, "bli"));
+	test.insert(__MACRO::pair<int , std::string>(0, "0"));
+	test.insert(__MACRO::pair<int , std::string>(2, "2"));
+	test.insert(__MACRO::pair<int , std::string>(10, "10"));
+	test.insert(__MACRO::pair<int , std::string>(4, "4"));
+	test.insert(__MACRO::pair<int , std::string>(9, "9"));
+	test.insert(__MACRO::pair<int , std::string>(1, "1"));
+	test.insert(__MACRO::pair<int , std::string>(3, "3"));
 
 	test.printTree();
 

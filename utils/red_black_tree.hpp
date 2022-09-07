@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/07 15:40:34 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/07 20:13:13 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // ERASE : https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/
 // REBIND : https://stackoverflow.com/questions/14148756/what-does-template-rebind-do
 // https://www.programiz.com/dsa/insertion-in-a-red-black-tree
+// ROTATION : https://www.codesdope.com/course/data-structures-red-black-trees-insertion/
 
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
@@ -82,8 +83,8 @@ namespace ft
 				_node_alloc = node_allocator();
 				_start = create_node();
 				_end = create_node();
-				_start->color = BLACK; // Maybe red
-				_end->color = BLACK; // Maybe red
+				// _start->color = BLACK; // Maybe red
+				// _end->color = BLACK; // Maybe red
 				_root = _end;
 				_size = 0;
 				_comp = comp;
@@ -123,7 +124,7 @@ namespace ft
 			std::string sColor = "BLACK";
 			if (root->color == RED)
 				sColor = "RED";
-			std::cout << root->data.second << "(" << sColor << ")" << std::endl;
+			std::cout << root->data.second << " (" << sColor << ")" << std::endl;
 			printHelper(root->left, indent, false);
 			printHelper(root->right, indent, true);
 		}
@@ -174,9 +175,6 @@ namespace ft
 			node_pointer node = create_node(val);
 			node_pointer tmp;
 
-			// std::cout << "Start before : " << _start->data.second << std::endl;
-			// std::cout << "End before : " << _end->data.second << std::endl;
-
 			if (empty())
 				return _insert_empty(node);
 			_bst_find(node->data, &tmp);
@@ -187,11 +185,10 @@ namespace ft
 				return ft::make_pair(iterator(tmp), false);
 			}
 			_bst_insert(node, &tmp);
-			_bst_fix_insert(tmp);
-			// find new _start and new _end with most left or riught funct ?
+			if (node->parent && node->parent->parent)
+				_bst_fix_insert(node);
+			// find new _start and new _end with most left or right funct ?
 
-			// std::cout << "Start after : " << _start->data.second << std::endl;
-			// std::cout << "End after : " << _end->data.second << std::endl;
 			_size++;
 			return ft::make_pair(iterator(tmp), false);
 		}
@@ -239,63 +236,90 @@ namespace ft
 
 		void	_bst_fix_insert(node_pointer node)
 		{
-			node_pointer p; // parent
-			node_pointer gp; // grand parent
-			node_pointer u; // uncle
+			node_pointer u;
 
-			while (node != _root && node->parent->color == RED)
+			while (node->parent && node->parent->color == RED)
 			{
-				p = node->parent;
-				gp = node->parent->parent;
-
-				if (p == gp->left) // 1. if node p is node gp left child (<)
+				if (node->parent == node->parent->parent->right) // if node parent is a right child
 				{
-					u = gp->right;
-					if (u && u->color == RED) // 1.1 if u is also red, need only a recolor
-						node = _fix_red_uncle(p, gp, u);
-					else // u is black
+					u = node->parent->parent->left;
+					if (u && u->color == RED) // if uncle is RED
+						node = _fix_red_uncle(node->parent, node->parent->parent, u);
+					else // if uncle is black
 					{
-						if (node == p->right) // 1.2 node is right child, left rotate
+						if (node == node->parent->left) // if node is < node parent = right rotate
 						{
-							_left_rotate(p);
-							node = p;
-							p = node->parent; // Not sur
+							node = node->parent;
+							_right_rotate(node);
 						}
-						_right_rotate(gp);
-						_swap_colors(p, gp);
-						node = p;
+						_swap_colors(node->parent, node->parent->parent);
+						_left_rotate(node->parent->parent);
 					}
 				}
-				else // 2. node p is node gp right child (>)
+				else // if node parent is a left child
 				{
-					u = gp->left;
-					if (u && u->color == RED) // 2.1 if u is also red, need only a recolor
-						node = _fix_red_uncle(p, gp, u);
-					else // u is black
+					u = node->parent->parent->right;
+					if (u && u->color == RED) // if uncle is red
+						node = _fix_red_uncle(node->parent, node->parent->parent, u);
+					else
 					{
-						if (node == p->left) // 2.2 node is left child, right rotate
+						if (node == node->parent->right) // if node is > node parent = left rotate
 						{
-							_right_rotate(p);
-							node = p;
-							p = node->parent; // Not sur
+							node = node->parent;
+							_left_rotate(node);
 						}
-						_left_rotate(gp);
-						_swap_colors(p, gp);
-						node = p;
+						// node->parent->color = BLACK;
+						// node->parent->parent->color = RED;
+						_swap_colors(node->parent->parent, node->parent); // Need to check
+						_right_rotate(node->parent->parent);
 					}
 				}
+				if (node == _root)
+					break;
 			}
 			_root->color = BLACK;
 		}
 
 		void	_left_rotate(node_pointer node)
 		{
-			(void)node;
+			node_pointer n_right = node->right;
+
+			node->right = n_right->left;
+
+			if (node->right)
+				node->right->parent = node;
+
+			n_right->parent = node->parent;
+
+			if (!node->parent)
+				_root = n_right;
+			else if (node == node->parent->left)
+				node->parent->left = n_right;
+			else
+				node->parent->right = n_right;
+			n_right->left = node;
+			node->parent = n_right;
 		}
 
 		void	_right_rotate(node_pointer node)
 		{
-			(void)node;
+			node_pointer n_left = node->left;
+
+			node->left = n_left->right;
+
+			if (node->left)
+				node->left->parent = node;
+
+			n_left->parent = node->parent;
+
+			if (!node->parent)
+				_root = n_left;
+			else if (node && node->parent && node == node->parent->left)
+				node->parent->left = n_left;
+			else
+				node->parent->right = n_left;
+			n_left->right = node;
+			node->parent = n_left;
 		}
 
 		void	_swap_colors(node_pointer x, node_pointer y)
@@ -309,8 +333,8 @@ namespace ft
 		node_pointer	_fix_red_uncle(node_pointer p, node_pointer gp, node_pointer u)
 		{
 			p->color = BLACK;
-			gp->color = RED;
 			u->color = BLACK;
+			gp->color = RED;
 			return gp;
 		}
 
