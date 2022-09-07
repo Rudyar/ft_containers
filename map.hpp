@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/07 09:25:39 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/07 14:01:26 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,15 +205,15 @@ namespace ft
 
 			// ==================== Observers
 
-			// key_compare key_comp() const
-			// {
-				// return key_compare();
-			// }
+			key_compare key_comp() const
+			{
+				return key_compare();
+			}
 
-			// value_compare value_comp() const
-			// {
-				// return value_compare();
-			// }
+			value_compare value_comp() const
+			{
+				return value_compare();
+			}
 
 			// ==================== Operations
 

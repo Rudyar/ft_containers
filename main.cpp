@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/07 10:16:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/07 15:40:58 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,26 @@ void print_vec(__MACRO::vector<int> vec)
 int	main(void)
 {
 	__MACRO::map<int, std::string> test;
+	test.insert(__MACRO::pair<int , std::string>(2, "root"));
 	test.insert(__MACRO::pair<int , std::string>(1, "coucou"));
-	test.insert(__MACRO::pair<int , std::string>(2, "salut"));
-
-
-	// __MACRO::map<int, std::string>::iterator it;
-	// it = test.begin();
+	test.insert(__MACRO::pair<int , std::string>(10, "bloup"));
+	test.insert(__MACRO::pair<int , std::string>(9, "bla"));
+	test.insert(__MACRO::pair<int , std::string>(0, "bli"));
+	test.insert(__MACRO::pair<int , std::string>(-1, "bli"));
+	test.insert(__MACRO::pair<int , std::string>(-2, "bli"));
 
 	test.printTree();
-	// std::cout<< std::endl << "Size : " << test.size() << std::endl;
+
+	// __MACRO::map<int, std::string>::iterator it;
+	// __MACRO::map<int, std::string>::iterator ite;
+	// it = test.begin();
+	// ite = test.end();
+
+	// // std::cout<< std::endl << "Size : " << test.size() << std::endl;
 	// std::cout << "It first : " << it->first << std::endl;
 	// std::cout << "It second : " << it->second << std::endl;
+	// std::cout << "Ite first : " << ite->first << std::endl;
+	// std::cout << "Ite second : " << ite->second << std::endl;
 	// std::cout << "Empty ? " << test.empty() << std::endl;
 	// std::cout << "Max size : " << test.max_size() << std::endl;
 
