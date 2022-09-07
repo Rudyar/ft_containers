@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 19:46:32 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/07 10:16:21 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,38 +57,23 @@ void print_vec(__MACRO::vector<int> vec)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-//   void printHelper(NodePtr root, string indent, bool last) {
-//     if (root != TNULL) {
-//       cout << indent;
-//       if (last) {
-//         cout << "R----";
-//         indent += "   ";
-//       } else {
-//         cout << "L----";
-//         indent += "|  ";
-//       }
 
-//       string sColor = root->color ? "RED" : "BLACK";
-//       cout << root->data << "(" << sColor << ")" << endl;
-//       printHelper(root->left, indent, false);
-//       printHelper(root->right, indent, true);
-//     }
-//   }
 
-//   void printTree() {
-//     if (root) {
-//       printHelper(this->root, "", true);
-//     }
 
 int	main(void)
 {
 	__MACRO::map<int, std::string> test;
 	test.insert(__MACRO::pair<int , std::string>(1, "coucou"));
-	__MACRO::map<int, std::string>::iterator it;
-	it = test.begin();
-	std::cout<< std::endl<< std::endl<< std::endl<< std::endl << "Size : " << test.size() << std::endl;
-	std::cout << "It first : " << it->first << std::endl;
-	std::cout << "It second : " << it->second << std::endl;
+	test.insert(__MACRO::pair<int , std::string>(2, "salut"));
+
+
+	// __MACRO::map<int, std::string>::iterator it;
+	// it = test.begin();
+
+	test.printTree();
+	// std::cout<< std::endl << "Size : " << test.size() << std::endl;
+	// std::cout << "It first : " << it->first << std::endl;
+	// std::cout << "It second : " << it->second << std::endl;
 	// std::cout << "Empty ? " << test.empty() << std::endl;
 	// std::cout << "Max size : " << test.max_size() << std::endl;
 

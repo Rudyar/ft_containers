@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 19:56:37 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/07 10:23:34 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ namespace ft
 				_node_alloc = node_allocator();
 				_start = create_node();
 				_end = create_node();
-				_start->color = BLACK;
-				_end->color = BLACK;
+				_start->color = BLACK; // Maybe red
+				_end->color = BLACK; // Maybe red
 				_root = _end;
 				_size = 0;
 				_comp = comp;
@@ -94,6 +94,42 @@ namespace ft
 				_node_alloc.construct(node, Node(value));
 				return node;
 			}
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+	void printHelper(node_pointer root, std::string indent, bool last)
+	{
+		if (root != NULL)
+		{
+			std::cout << indent;
+			if (last)
+			{
+				std::cout << "R----";
+				indent += "   ";
+			}
+			else
+			{
+				std::cout << "L----";
+				indent += "|  ";
+			}
+
+			std::string sColor = "BLACK";
+			if (root->color == RED)
+				sColor = "RED";
+			std::cout << root->data.second << "(" << sColor << ")" << std::endl;
+			printHelper(root->left, indent, false);
+			printHelper(root->right, indent, true);
+		}
+	}
+
+	void printRBTree()
+	{
+		if (_root)
+			printHelper(_root, "", true);
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////
+
 
 		// ==================== Capacity
 			bool empty() const
@@ -129,20 +165,43 @@ namespace ft
 		ft::pair<iterator, bool>	insert(const_reference val) // Check ret value
 		{
 			node_pointer node = create_node(val);
-			ft::pair<iterator, bool> ret;
+			node_pointer tmp;
 
 			if (empty())
 				return insert_empty(node);
-			ret = bst_insert(node);
+			tmp = bst_find(node->data);
+			if (tmp)
+			{
+				// Delete node ?
+				std::cout << "Already a node\n";
+				return ft::make_pair(iterator(tmp), false);
+			}
+			std::cout << "tmp : " << &tmp << std::endl;
+			bst_insert(node, &tmp);
 
-			// Insert
 			// Fix violations
-
-			ret = ft::make_pair(iterator(node), false);
-			return ret;
+			_size++;
+			return ft::make_pair(iterator(tmp), false);
 		}
 
 	private :
+
+		node_pointer bst_find(const_reference to_find) const // Maybe not enough
+		{
+			node_pointer tmp = _root;
+
+			while (tmp && tmp != _start && tmp != _end)
+			{
+				if (_comp(to_find.first, tmp->data.first))
+					tmp = tmp->left;
+				else if (_comp(tmp->data.first, to_find.first))
+					tmp = tmp->right;
+				else
+					return tmp;
+			}
+			return NULL;
+		}
+
 		ft::pair<iterator, bool> insert_empty(node_pointer node)
 		{
 			_root = node;
@@ -155,15 +214,18 @@ namespace ft
 			return ft::make_pair(iterator(_root), true);
 		}
 
-		ft::pair<iterator, bool> bst_insert(node_pointer node) // return a bool ??
+		void bst_insert(node_pointer to_insert, Node **parent)
 		{
-			/* find place to insert
-			if find return 0, there is the same key in the tree and need to return the pos as it (i guess??)
-			else
-				??
-			*/
-			// node_pointer to_find = bst_find(node->data); //
-			return ft::make_pair(iterator(node), true);
+			std::cout << "bst insert\n";
+			std::cout << "PArent : " << &parent << std::endl;
+			// to_insert->parent = parent;
+			// if (_comp(to_insert->data.first, parent->data.first))
+			// {
+			// 	parent->left = to_insert;
+			// }
+			// else
+			// 	parent->right = to_insert;
+			(void)to_insert;
 		}
 
 	};

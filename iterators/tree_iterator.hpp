@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/06 19:40:32 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/07 09:31:15 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ namespace ft
 	class tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
 	{
 		public :
-			typedef typename ft::iterator_traits::iterator_category	iterator_category;
-			typedef typename ft::iterator_traits::value_type			value_type;
-			typedef typename ft::iterator_traits::difference_type	difference_type;
-			typedef T*													pointer;
-			typedef T&													reference;
-			typedef N													node_pointer;
+			typedef typename ft::iterator_traits<N>::iterator_category	iterator_category;
+			typedef typename ft::iterator_traits<N>::value_type		value_type;
+			typedef typename ft::iterator_traits<N>::difference_type	difference_type;
+			typedef T*												pointer;
+			typedef T&												reference;
+			typedef N												node_pointer;
 
 		protected :
 			node_pointer _current;
