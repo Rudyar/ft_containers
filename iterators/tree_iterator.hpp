@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/07 09:31:15 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 18:23:03 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@
 namespace ft
 {
 
-	template <typename T, typename N, class Compare> // Keep T, if not change T to N ?? T is a pair, N node_pointer
-	class tree_iterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
+	template <typename T, typename N, class Compare> // Keep T ?
+	class tree_iterator : ft::iterator<ft::bidirectional_iterator_tag, N> // inherite public from iterator
 	{
 		public :
 			typedef typename ft::iterator_traits<N>::iterator_category	iterator_category;
-			typedef typename ft::iterator_traits<N>::value_type		value_type;
+			typedef typename ft::iterator_traits<N>::value_type			value_type;
 			typedef typename ft::iterator_traits<N>::difference_type	difference_type;
-			typedef T*												pointer;
-			typedef T&												reference;
-			typedef N												node_pointer;
+			typedef T*													pointer;
+			typedef T&													reference;
+			typedef N													node_pointer;
+			typedef N&													node_reference;
 
 		protected :
 			node_pointer _current;
@@ -48,11 +49,13 @@ namespace ft
 				return *this;
 			}
 
+			// node_reference operator*() const
 			reference operator*() const
 			{
 				return _current->data;
 			}
 
+			// node_pointer operator->() const
 			pointer operator->() const
 			{
 				return &(_current->data);
@@ -98,7 +101,7 @@ namespace ft
 				else
 				{
 					node_pointer tmp = _current->parent;
-					while (_current == tmp->left)
+					while (tmp && _current == tmp->left)
 					{
 						_current = tmp;
 						tmp = tmp->parent;
@@ -111,6 +114,7 @@ namespace ft
 			tree_iterator operator--(int) // n--
 			{
 				tree_iterator tmp(*this);
+				std::cout << "Coucou : " << _current->parent->data.second << std::endl;
 				operator--();
 				return tmp;
 			}

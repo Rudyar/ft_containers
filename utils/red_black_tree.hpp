@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 16:12:26 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 18:41:03 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ namespace ft
 			// typedef typename node_allocator::pointer						node_pointer; // From les boss, need to erase i think
 
 			node_pointer		_root;
+			node_pointer		_end;
 			size_type			_size;
 			allocator_type		_alloc;
 			node_allocator		_node_alloc;
@@ -79,8 +80,8 @@ namespace ft
 			{
 				_alloc = alloc;
 				_node_alloc = node_allocator();
-				// _root = create_node();
-				_root = NULL;
+				_end = create_node();
+				_root = _end;
 				_size = 0;
 				_comp = comp;
 			}
@@ -103,36 +104,36 @@ namespace ft
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-	void	printHelper(node_pointer root, std::string indent, bool last)
-	{
-		if (root != NULL)
-		{
-			std::cout << indent;
-			if (last)
+			void	printHelper(node_pointer root, std::string indent, bool last)
 			{
-				std::cout << "R---- ";
-				indent += "   ";
-			}
-			else
-			{
-				std::cout << "L---- ";
-				indent += "|  ";
+				if (root != NULL)
+				{
+					std::cout << indent;
+					if (last)
+					{
+						std::cout << "R---- ";
+						indent += "   ";
+					}
+					else
+					{
+						std::cout << "L---- ";
+						indent += "|  ";
+					}
+
+					std::string sColor = "BLACK";
+					if (root->color == RED)
+						sColor = "RED";
+					std::cout << root->data.second << " (" << sColor << ")" << std::endl;
+					printHelper(root->left, indent, false);
+					printHelper(root->right, indent, true);
+				}
 			}
 
-			std::string sColor = "BLACK";
-			if (root->color == RED)
-				sColor = "RED";
-			std::cout << root->data.second << " (" << sColor << ")" << std::endl;
-			printHelper(root->left, indent, false);
-			printHelper(root->right, indent, true);
-		}
-	}
-
-	void	printRBTree()
-	{
-		if (_root)
-			printHelper(_root, "", true);
-	}
+			void	printRBTree()
+			{
+				if (_root)
+					printHelper(_root, "", true);
+			}
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -162,7 +163,7 @@ namespace ft
 
 		iterator	end() // Recheck
 		{
-			return iterator(_max_node());
+			return iterator(_end);
 		}
 
 		// ==================== Modifiers
@@ -175,7 +176,7 @@ namespace ft
 
 			if (empty())
 				return _insert_empty(node);
-			while (tmp != NULL) // Find if already a node with the same key, if not, give pos for new node
+			while (tmp != NULL && tmp != _end) // Find if already a node with the same key, if not, give pos for new node
 			{
 				parent = tmp;
 				if (_comp(val.first, tmp->data.first))
@@ -183,7 +184,11 @@ namespace ft
 				else if (_comp(tmp->data.first, val.first))
 					tmp = tmp->right;
 				else
+				{ // Check if need to find new end
+					_destroy_node(node);
+					_assign_end();
 					return ft::make_pair(iterator(tmp), false); // already a node
+				}
 			}
 			node->parent = parent;
 			if (_comp(val.first, parent->data.first))
@@ -192,6 +197,7 @@ namespace ft
 				parent->right = node;
 			_bst_fix_insert(node);
 			_size++;
+			_assign_end();
 			return ft::make_pair(iterator(node), true);
 		}
 
@@ -222,7 +228,8 @@ namespace ft
 		{
 			_root = node;
 			_root->left = NULL;
-			_root->right = NULL;
+			_root->right = _end;
+			_end->parent = _root;
 			_root->color = BLACK;
 			_size++;
 			return ft::make_pair(iterator(_root), true);
@@ -268,53 +275,53 @@ namespace ft
 
 		void	_left_rotate(node_pointer node)
 		{
-			node_pointer n_right = node->right;
+			node_pointer tmp = node->right;
 
-			node->right = n_right->left;
+			node->right = tmp->left;
 
-			if (n_right->left)
-				n_right->left->parent = node;
+			if (tmp->left)
+				tmp->left->parent = node;
 
-			n_right->parent = node->parent;
+			tmp->parent = node->parent;
 
 			if (!node->parent)
-				_root = n_right;
+				_root = tmp;
 			else if (node == node->parent->left)
-				node->parent->left = n_right;
+				node->parent->left = tmp;
 			else
-				node->parent->right = n_right;
-			n_right->left = node;
-			node->parent = n_right;
+				node->parent->right = tmp;
+			tmp->left = node;
+			node->parent = tmp;
 		}
 
 		void	_right_rotate(node_pointer node)
 		{
-			node_pointer n_left = node->left;
+			node_pointer tmp = node->left;
 
-			node->left = n_left->right;
+			node->left = tmp->right;
 
-			if (n_left->right)
-				n_left->right->parent = node;
+			if (tmp->right)
+				tmp->right->parent = node;
 
-			n_left->parent = node->parent;
+			tmp->parent = node->parent;
 
 			if (!node->parent)
-				_root = n_left;
+				_root = tmp;
 			else if (node == node->parent->left)
-				node->parent->left = n_left;
+				node->parent->left = tmp;
 			else
-				node->parent->right = n_left;
-			n_left->right = node;
-			node->parent = n_left;
+				node->parent->right = tmp;
+			tmp->right = node;
+			node->parent = tmp;
 		}
 
-		void	_swap_colors(node_pointer x, node_pointer y)
-		{
-			node_pointer tmp = x;
+		// void	_swap_colors(node_pointer x, node_pointer y)
+		// {
+		// 	node_pointer tmp = x;
 
-			x->color = y->color;
-			y->color = tmp->color;
-		}
+		// 	x->color = y->color;
+		// 	y->color = tmp->color;
+		// }
 
 		node_pointer	_fix_red_uncle(node_pointer p, node_pointer gp, node_pointer u)
 		{
@@ -343,7 +350,7 @@ namespace ft
 	{
 		node_pointer max = _root;
 
-		while (max && max->right != NULL)
+		while (max && max->right != NULL && max->right != _end)
 			max = max->right;
 		return max;
 	}
@@ -352,6 +359,16 @@ namespace ft
 	{
 		p->color = BLACK;
 		gp->color = RED;
+	}
+
+	void	_assign_end()
+	{
+		node_pointer max_node = _max_node();
+
+		max_node->right = _end;
+		_end->parent = max_node;
+		_end->right = NULL;
+		_end->color = BLACK;
 	}
 
 	};

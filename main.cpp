@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 15:52:39 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 18:39:20 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,37 +63,31 @@ void print_vec(__MACRO::vector<int> vec)
 int	main(void)
 {
 	__MACRO::map<int, std::string> test;
-	test.insert(__MACRO::pair<int , std::string>(0, "0"));
+	test.insert(__MACRO::pair<int , std::string>(0, "min"));
 	test.insert(__MACRO::pair<int , std::string>(2, "2"));
-	test.insert(__MACRO::pair<int , std::string>(10, "10"));
-	test.insert(__MACRO::pair<int , std::string>(4, "4"));
+	test.insert(__MACRO::pair<int , std::string>(10, "max"));
+	test.insert(__MACRO::pair<int , std::string>(4, "coucou"));
 	test.insert(__MACRO::pair<int , std::string>(9, "9"));
 	test.insert(__MACRO::pair<int , std::string>(1, "1"));
 	test.insert(__MACRO::pair<int , std::string>(3, "3"));
 
 	test.printTree();
 
-	// __MACRO::map<int, std::string>::iterator it;
-	// __MACRO::map<int, std::string>::iterator ite;
-	// it = test.begin();
-	// ite = test.end();
+	__MACRO::map<int, std::string>::iterator it;
+	__MACRO::map<int, std::string>::iterator ite2;
+	it = test.begin();
+	ite2 = test.end();
+	// --ite2;
 
 	// std::cout<< std::endl << "Size : " << test.size() << std::endl;
 	// std::cout << "It first : " << it->first << std::endl;
 	// std::cout << "It second : " << it->second << std::endl;
-	// std::cout << "Ite first : " << ite->first << std::endl;
-	// std::cout << "Ite second : " << ite->second << std::endl;
-	// std::cout << "Empty ? " << test.empty() << std::endl;
-	// std::cout << "Max size : " << test.max_size() << std::endl;
+	std::cout << "Ite first : " << ite2->first << std::endl;
+	std::cout << "Ite second : " << ite2->second << std::endl;
 
-	// test.insert(std::pair<int, std::string>(1, "coucou"));
-	// test.insert(std::pair<int, std::string>(10, "salut"));
-	// test.insert(std::pair<int, std::string>(-10, "salut"));
 
-	// __MACRO::map<int, std::string>::iterator it;
-	// for (it = test.begin(); it != test.end(); it++)
-	// 	std::cout << "Key : " << it->first << " Value : " << it->second << std::endl;
 
+////////////////////////////////////////////////////
 	// vector_tests();
 	// stack_tests();
 	return 0;
