@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/07 20:13:13 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 10:50:34 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ namespace ft
 			// typedef typename node_allocator::pointer						node_pointer; // From les boss, need to erase i think
 
 			node_pointer		_root;
-			node_pointer		_start;
-			node_pointer		_end;
+			// node_pointer		_start;
+			// node_pointer		_end;
 			size_type			_size;
 			allocator_type		_alloc;
 			node_allocator		_node_alloc;
@@ -81,11 +81,12 @@ namespace ft
 			{
 				_alloc = alloc;
 				_node_alloc = node_allocator();
-				_start = create_node();
-				_end = create_node();
+				// _start = create_node();
+				// _end = create_node();
 				// _start->color = BLACK; // Maybe red
 				// _end->color = BLACK; // Maybe red
-				_root = _end;
+				// _root = _end;
+				_root = create_node();
 				_size = 0;
 				_comp = comp;
 			}
@@ -100,6 +101,9 @@ namespace ft
 				node_pointer node = _node_alloc.allocate(1);
 				_node_alloc.construct(node, Node(value));
 				node->color = RED;
+				node->left = NULL;
+				node->right = NULL;
+				node->parent = NULL;
 				return node;
 			}
 
@@ -158,37 +162,67 @@ namespace ft
 		// ==================== Accessor
 		iterator	begin() // Recheck, use a funct "most left and return the parent"
 		{
-			if (empty())
-				return end();
-			return iterator(_start->parent);
+			// if (empty())
+			// 	return end();
+			// return iterator(_start->parent);
+			return(iterator(_min_node()));
+
 		}
 
 		iterator	end() // Recheck
 		{
-			return iterator(_end);
+			// return iterator(_end);
+			return iterator(_max_node());
 		}
 
 		// ==================== Modifiers
 
 		ft::pair<iterator, bool>	insert(const_reference val)
 		{
-			node_pointer node = create_node(val);
-			node_pointer tmp;
+			// node_pointer node = create_node(val);
+			// // node_pointer tmp;
 
-			if (empty())
-				return _insert_empty(node);
-			_bst_find(node->data, &tmp);
-			if (tmp->data.first == node->data.first) // If a node with the same key already exist, destroy
-			{
-				std::cout << "Already a node : " << tmp->data.first << std::endl;
-				_destroy_node(node);
-				return ft::make_pair(iterator(tmp), false);
-			}
-			_bst_insert(node, &tmp);
-			if (node->parent && node->parent->parent)
-				_bst_fix_insert(node);
-			// find new _start and new _end with most left or right funct ?
+			// node_pointer y = NULL;
+			// node_pointer x = _root;
 
+			// if (empty())
+			// 	return _insert_empty(node);
+
+			// // _bst_find(node->data, &tmp);
+			// // tmp = _bst_find(node->data, &tmp);
+
+			// while (x != NULL)
+			// {
+			// 	y = x;
+			// 	if (_comp(node->data.first, x->data.first))
+			// 		x = x->left;
+			// 	else if (_comp(x->data.first, node->data.first))
+			// 		x = x->right;
+			// 	else
+			// 		return ft::make_pair(iterator(x), false);
+			// }
+
+			// node->parent = y;
+			// if (_comp(y->data.first, x->data.first))
+			// 	y->right  = x;
+			// else
+			// 	y->left = x;
+
+
+
+
+			// if (tmp->data.first == node->data.first) // If a node with the same key already exist, destroy
+			// {
+			// 	std::cout << "Already a node : " << tmp->data.first << std::endl;
+			// 	_destroy_node(node);
+			// 	// _assign_leaves();
+			// 	return ft::make_pair(iterator(tmp), false);
+			// }
+
+			// _bst_insert(node, &tmp);
+
+			_bst_fix_insert(node);
+			// _assign_leaves();
 			_size++;
 			return ft::make_pair(iterator(tmp), false);
 		}
@@ -199,8 +233,11 @@ namespace ft
 		node_pointer	_bst_find(const_reference to_find, node_pointer *x) const // Maybe not enough
 		{
 			node_pointer tmp = _root;
+			// (void)x;
+			// node_pointer min = _min_node();
+			node_pointer max = _max_node();
 
-			while (tmp && tmp != _start && tmp != _end)
+			while (tmp != NULL)
 			{
 				*x = tmp;
 				if (_comp(tmp->data.first, to_find.first))
@@ -210,17 +247,23 @@ namespace ft
 				else
 					return tmp;
 			}
-			return NULL;
+			return max;
 		}
 
 		ft::pair<iterator, bool>	_insert_empty(node_pointer node)
 		{
+			// _root = node;
+			// _root->left = _start;
+			// _root->right = _end;
+			// _start->parent = _root;
+			// _end->parent = _root;
+			// _root->color = BLACK;
+
 			_root = node;
-			_root->left = _start;
-			_root->right = _end;
-			_start->parent = _root;
-			_end->parent = _root;
+			_root->left = NULL;
+			_root->right = NULL;
 			_root->color = BLACK;
+
 			_size++;
 			return ft::make_pair(iterator(_root), true);
 		}
@@ -268,9 +311,9 @@ namespace ft
 							node = node->parent;
 							_left_rotate(node);
 						}
-						// node->parent->color = BLACK;
-						// node->parent->parent->color = RED;
-						_swap_colors(node->parent->parent, node->parent); // Need to check
+						node->parent->color = BLACK;
+						node->parent->parent->color = RED;
+						// _swap_colors(node->parent->parent, node->parent); // Need to check
 						_right_rotate(node->parent->parent);
 					}
 				}
@@ -344,8 +387,34 @@ namespace ft
 			_node_alloc.deallocate(node, 1);
 		}
 
-	};
+	node_pointer	_min_node() const
+	{
+		node_pointer min = _root;
 
+		while (min && min->left != NULL)
+			min = min->left;
+		return min;
+	}
+
+	node_pointer	_max_node() const
+	{
+		node_pointer max = _root;
+
+		while (max && max->right != NULL)
+			max = max->right;
+		return max;
+	}
+
+	void	_assign_leaves()
+	{
+		node_pointer min = _min_node();
+		node_pointer max = _max_node();
+
+		std::cout << "Min : " << min->data.second << std::endl;
+		std::cout << "Max : " << max->data.second << std::endl;
+	}
+
+	};
 } // namespace ft
 
 
