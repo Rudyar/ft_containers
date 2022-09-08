@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 10:01:58 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 15:52:39 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(void)
 	// it = test.begin();
 	// ite = test.end();
 
-	// // std::cout<< std::endl << "Size : " << test.size() << std::endl;
+	// std::cout<< std::endl << "Size : " << test.size() << std::endl;
 	// std::cout << "It first : " << it->first << std::endl;
 	// std::cout << "It second : " << it->second << std::endl;
 	// std::cout << "Ite first : " << ite->first << std::endl;
