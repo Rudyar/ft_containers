@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 18:23:03 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 19:32:38 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ namespace ft
 			typedef T*													pointer;
 			typedef T&													reference;
 			typedef N													node_pointer;
-			typedef N&													node_reference;
 
 		protected :
 			node_pointer _current;
@@ -49,13 +48,11 @@ namespace ft
 				return *this;
 			}
 
-			// node_reference operator*() const
 			reference operator*() const
 			{
 				return _current->data;
 			}
 
-			// node_pointer operator->() const
 			pointer operator->() const
 			{
 				return &(_current->data);
@@ -114,7 +111,6 @@ namespace ft
 			tree_iterator operator--(int) // n--
 			{
 				tree_iterator tmp(*this);
-				std::cout << "Coucou : " << _current->parent->data.second << std::endl;
 				operator--();
 				return tmp;
 			}

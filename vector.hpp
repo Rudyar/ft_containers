@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/25 16:33:25 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 19:37:07 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,6 @@ namespace ft
 				if (*this == rhs)
 					return *this;
 				assign(rhs.begin(), rhs.end());
-				// clear();
-				// for (const_iterator it = rhs.begin(); it != rhs.end(); it++)
-				// 	this->push_back(*it);
 				return *this;
 			}
 
@@ -148,7 +145,7 @@ namespace ft
 			}
 			const_reverse_iterator rbegin() const
 			{
-				return reverse_iterator(end());
+				return const_reverse_iterator(end());
 			}
 			reverse_iterator rend()
 			{
@@ -156,7 +153,7 @@ namespace ft
 			}
 			const_reverse_iterator rend() const
 			{
-				return reverse_iterator(begin());
+				return const_reverse_iterator(begin());
 			}
 
 			// capacity:

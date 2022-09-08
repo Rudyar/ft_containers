@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/07 14:01:26 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 19:44:21 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 			typedef typename ft::red_black_tree<value_type, key_type, key_compare, allocator_type>	tree_type;
 			//////////////////////////////////////////////
 			typedef typename tree_type::iterator													iterator;
-			// typedef typename tree_type::const_iterator											const_iterator;
+			typedef typename tree_type::const_iterator												const_iterator;
 			// typedef reverse ?																	reverse_iterator;
 			// typedef reverse ?																	const_reverse_iterator;
 
@@ -86,10 +86,10 @@ namespace ft
 
 /////////////////////////////////////////////////////////////////
 
-	void printTree()
-	{
-		_tree.printRBTree();
-	}
+			void printTree()
+			{
+				_tree.printRBTree();
+			}
 
 /////////////////////////////////////////////////////////////////
 
@@ -106,20 +106,20 @@ namespace ft
 				return _tree.begin();
 			}
 
-			// const_iterator begin() const
-			// {
-			// 	return _tree.begin();
-			// }
+			const_iterator begin() const
+			{
+				return _tree.begin();
+			}
 
 			iterator end() // Try to iter in a loop with end (see jbonniva Discord msg)
 			{
 				return _tree.end();
 			}
 
-			// const_iterator end() const
-			// {
-				// return _tree.end();
-			// }
+			const_iterator end() const
+			{
+				return _tree.end();
+			}
 
 			// iterator rbegin()
 			// {
@@ -172,16 +172,18 @@ namespace ft
 				return _tree.insert(x);
 			}
 
-			// iterator insert(iterator position, const value_type& x)
-			// {
-			// 	_tree.insert(x);
-			// 	return position;
-			// }
+			iterator insert(iterator position, const value_type& x)
+			{
+				(void)position;
+				return _tree.insert(x).first;
+			}
 
-			// template<class InputIterator>
-			// void insert(InputIterator first, InputIterator last)
-			// {
-			// }
+			template<class InputIterator>
+			void insert(InputIterator first, InputIterator last)
+			{
+				for (; first != last ; first++)
+					_tree.insert(*first);
+			}
 
 			// void erase(iterator position)
 			// {
@@ -260,18 +262,6 @@ namespace ft
 	};
 
 	template <class Key, class T, class Compare, class Alloc>
-	bool operator==(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
-	{
-		return true; // ???
-	}
-
-	template <class Key, class T, class Compare, class Alloc>
-	bool operator!=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
-	{
-		return !(lhs == rhs);
-	}
-
-	template <class Key, class T, class Compare, class Alloc>
 	bool operator<(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
 	{
 		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
@@ -281,6 +271,18 @@ namespace ft
 	bool operator>(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
 	{
 		return rhs < lhs;
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator==(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(rhs < lhs) && !(lhs < rhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator!=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(lhs == rhs);
 	}
 
 	template <class Key, class T, class Compare, class Alloc>

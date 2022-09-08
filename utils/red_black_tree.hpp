@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 18:41:03 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/08 19:44:46 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ namespace ft
  			// rebind is for allocating mem for a type that diff from the element type of the class being implemented
 			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
 			typedef	Node*													node_pointer;
-			// typedef typename node_allocator::pointer						node_pointer; // From les boss, need to erase i think
+			typedef const Node*												const_node_pointer;
 
 			node_pointer		_root;
 			node_pointer		_end;
@@ -74,7 +74,8 @@ namespace ft
 
 		public :
 			// Define Iterators here
-			typedef typename ft::tree_iterator<value_type, node_pointer, compare_type>			iterator;
+			typedef typename ft::tree_iterator<value_type, node_pointer, compare_type>		iterator;
+			typedef typename ft::tree_iterator<const value_type, const_node_pointer, compare_type>		const_iterator;
 
 			red_black_tree(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
 			{
@@ -155,15 +156,25 @@ namespace ft
 			}
 
 		// ==================== Accessor
-		iterator	begin() // Recheck, use a funct "most left and return the parent"
+		iterator	begin()
 		{
 			return iterator(_min_node());
 
 		}
 
-		iterator	end() // Recheck
+		const_iterator	begin() const
+		{
+			return const_iterator(_min_node());
+		}
+
+		iterator	end()
 		{
 			return iterator(_end);
+		}
+
+		const_iterator	end() const
+		{
+			return const_iterator(_end);
 		}
 
 		// ==================== Modifiers
