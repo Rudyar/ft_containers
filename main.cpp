@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 19:42:45 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/09 10:00:57 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,38 +62,47 @@ void print_vec(__MACRO::vector<int> vec)
 
 int	main(void)
 {
-	// __MACRO::map<int, std::string> test;
-	// test.insert(__MACRO::pair<int , std::string>(0, "min"));
-	// test.insert(__MACRO::pair<int , std::string>(2, "2"));
-	// test.insert(__MACRO::pair<int , std::string>(10, "max"));
-	// test.insert(__MACRO::pair<int , std::string>(4, "coucou"));
-	// test.insert(__MACRO::pair<int , std::string>(9, "9"));
-	// test.insert(__MACRO::pair<int , std::string>(1, "1"));
-	// test.insert(__MACRO::pair<int , std::string>(3, "3"));
+	__MACRO::map<int, std::string> test;
+	test.insert(__MACRO::pair<int , std::string>(0, "min"));
+	test.insert(__MACRO::pair<int , std::string>(2, "2"));
+	test.insert(__MACRO::pair<int , std::string>(10, "max"));
+	test.insert(__MACRO::pair<int , std::string>(4, "coucou"));
+	test.insert(__MACRO::pair<int , std::string>(9, "9"));
+	test.insert(__MACRO::pair<int , std::string>(1, "1"));
+	test.insert(__MACRO::pair<int , std::string>(3, "3"));
 
-	// test.printTree();
+	test.printTree();
 
-	// __MACRO::map<int, std::string>::iterator it;
-	// __MACRO::map<int, std::string>::iterator ite2;
-	// it = test.begin();
-	// ite2 = test.end();
-	// // --ite2;
+	__MACRO::map<int, std::string>::iterator it;
+	__MACRO::map<int, std::string>::iterator ite;
+	it = test.begin();
+	ite = test.end();
 
-	// // std::cout<< std::endl << "Size : " << test.size() << std::endl;
-	// // std::cout << "It first : " << it->first << std::endl;
-	// // std::cout << "It second : " << it->second << std::endl;
-	// std::cout << "Ite first : " << ite2->first << std::endl;
-	// std::cout << "Ite second : " << ite2->second << std::endl;
+	// std::cout<< std::endl << "Size : " << test.size() << std::endl;
+	std::cout << "It second : " << it->second << std::endl;
+	it++;
+	std::cout << "It second : " << it->second << std::endl;
+	it++;
+	std::cout << "It second : " << it->second << std::endl;
+	it++;
+	std::cout << "It second : " << it->second << std::endl;
+	it++;
+	std::cout << "It second : " << it->second << std::endl;
+	it++;
+	std::cout << "It second : " << it->second << std::endl;
+	it++;
+	std::cout << "It second : " << it->second << std::endl;
 
-	__MACRO::map<char,int> foo, bar;
-	foo.insert(__MACRO::pair<char, int>('a', 100));
-	foo.insert(__MACRO::pair<char, int>('b', 200));
-	foo.insert(__MACRO::pair<char, int>('a', 10));
-	foo.insert(__MACRO::pair<char, int>('z', 1000));
+	// __MACRO::map<char,int> foo, bar;
+	// foo.insert(__MACRO::pair<char, int>('a', 100));
+	// foo.insert(__MACRO::pair<char, int>('b', 200));
+	// foo.insert(__MACRO::pair<char, int>('a', 10));
+	// foo.insert(__MACRO::pair<char, int>('z', 1000));
 
-	__MACRO::map<int, std::string>::const_iterator cit;
-	cit = foo.begin();
-
+	// __MACRO::map<int, std::string>::const_iterator cit;
+	// cit = foo.begin();
+	// (void)cit;
+	// std::cout << "cit : " *cit << std::endl;
 	// foo['a']=100;
 	// foo['b']=200;
 	// bar['a']=10;

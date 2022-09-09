@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 19:32:38 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/09 09:28:09 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 namespace ft
 {
 
-	template <typename T, typename N, class Compare> // Keep T ?
+	template <typename T, typename N, class Compare>
 	class tree_iterator : ft::iterator<ft::bidirectional_iterator_tag, N> // inherite public from iterator
 	{
 		public :
@@ -111,6 +111,105 @@ namespace ft
 			tree_iterator operator--(int) // n--
 			{
 				tree_iterator tmp(*this);
+				operator--();
+				return tmp;
+			}
+	};
+
+	/////////////////////////////////////////////////
+
+template <typename T, typename N, class Compare>
+	class const_tree_iterator : ft::iterator<ft::bidirectional_iterator_tag, N> // inherite public from iterator
+	{
+		public :
+			typedef typename ft::iterator_traits<N>::iterator_category	iterator_category;
+			typedef typename ft::iterator_traits<N>::value_type			value_type;
+			typedef typename ft::iterator_traits<N>::difference_type	difference_type;
+			typedef T*													pointer;
+			typedef T&													reference;
+			typedef N													node_pointer;
+
+		protected :
+			node_pointer _current;
+
+		public :
+			const_tree_iterator() : _current(NULL) {}
+
+			const_tree_iterator(node_pointer node) : _current(node) {}
+
+			const_tree_iterator(const const_tree_iterator &x) : _current(x._current) {}
+
+			const_tree_iterator& operator=(const const_tree_iterator& rhs)
+			{
+				if (this == &rhs)
+					return *this;
+				_current = rhs._current;
+				return *this;
+			}
+
+			reference operator*() const
+			{
+				return _current->data;
+			}
+
+			pointer operator->() const
+			{
+				return &(_current->data);
+			}
+
+			const_tree_iterator& operator++() // ++n
+			{
+				if (_current && _current->right)
+				{
+					_current = _current->right;
+					while (_current->left && _current->left != NULL)
+						_current = _current->left;
+				}
+				else
+				{
+					node_pointer tmp = _current->parent;
+					while (_current == tmp->right)
+					{
+						_current = tmp;
+						tmp = tmp->parent;
+					}
+					if (_current->right != tmp) // Not sure about this, need to test increment when _current is full right, but i think it fix the most left++
+						_current = tmp;
+				}
+				return *this;
+			}
+
+			const_tree_iterator operator++(int) // n++;
+			{
+				const_tree_iterator tmp(*this);
+				operator++();
+				return tmp;
+			}
+
+			const_tree_iterator& operator--() // --n
+			{
+				if (_current && _current->left)
+				{
+					_current = _current->left;
+					while (_current->right && _current->right != NULL)
+						_current = _current->right;
+				}
+				else
+				{
+					node_pointer tmp = _current->parent;
+					while (tmp && _current == tmp->left)
+					{
+						_current = tmp;
+						tmp = tmp->parent;
+					}
+					_current = tmp;
+				}
+				return *this;
+			}
+
+			const_tree_iterator operator--(int) // n--
+			{
+				const_tree_iterator tmp(*this);
 				operator--();
 				return tmp;
 			}

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 19:44:46 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/09 10:05:35 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,11 @@ enum e_color
 
 namespace ft
 {
-	template <typename T, typename K, class Compare, class Alloc> // T is a pair, do I need to keep K (key type of map) ?
+	template <typename T, class Compare> // T is a pair, do I need to keep K (key type of map) ?
 	class red_black_tree
 	{
 		private :
-			typedef T						value_type;
-			typedef size_t					size_type;
-			typedef Alloc					allocator_type;
-			typedef Compare					compare_type;
-			typedef value_type*				pointer;
-			typedef const value_type&		const_reference;
+			typedef T	value_type;
 
 			// Private nested struct, can't access outside tree, for each nodes
 			struct Node
@@ -57,30 +52,37 @@ namespace ft
 				Node		*right;
 				Node		*parent;
 
-				Node(const T& p = T()) : data(p), left(NULL), right(NULL), parent(NULL) {}
+				Node(const value_type& p = value_type()) : data(p), left(NULL), right(NULL), parent(NULL) {}
 			};
- 			// rebind is for allocating mem for a type that diff from the element type of the class being implemented
-			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
-			typedef	Node*													node_pointer;
-			typedef const Node*												const_node_pointer;
 
+			// typedef Alloc					allocator_type;
+			typedef size_t								size_type;
+			typedef Compare								compare_type;
+			typedef value_type*							pointer;
+			typedef	Node*								node_pointer;
+			typedef const value_type&					const_reference;
+			typedef typename std::allocator<Node>		node_allocator;
+			typedef const Node*							const_node_pointer;
+
+ 			// rebind is for allocating mem for a type that diff from the element type of the class being implemented
+			// typedef typename allocator_type::template rebind<Node>::other	node_allocator;
+
+			// allocator_type		_alloc;
 			node_pointer		_root;
 			node_pointer		_end;
 			size_type			_size;
-			allocator_type		_alloc;
 			node_allocator		_node_alloc;
 			compare_type		_comp;
-			K					_key; // Not sur if needed ?
 
 		public :
 			// Define Iterators here
 			typedef typename ft::tree_iterator<value_type, node_pointer, compare_type>		iterator;
-			typedef typename ft::tree_iterator<const value_type, const_node_pointer, compare_type>		const_iterator;
+			// typedef typename ft::const_tree_iterator<value_type, const_node_pointer, compare_type>		const_iterator;
 
-			red_black_tree(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
+			red_black_tree(const compare_type& comp = compare_type(), const node_allocator& node_alloc = node_allocator())
 			{
-				_alloc = alloc;
-				_node_alloc = node_allocator();
+				// _alloc = alloc;
+				_node_alloc = node_alloc;
 				_end = create_node();
 				_root = _end;
 				_size = 0;
@@ -162,20 +164,20 @@ namespace ft
 
 		}
 
-		const_iterator	begin() const
-		{
-			return const_iterator(_min_node());
-		}
+		// const_iterator	begin() const
+		// {
+		// 	return const_iterator(_min_node());
+		// }
 
 		iterator	end()
 		{
 			return iterator(_end);
 		}
 
-		const_iterator	end() const
-		{
-			return const_iterator(_end);
-		}
+		// const_iterator	end() const
+		// {
+		// 	return const_iterator(_end);
+		// }
 
 		// ==================== Modifiers
 

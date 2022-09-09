@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 19:44:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/09 09:51:52 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ namespace ft
 			typedef typename allocator_type::const_reference										const_reference;
 			typedef typename allocator_type::pointer												pointer;
 			typedef typename allocator_type::const_pointer											const_pointer;
-			typedef typename ft::red_black_tree<value_type, key_type, key_compare, allocator_type>	tree_type;
+			typedef typename ft::red_black_tree<value_type, key_compare>							tree_type;
 			//////////////////////////////////////////////
 			typedef typename tree_type::iterator													iterator;
-			typedef typename tree_type::const_iterator												const_iterator;
+			// typedef typename tree_type::const_iterator												const_iterator;
 			// typedef reverse ?																	reverse_iterator;
 			// typedef reverse ?																	const_reverse_iterator;
 
@@ -106,20 +106,20 @@ namespace ft
 				return _tree.begin();
 			}
 
-			const_iterator begin() const
-			{
-				return _tree.begin();
-			}
+			// const_iterator begin() const
+			// {
+			// 	return _tree.begin();
+			// }
 
 			iterator end() // Try to iter in a loop with end (see jbonniva Discord msg)
 			{
 				return _tree.end();
 			}
 
-			const_iterator end() const
-			{
-				return _tree.end();
-			}
+			// const_iterator end() const
+			// {
+			// 	return _tree.end();
+			// }
 
 			// iterator rbegin()
 			// {
