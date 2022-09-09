@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 11:07:02 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/09 14:48:57 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ namespace ft
 				}
 			}
 
-			void	printRBTree()
+			void	printred_black_tree()
 			{
 				if (_root)
 					printHelper(_root, "", true);
@@ -344,39 +344,39 @@ namespace ft
 			_node_alloc.deallocate(node, 1);
 		}
 
-	node_pointer	_min_node() const
-	{
-		node_pointer min = _root;
+		node_pointer	_min_node() const
+		{
+			node_pointer min = _root;
 
-		while (min && min->left != NULL)
-			min = min->left;
-		return min;
-	}
+			while (min && min->left != NULL)
+				min = min->left;
+			return min;
+		}
 
-	node_pointer	_max_node() const
-	{
-		node_pointer max = _root;
+		node_pointer	_max_node() const
+		{
+			node_pointer max = _root;
 
-		while (max && max->right != NULL && max->right != _end)
-			max = max->right;
-		return max;
-	}
+			while (max && max->right != NULL && max->right != _end)
+				max = max->right;
+			return max;
+		}
 
-	void	_assign_colors_p_gp(node_pointer p, node_pointer gp)
-	{
-		p->color = BLACK;
-		gp->color = RED;
-	}
+		void	_assign_colors_p_gp(node_pointer p, node_pointer gp)
+		{
+			p->color = BLACK;
+			gp->color = RED;
+		}
 
-	void	_assign_end()
-	{
-		node_pointer max_node = _max_node();
+		void	_assign_end()
+		{
+			node_pointer max_node = _max_node();
 
-		max_node->right = _end;
-		_end->parent = max_node;
-		_end->right = NULL;
-		_end->color = BLACK;
-	}
+			max_node->right = _end;
+			_end->parent = max_node;
+			_end->right = NULL;
+			_end->color = BLACK;
+		}
 
 	};
 } // namespace ft

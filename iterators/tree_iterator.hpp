@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 10:57:46 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/09 16:20:14 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,10 @@
 namespace ft
 {
 
-	// class tree_iterator : ft::iterator<ft::bidirectional_iterator_tag, T> // inherite public from iterator
 	template <typename T, typename N, class Compare> // T is a pair, N is node_pointer
 	class tree_iterator : ft::iterator<ft::bidirectional_iterator_tag, N> // inherite public from iterator
 	{
 		public :
-
-			// typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type		value_type;
-			// typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
-			// typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
-			// typedef T*																			pointer;
-			// typedef T&																			reference;
-			// typedef N																			node_pointer;
 
 			typedef typename ft::iterator_traits<N>::value_type			value_type;
 			typedef typename ft::iterator_traits<N>::iterator_category	iterator_category;
@@ -61,6 +53,11 @@ namespace ft
 			operator	tree_iterator<const T, N, Compare>() const // Thanks les bossss, is for const_iterator
 			{
 				return tree_iterator<const T, N, Compare>(_current);
+			}
+
+			node_pointer base() const
+			{
+				return _current;
 			}
 
 			reference operator*() const
@@ -131,7 +128,18 @@ namespace ft
 			}
 	};
 
-} // namespace ft
+	template <typename T, typename N, class Compare>
+	bool	operator==(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
 
+	template <typename T, typename N, class Compare>
+	bool	operator!=(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
+	{
+		return (lhs.base() != rhs.base());
+	}
+
+} // namespace ft
 
 #endif

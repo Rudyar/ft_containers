@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 11:03:33 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/09 15:42:38 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 #include <functional>
 #include "utils/pair.hpp"
 #include "utils/red_black_tree.hpp"
+#include "utils/lexicographical_compare.hpp"
+#include "iterators/reverse_iterator.hpp"
+// #include "iterators/tree_iterator.hpp"
 
 namespace ft
 {
@@ -41,8 +44,8 @@ namespace ft
 			////////////////////////////////////////
 			typedef typename tree_type::iterator							iterator;
 			typedef typename tree_type::const_iterator						const_iterator;
-			// typedef reverse ?											reverse_iterator;
-			// typedef reverse ?											const_reverse_iterator;
+			typedef typename ft::reverse_iterator<iterator>					reverse_iterator;
+			typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
 			class value_compare : std::binary_function<value_type, value_type, bool>
 			{
@@ -121,25 +124,25 @@ namespace ft
 				return _tree.end();
 			}
 
-			// iterator rbegin()
-			// {
-				// return _tree.rbegin();
-			// }
+			reverse_iterator rbegin()
+			{
+				return reverse_iterator(_tree.end());
+			}
 
-			// const_iterator rbegin() const
-			// {
-				// return _tree.rbegin();
-			// }
+			const_reverse_iterator rbegin() const
+			{
+				return const_revser_iterator(_tree.end());
+			}
 
-			// iterator rend()
-			// {
-				// return _tree.rend();
-			// }
+			reverse_iterator rend()
+			{
+				return reverse_iterator(_tree.begin());
+			}
 
-			// const_iterator rend() const
-			// {
-				// return _tree.rend();
-			// }
+			const_reverse_iterator rend() const
+			{
+				return const_reverse_iterator(_tree.begin());
+			}
 
 			// ==================== Capacity
 
@@ -259,24 +262,37 @@ namespace ft
 			{
 				return allocator_type();
 			}
+
 	};
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator==(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		typename map<Key, T, Compare, Alloc>::const_iterator it = lhs.begin();
+		typename map<Key, T, Compare, Alloc>::const_iterator it2 = rhs.begin();
+
+		if (lhs.size() != rhs.size())
+			return false;
+		while (it != lhs.end())
+		{
+			if (*it != *it2)
+				return false;
+			it++;
+			it2++;
+		}
+		return true;
+	}
 
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator<(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
 	{
-		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator>(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
 	{
 		return rhs < lhs;
-	}
-
-	template <class Key, class T, class Compare, class Alloc>
-	bool operator==(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
-	{
-		return !(rhs < lhs) && !(lhs < rhs);
 	}
 
 	template <class Key, class T, class Compare, class Alloc>
