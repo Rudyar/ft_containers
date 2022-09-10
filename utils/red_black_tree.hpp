@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/10 12:38:05 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/10 15:12:28 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ namespace ft
 			{
 				if (_size)
 					clear();
-				// _destroy_node(_end);
+				_destroy_node(_root);
 			}
 
 			node_pointer	create_node(const_reference value = value_type())

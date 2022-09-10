@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/10 12:48:44 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/10 15:10:27 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,26 @@ void print_vec(__MACRO::vector<int> vec)
 	}
 }
 
+void print_map(__MACRO::map<int, int> map)
+{
+	if (map.empty())
+	{
+		std::cout << "-----------------" << std::endl;
+		std::cout << "Map empty !" << std::endl;
+		std::cout << "-----------------" << std::endl;
+	}
+	else
+	{
+		__MACRO::map<int, int>::iterator it = map.begin();
+		__MACRO::map<int, int>::iterator ite = map.end();
+		std::cout << "-----------------" << std::endl;
+		std::cout << "Size : " << map.size() << std::endl;
+		for (; it != ite; it++)
+			std::cout << it->first << " ";
+		std::cout << std::endl << "-----------------" << std::endl;
+	}
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 int	main(void)
@@ -68,14 +88,38 @@ int	main(void)
 	std::list<T3> lst;
 	unsigned int lst_size = 7;
 	for (unsigned int i = 0; i < lst_size; ++i)
-	{
 		lst.push_back(T3(lst_size - i, i));
-		std::cout << "lst i :" << i << " " << lst.back().second << std::endl;
-	}
 
 	__MACRO::map<int, int> map(lst.begin(), lst.end());
+	__MACRO::map<int, int>::iterator it = map.begin();
+	__MACRO::map<int, int>::iterator ite = map.end();
 
-	map.printTree();
+	__MACRO::map<int, int> map_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		it->second = ++i * 7;
+
+	it = map.begin();
+	ite = --(--map.end());
+	std::cout << "before"<< std::endl;
+	__MACRO::map<int, int> map_copy(map);
+	std::cout << "after"<< std::endl;
+	for (int i = 0; it != ite; ++it)
+		it->second = ++i * 7;
+
+	it = map.begin();
+	ite = map.end();
+	std::cout << "-----------------" << std::endl;
+	std::cout << "Size : " << map.size() << std::endl;
+	for (; it != ite; it++)
+		std::cout << it->first << " ";
+	std::cout << std::endl << "-----------------" << std::endl;
+
+	// print_map(map);
+	// print_map(map_range);
+	// print_map(map_copy);
+
+
+	// map.printTree();
 ////////////////////////////////////////////////////
 	// vector_tests();
 	// stack_tests();

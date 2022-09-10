@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/10 12:38:19 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/10 15:14:08 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ namespace ft
 
 			map(const map& x)
 			{
-				map(x.begin(), x.end());
+				std::cout << "Cpy ctor : " << x.begin()->first << std::endl;
+				insert(x.begin(), x.end());
 			}
 
 			~map()
