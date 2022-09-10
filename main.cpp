@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 16:13:49 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/10 12:48:44 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,47 +57,25 @@ void print_vec(__MACRO::vector<int> vec)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
 int	main(void)
 {
+/* Tester les it rev it const it ... ++ et -- dans les extrémitées et les tricky (0 node, 1 node...)
+	Faire les constructor avec enableif...
+	Delete node rb tree
+*/
+	typedef __MACRO::pair<const int, int> T3;
 
-  __MACRO::map<char,int> foo, bar;
+	std::list<T3> lst;
+	unsigned int lst_size = 7;
+	for (unsigned int i = 0; i < lst_size; ++i)
+	{
+		lst.push_back(T3(lst_size - i, i));
+		std::cout << "lst i :" << i << " " << lst.back().second << std::endl;
+	}
 
-	foo.insert(__MACRO::pair<char, int>('a', 100));
-	foo.insert(__MACRO::pair<char, int>('b', 200));
-	bar.insert(__MACRO::pair<char, int>('a', 10));
-	bar.insert(__MACRO::pair<char, int>('z', 1000));
+	__MACRO::map<int, int> map(lst.begin(), lst.end());
 
-
-	// __MACRO::map<int, std::string> test;
-	// test.insert(__MACRO::pair<int , std::string>(0, "min"));
-	// test.insert(__MACRO::pair<int , std::string>(2, "2"));
-	// test.insert(__MACRO::pair<int , std::string>(10, "max"));
-	// test.insert(__MACRO::pair<int , std::string>(4, "coucou"));
-	// test.insert(__MACRO::pair<int , std::string>(9, "9"));
-	// test.insert(__MACRO::pair<int , std::string>(1, "1"));
-	// test.insert(__MACRO::pair<int , std::string>(3, "3"));
-
-	// test.printTree();
-
-	// foo.insert(__MACRO::pair<char, int>('a', 100));
-	// foo.insert(__MACRO::pair<char, int>('b', 200));
-	// foo.insert(__MACRO::pair<char, int>('a', 10));
-	// foo.insert(__MACRO::pair<char, int>('z', 1000));
-
-
-	// foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):
-	if (foo==bar) std::cout << "foo and bar are equal\n";
-	if (foo!=bar) std::cout << "foo and bar are not equal\n";
-	if (foo< bar) std::cout << "foo is less than bar\n";
-	if (foo> bar) std::cout << "foo is greater than bar\n";
-	if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-	if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
-
-
-
+	map.printTree();
 ////////////////////////////////////////////////////
 	// vector_tests();
 	// stack_tests();

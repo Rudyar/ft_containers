@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 15:42:38 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/10 12:38:19 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 #include "utils/pair.hpp"
 #include "utils/red_black_tree.hpp"
 #include "utils/lexicographical_compare.hpp"
+#include "utils/enable_if.hpp"
+#include "utils/is_integral.hpp"
 #include "iterators/reverse_iterator.hpp"
-// #include "iterators/tree_iterator.hpp"
 
 namespace ft
 {
@@ -68,37 +69,39 @@ namespace ft
 			}
 
 			template <class InputIterator>
-			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 			{
 				static_cast<void>(comp);
 				static_cast<void>(alloc);
-				static_cast<void>(first);
-				static_cast<void>(last);
+				insert(first, last);
 			}
 
 			map(const map& x)
 			{
-				static_cast<void>(x);
-				// Deep copy ?
+				map(x.begin(), x.end());
 			}
 
 			~map()
 			{
-				// destroy tree
 			}
 
 /////////////////////////////////////////////////////////////////
 
 			void printTree()
 			{
-				_tree.printRBTree();
+				_tree.print_red_black_tree();
 			}
 
 /////////////////////////////////////////////////////////////////
 
 			map &operator=(const map &rhs)
 			{
-				// _tree = rhs._tree;
+				if (*this != rhs)
+				{
+					clear();
+					insert(rhs.begin(), rhs.end());
+				}
 				return *this;
 			}
 
@@ -163,10 +166,10 @@ namespace ft
 
 			// ==================== Elements access
 
-			// mapped_type& operator[](const key_type& x)
-			// {
-					// An alternative way to insert elements in a map is by using member function map::operator[]. From ref insert
-			// }
+			mapped_type& operator[](const key_type& k)
+			{
+				return (insert(ft::make_pair(k, mapped_type())).first)->second;
+			}
 
 			// ==================== Modifiers
 
@@ -204,9 +207,11 @@ namespace ft
 			// {
 			// }
 
-			// void clear()
-			// {
-			// }
+			void clear()
+			{
+				if (size())
+					_tree.clear();
+			}
 
 			// ==================== Observers
 

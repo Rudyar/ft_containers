@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 14:48:57 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/10 12:38:05 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ namespace ft
 
 			~red_black_tree()
 			{
-				// Destroy tree
+				if (_size)
+					clear();
+				// _destroy_node(_end);
 			}
 
 			node_pointer	create_node(const_reference value = value_type())
@@ -126,7 +128,7 @@ namespace ft
 				}
 			}
 
-			void	printred_black_tree()
+			void	print_red_black_tree()
 			{
 				if (_root)
 					printHelper(_root, "", true);
@@ -206,6 +208,13 @@ namespace ft
 			_assign_end();
 			_size++;
 			return ft::make_pair(iterator(node), true);
+		}
+
+		void	clear()
+		{
+			_clear(_root);
+			_root = _end;
+			_size = 0;
 		}
 
 	// Private helpers
@@ -342,6 +351,15 @@ namespace ft
 		{
 			_node_alloc.destroy(node);
 			_node_alloc.deallocate(node, 1);
+		}
+
+		void	_clear(node_pointer node)
+		{
+			if (!node || node == _end)
+				return ;
+			_clear(node->left);
+			_clear(node->right);
+			_destroy_node(node);
 		}
 
 		node_pointer	_min_node() const
