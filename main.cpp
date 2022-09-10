@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/10 15:10:27 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/10 19:45:04 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void print_map(__MACRO::map<int, int> map)
 		std::cout << "-----------------" << std::endl;
 		std::cout << "Size : " << map.size() << std::endl;
 		for (; it != ite; it++)
-			std::cout << it->first << " ";
+			std::cout << it->second << " ";
 		std::cout << std::endl << "-----------------" << std::endl;
 	}
 }
@@ -100,24 +100,17 @@ int	main(void)
 
 	it = map.begin();
 	ite = --(--map.end());
-	std::cout << "before"<< std::endl;
 	__MACRO::map<int, int> map_copy(map);
-	std::cout << "after"<< std::endl;
 	for (int i = 0; it != ite; ++it)
-		it->second = ++i * 7;
+		it->second = ++i * 10;
 
-	it = map.begin();
-	ite = map.end();
-	std::cout << "-----------------" << std::endl;
-	std::cout << "Size : " << map.size() << std::endl;
-	for (; it != ite; it++)
-		std::cout << it->first << " ";
-	std::cout << std::endl << "-----------------" << std::endl;
+	print_map(map);
+	print_map(map_range);
+	print_map(map_copy);
 
-	// print_map(map);
-	// print_map(map_range);
-	// print_map(map_copy);
-
+	map = map_copy;
+	print_map(map);
+	// map.clear();
 
 	// map.printTree();
 ////////////////////////////////////////////////////
