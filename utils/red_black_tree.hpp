@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/12 12:09:46 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/12 18:20:46 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,37 @@ namespace ft
 			return const_iterator(_end);
 		}
 
+		compare_type comp() const
+		{
+			return _comp;
+		}
+
+		// ==================== Operations
+
+		iterator	find(const_reference val)
+		{
+			node_pointer ret = _bst_find(val);
+			if (!ret)
+				return end();
+			return iterator(ret);
+		}
+
+		const_iterator	find(const_reference val) const
+		{
+			node_pointer ret = _bst_find(val);
+			if (!ret)
+				return end();
+			return const_iterator(ret);
+		}
+
+		size_type	count(const_reference val) const
+		{
+			node_pointer ret = _bst_find(val);
+			if (!ret)
+				return 0;
+			return 1;
+		}
+
 		// ==================== Modifiers
 
 		ft::pair<iterator, bool>	insert(const_reference val)
@@ -217,28 +248,45 @@ namespace ft
 			_size = 0;
 		}
 
+		void	swap_tree(red_black_tree &x)
+		{
+			node_pointer		_root_tmp = x._root;
+			node_pointer		_end_tmp = x._end;
+			size_type			_size_tmp = x._size;
+			node_allocator		_node_alloc_tmp = x._node_alloc;
+			compare_type		_comp_tmp = x._comp;
+
+			x._root = _root;
+			x._end = _end;
+			x._size = _size;
+			x._node_alloc = _node_alloc;
+			x._comp = _comp;
+
+			_root = _root_tmp;
+			_end = _end_tmp;
+			_size = _size_tmp;
+			_node_alloc = _node_alloc_tmp;
+			_comp = _comp_tmp;
+		}
+
 	// Private helpers
 	private :
 
-		// node_pointer	_bst_find(const_reference to_find, node_pointer *x) const // Maybe not enough
-		// {
-		// 	node_pointer tmp = _root;
-		// 	// (void)x;
-		// 	// node_pointer min = _min_node();
-		// 	node_pointer max = _max_node();
+		node_pointer	_bst_find(const_reference to_find) const // Maybe not enough
+		{
+			node_pointer tmp = _root;
 
-		// 	while (tmp != NULL)
-		// 	{
-		// 		*x = tmp;
-		// 		if (_comp(tmp->data.first, to_find.first))
-		// 			tmp = tmp->right;
-		// 		else if (_comp(to_find.first, tmp->data.first))
-		// 			tmp = tmp->left;
-		// 		else
-		// 			return tmp;
-		// 	}
-		// 	return max;
-		// }
+			while (tmp != NULL && tmp != _end)
+			{
+				if (_comp(tmp->data.first, to_find.first))
+					tmp = tmp->right;
+				else if (_comp(to_find.first, tmp->data.first))
+					tmp = tmp->left;
+				else
+					return tmp;
+			}
+			return NULL;
+		}
 
 		ft::pair<iterator, bool>	_insert_empty(node_pointer node)
 		{
@@ -330,14 +378,6 @@ namespace ft
 			tmp->right = node;
 			node->parent = tmp;
 		}
-
-		// void	_swap_colors(node_pointer x, node_pointer y)
-		// {
-		// 	node_pointer tmp = x;
-
-		// 	x->color = y->color;
-		// 	y->color = tmp->color;
-		// }
 
 		node_pointer	_fix_red_uncle(node_pointer p, node_pointer gp, node_pointer u)
 		{

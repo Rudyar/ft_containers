@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/12 12:41:42 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/12 17:47:09 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,28 @@ namespace ft
 
 			tree_iterator& operator++() // ++n
 			{
+
 				if (_current && _current->right)
 				{
 					_current = _current->right;
 					while (_current->left && _current->left != NULL)
 						_current = _current->left;
 				}
-				else
+				else if (_current && _current->parent)
 				{
+					node_pointer save = _current;
 					node_pointer tmp = _current->parent;
-					while (_current == tmp->right)
+					while (tmp && _current == tmp->right)
 					{
+						if (tmp->parent == NULL) // if tmp is _root and i went from the most right node
+						{
+							_current = save->parent;
+							return *this;
+						}
 						_current = tmp;
 						tmp = tmp->parent;
 					}
-					if (_current->right != tmp) // Not sure about this, need to test increment when _current is full right, but i think it fix the most left++
-						_current = tmp;
+					_current = tmp;
 				}
 				return *this;
 			}
@@ -102,7 +108,6 @@ namespace ft
 
 			tree_iterator& operator--() // --n
 			{
-				node_pointer save = _current;
 
 				if (_current && _current->left)
 				{
@@ -112,6 +117,7 @@ namespace ft
 				}
 				else if (_current && _current->parent)
 				{
+					node_pointer save = _current;
 					node_pointer tmp = _current->parent;
 					while (tmp && _current == tmp->left)
 					{
@@ -134,19 +140,29 @@ namespace ft
 				operator--();
 				return tmp;
 			}
+
+			friend bool	operator==(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
+			{
+				return (lhs.base() == rhs.base());
+			}
+
+			friend bool	operator!=(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
+			{
+				return (lhs.base() != rhs.base());
+			}
 	};
 
-	template <typename T, typename N, class Compare>
-	bool	operator==(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
-	{
-		return (lhs.base() == rhs.base());
-	}
+	// template <typename T, typename N, class Compare>
+	// bool	operator==(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
+	// {
+	// 	return (lhs.base() == rhs.base());
+	// }
 
-	template <typename T, typename N, class Compare>
-	bool	operator!=(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
-	{
-		return (lhs.base() != rhs.base());
-	}
+	// template <typename T, typename N, class Compare>
+	// bool	operator!=(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
+	// {
+	// 	return (lhs.base() != rhs.base());
+	// }
 
 } // namespace ft
 

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/10 19:37:07 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/12 18:21:11 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ namespace ft
 				return _tree.begin();
 			}
 
-			iterator end() // Try to iter in a loop with end (see jbonniva Discord msg)
+			iterator end()
 			{
 				return _tree.end();
 			}
@@ -173,7 +173,7 @@ namespace ft
 
 			// ==================== Modifiers
 
-			pair<iterator, bool> insert(const_reference x) // Check ret value
+			pair<iterator, bool> insert(const_reference x)
 			{
 				return _tree.insert(x);
 			}
@@ -203,9 +203,10 @@ namespace ft
 			// {
 			// }
 
-			// void swap(map& x)
-			// {
-			// }
+			void swap(map& x)
+			{
+				_tree.swap_tree(x._tree);
+			}
 
 			void clear()
 			{
@@ -222,22 +223,26 @@ namespace ft
 
 			value_compare value_comp() const
 			{
-				return value_compare();
+
+				return value_compare(_tree.comp());
 			}
 
 			// ==================== Operations
 
-			// iterator find(const key_type& k)
-			// {
-			// }
+			iterator find(const key_type& k)
+			{
+				return _tree.find(ft::make_pair(k, mapped_type()));
+			}
 
-			// const_iterator find(const key_type& k) const
-			// {
-			// }
+			const_iterator find(const key_type& k) const
+			{
+				return _tree.find(ft::make_pair(k, mapped_type()));
+			}
 
-			// size_type count(const key_type& k) const
-			// {
-			// }
+			size_type count(const key_type& k) const // recheck
+			{
+				return _tree.count(ft::make_pair(k, mapped_type()));
+			}
 
 			// iterator lower_bound(const key_type& k)
 			// {
@@ -318,11 +323,11 @@ namespace ft
 		return !(lhs < rhs);
 	}
 
-	// template<class Key, class T, class Compare, class Alloc>
-	// void swap(map<Key, T, Compare, Alloc>& lhs, map<Key, T, Compare, Alloc>& rhs)
-	// {
-	// 	return lhs.swap(rhs);
-	// }
+	template<class Key, class T, class Compare, class Alloc>
+	void swap(map<Key, T, Compare, Alloc>& lhs, map<Key, T, Compare, Alloc>& rhs)
+	{
+		return lhs.swap(rhs);
+	}
 
 } // namespace ft
 
