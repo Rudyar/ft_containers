@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 16:20:14 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/12 12:41:42 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "iterator_traits.hpp"
 #include "../utils/pair.hpp"
+#include "../utils/red_black_tree.hpp"
 
 namespace ft
 {
@@ -101,17 +102,24 @@ namespace ft
 
 			tree_iterator& operator--() // --n
 			{
+				node_pointer save = _current;
+
 				if (_current && _current->left)
 				{
 					_current = _current->left;
 					while (_current->right && _current->right != NULL)
 						_current = _current->right;
 				}
-				else
+				else if (_current && _current->parent)
 				{
 					node_pointer tmp = _current->parent;
 					while (tmp && _current == tmp->left)
 					{
+						if (tmp->parent == NULL) // if tmp is _root and i went from the most left node, there is no lower node
+						{
+							_current = save;
+							return *this;
+						}
 						_current = tmp;
 						tmp = tmp->parent;
 					}

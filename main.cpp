@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/10 19:45:04 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/12 12:48:52 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,35 @@ void print_map(__MACRO::map<int, int> map)
 int	main(void)
 {
 /* Tester les it rev it const it ... ++ et -- dans les extrémitées et les tricky (0 node, 1 node...)
-	Faire les constructor avec enableif...
 	Delete node rb tree
 */
-	typedef __MACRO::pair<const int, int> T3;
-
-	std::list<T3> lst;
-	unsigned int lst_size = 7;
-	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(T3(lst_size - i, i));
-
-	__MACRO::map<int, int> map(lst.begin(), lst.end());
-	__MACRO::map<int, int>::iterator it = map.begin();
-	__MACRO::map<int, int>::iterator ite = map.end();
-
-	__MACRO::map<int, int> map_range(it, --(--ite));
-	for (int i = 0; it != ite; ++it)
-		it->second = ++i * 7;
-
-	it = map.begin();
-	ite = --(--map.end());
-	__MACRO::map<int, int> map_copy(map);
-	for (int i = 0; it != ite; ++it)
-		it->second = ++i * 10;
-
-	print_map(map);
-	print_map(map_range);
-	print_map(map_copy);
-
-	map = map_copy;
-	print_map(map);
-	// map.clear();
+	__MACRO::map<int, int> map;
+	// map.insert(__MACRO::pair<int, int>(1, 1));
+	// map.insert(__MACRO::pair<int, int>(2, 2));
+	// map.insert(__MACRO::pair<int, int>(3, 3));
+	// map.insert(__MACRO::pair<int, int>(-9, -9));
+	// map.insert(__MACRO::pair<int, int>(40, 40));
+	// map.insert(__MACRO::pair<int, int>(12, 12));
+	// map.insert(__MACRO::pair<int, int>(-100, -100));
+	// map.insert(__MACRO::pair<int, int>(4, 4));
+	// map.insert(__MACRO::pair<int, int>(5, 5));
+	// map.insert(__MACRO::pair<int, int>(0, 0));
+	// __MACRO::map<int, int>::iterator it = map.begin();
+	__MACRO::map<int, int>::iterator it2 = map.begin();
+	// it2++;
+	it2--;
+	// it2++;
+	// it++;
+	// it++;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// std::cout << "it : " << it2->first << std::endl;
+	// it2--;
+	// std::cout << "it : " << it2->first << std::endl;
 
 	// map.printTree();
 ////////////////////////////////////////////////////
