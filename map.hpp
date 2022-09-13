@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/12 18:21:11 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/13 14:46:44 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,29 +244,35 @@ namespace ft
 				return _tree.count(ft::make_pair(k, mapped_type()));
 			}
 
-			// iterator lower_bound(const key_type& k)
-			// {
-			// }
+			iterator lower_bound(const key_type& k)
+			{
+				return _tree.lower_bound(ft::make_pair(k, mapped_type()));
+			}
 
-			// const_iterator lower_bound(const key_type& k) const
-			// {
-			// }
+			const_iterator lower_bound(const key_type& k) const
+			{
+				return _tree.lower_bound(ft::make_pair(k, mapped_type()));
+			}
 
-			// iterator upper_bound(const key_type& k)
-			// {
-			// }
+			iterator upper_bound(const key_type& k)
+			{
+				return _tree.upper_bound(ft::make_pair(k, mapped_type()));
+			}
 
-			// const_iterator upper_bound(const key_type& k) const
-			// {
-			// }
+			const_iterator upper_bound(const key_type& k) const
+			{
+				return _tree.upper_bound(ft::make_pair(k, mapped_type()));
+			}
 
-			// pair<iterator, iterator> equal_range(const key_type& k)
-			// {
-			// }
+			pair<iterator, iterator> equal_range(const key_type& k)
+			{
+				return ft::make_pair(lower_bound(k), upper_bound(k));
+			}
 
-			// pair<const_iterator, const_iterator> equal_range(const key_type& k) const
-			// {
-			// }
+			pair<const_iterator, const_iterator> equal_range(const key_type& k) const
+			{
+				return ft::make_pair(lower_bound(k), upper_bound(k));
+			}
 
 			allocator_type get_allocator() const
 			{

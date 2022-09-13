@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/12 18:24:12 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/13 14:26:53 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD__VECTOR    // A commenter pour avoir ft::vector
+// #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
@@ -79,32 +79,24 @@ void print_map(__MACRO::map<int, int> map)
 
 int	main(void)
 {
-/* Tester les it rev it const it ... ++ et -- dans les extrémitées et les tricky (0 node, 1 node...)
-	Delete node rb tree
+/*
+Delete node rb tree
 */
+  __MACRO::map<char,int> mymap;
+  __MACRO::map<char,int>::iterator itlow;
 
-	__MACRO::map<char,int> mymap;
+  mymap['a']=20;
+  mymap['b']=40;
+  mymap['c']=60;
+  mymap['d']=80;
+  mymap['e']=100;
 
-	__MACRO::map<char,int>::key_compare mycomp = mymap.key_comp();
+  itlow=mymap.upper_bound ('b');
 
-	mymap['a']=100;
-	mymap['b']=200;
-	mymap['c']=300;
-
-	std::cout << "mymap contains:\n";
-
-	char highest = mymap.rbegin()->first;     // key value of last element
-
-	__MACRO::map<char,int>::iterator it = mymap.begin();
-	do {
-		std::cout << it->first << " => " << it->second << '\n';
-	} while ( mycomp((*it++).first, highest) );
-
-	std::cout << '\n';
+  std::cout << itlow->first << std::endl;  // itlow points to b
 
 	// map.printTree();
-	// std::cout << "==============\n\n";
-	// map2.printTree();
+
 ////////////////////////////////////////////////////
 	// vector_tests();
 	// stack_tests();

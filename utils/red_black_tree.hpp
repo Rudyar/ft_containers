@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/12 18:20:46 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/13 14:52:49 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,58 @@ namespace ft
 			if (!ret)
 				return 0;
 			return 1;
+		}
+
+		iterator	lower_bound(const_reference val)
+		{
+			iterator it = begin();
+			iterator ite = end();
+
+			for (; it != ite; it++)
+			{
+				if (!(this->_comp(it->first, val.first)))
+					break;
+			}
+			return (it);
+		}
+
+		const_iterator	lower_bound(const_reference val) const
+		{
+			const_iterator it = begin();
+			const_iterator ite = end();
+
+			for (; it != ite; it++)
+			{
+				if (!(this->_comp(it->first, val.first)))
+					break;
+			}
+			return (it);
+		}
+
+		iterator	upper_bound(const_reference val)
+		{
+			iterator it = begin();
+			iterator ite = end();
+
+			for(; it != ite; it++)
+			{
+				if (this->_comp(val.first, it->first))
+					return (it);
+			}
+			return (it);
+		}
+
+		const_iterator	upper_bound(const_reference val) const
+		{
+			const_iterator it = begin();
+			const_iterator ite = end();
+
+			for(; it != ite; it++)
+			{
+				if (this->_comp(val.first, it->first))
+					return (it);
+			}
+			return (it);
 		}
 
 		// ==================== Modifiers
