@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/13 14:26:53 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/14 11:46:40 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,13 @@ int	main(void)
 /*
 Delete node rb tree
 */
-  __MACRO::map<char,int> mymap;
-  __MACRO::map<char,int>::iterator itlow;
+  __MACRO::map<int,int> map;
+  map.insert(__MACRO::pair<int, int>(1, 1));
 
-  mymap['a']=20;
-  mymap['b']=40;
-  mymap['c']=60;
-  mymap['d']=80;
-  mymap['e']=100;
+	map.erase(1);
 
-  itlow=mymap.upper_bound ('b');
-
-  std::cout << itlow->first << std::endl;  // itlow points to b
-
-	// map.printTree();
-
+  map.insert(__MACRO::pair<int, int>(1, 1));
+		map.printTree();
 ////////////////////////////////////////////////////
 	// vector_tests();
 	// stack_tests();

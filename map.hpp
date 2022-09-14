@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/13 14:46:44 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/14 11:42:21 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,10 @@ namespace ft
 			// {
 			// }
 
-			// size_type erase(const key_type& x)
-			// {
-			// }
+			size_type erase(const key_type& k)
+			{
+				return _tree.delete_node(ft::make_pair(k, mapped_type()));
+			}
 
 			// void erase(iterator forst, iterator last)
 			// {
