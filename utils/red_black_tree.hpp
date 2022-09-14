@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/14 12:20:22 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/14 16:06:30 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <functional>
 #include "pair.hpp"
 #include "../iterators/tree_iterator.hpp"
+#include "algorithm.hpp"
 
 
 #include <map>
@@ -37,7 +38,7 @@ enum e_color
 
 namespace ft
 {
-	template <typename T, class Compare> // T is a pair
+	template <typename T, typename K, class Compare> // T is a pair, K is key_type
 	class red_black_tree
 	{
 		private :
@@ -56,6 +57,7 @@ namespace ft
 			};
 
 			typedef size_t							size_type;
+			typedef K								key_type;
 			typedef Compare							compare_type;
 			typedef value_type*						pointer;
 			typedef	Node*							node_pointer;
@@ -405,7 +407,6 @@ namespace ft
 				_root->color = BLACK;
 			}
 
-			//  node = v | child = u
 			void	_bst_delete_node(node_pointer node)
 			{
 				node_pointer parent = node->parent;
@@ -431,41 +432,87 @@ namespace ft
 							parent->right = NULL;
 					}
 					_destroy_node(node);
-					_assign_end()
+					_size--;
+					_assign_end();
 					return;
 				}
+				if (node->left == NULL || node->right == NULL) // if node has 1 child
+				{
+					if (node == _root) // Need a check propely and with const
+					{
+						node->data = child->data;
+						node->left = NULL;
+						node->right = NULL;
+						_destroy_node(child);
+					}
+					else
+					{
+						if (_is_left_child(node))
+							parent->left = child;
+						else
+							parent->right = child;
+						_destroy_node(node);
+						child->parent = parent;
+						if (both_black)
+							_fix_double_black(child);
+						else
+							child->color = BLACK;
+					}
+					_size--;
+					_assign_end();
+					return;
+				}
+				// if node has 2 children, swap node data with child data and recursion
+				_swap_values(child, node); // Need a check propely and with const
+				_bst_delete_node(child);
 			}
 
-			node_pointer	_bst_replace(node_pointer node)
+			node_pointer	_successor(node_pointer node)
 			{
-				return node;
+				node_pointer tmp = node;
+
+				while (tmp->left)
+					tmp = tmp->left;
+				return tmp;
+			}
+
+			node_pointer	_bst_replace(node_pointer node) // find node that replace the deleted one
+			{
+				if (!node->left && !node->right)
+					return NULL;
+				if (node->left && node->right) // return the most left subtree node
+					return _successor(node->right);
+				if (node->left)
+					return node->left;
+				return node->right;
+
 			}
 
 			/* Left rotate
 
 			To go from (rotation around 5) :
-			5
+			  5
 			/  \
-			/   \
-		2    10
-				/ \
-			/   \
+		   /   \
+		  2    10
+			  / \
+			 /   \
 			8    12
-			/  \
-		/    \
-		6		9
+		   / \
+		  /  \
+		 6	 9
 	----------------------
 			To :
-				10
-			/  \
-			/    \
-			5     12
-			/ \
+			10
+		   /  \
+		  /    \
+		5      12
+	   / \
+	  /   \
+	 2    8
+		 / \
 		/   \
-		2    8
-			/ \
-			/   \
-			6    9
+	   6    9
 			*/
 
 			void	_left_rotate(node_pointer node)
@@ -492,28 +539,28 @@ namespace ft
 			/* Right rotate
 
 			To go from (rotation around 10) :
-				10
-			/  \
-			/    \
-			5     12
-			/ \
-		/   \
-		2    8
-			/ \
-			/   \
-			6    9
+			10
+		   / \
+		  /  \
+		 5   12
+		/ \
+	   /  \
+	  2   8
+		 / \
+		/  \
+	   6	9
 	----------------------
 			To :
 			5
+		   / \
+		  /   \
+		 2    10
+			 / \
 			/  \
-			/   \
-		2    10
-				/ \
-			/   \
-			8    12
-			/  \
-		/    \
-		6		9
+		   8    12
+		  / \
+		 /  \
+		6	9
 			*/
 
 			void	_right_rotate(node_pointer node)
@@ -547,7 +594,71 @@ namespace ft
 
 			void	_fix_double_black(node_pointer node)
 			{
-				std::cout << "Double black fix\n";
+				if (node == _root)
+					return;
+				node_pointer sibling = _sibling(node);
+				node_pointer parent = node->parent;
+
+				if(!sibling)
+					_fix_double_black(parent);
+				else
+				{
+					if (sibling->color == RED)
+					{
+						parent->color = RED;
+						sibling->color = BLACK;
+						if (_is_left_child(sibling))
+							_right_rotate(parent);
+						else
+							_left_rotate(parent);
+						_fix_double_black(node);
+					}
+					else // sibling black
+					{
+						if (_has_red_child(sibling))
+						{
+							if (sibling->left && sibling->left->color == RED)
+							{
+								if (_is_left_child(sibling)) // left left
+								{
+									sibling->left->color = sibling->color;
+									sibling->color = parent->color;
+									_right_rotate(parent);
+								}
+								else // right left
+								{
+									sibling->left->color = parent->color;
+									_right_rotate(sibling);
+									_left_rotate(parent);
+								}
+							}
+							else
+							{
+								if (_is_left_child(sibling)) // left right
+								{
+									sibling->right->color = parent->color;
+									_left_rotate(sibling);
+									_right_rotate(parent);
+								}
+								else // right right
+								{
+									sibling->right->color = sibling->color;
+									sibling->color = parent->color;
+									_left_rotate(parent);
+								}
+							}
+							parent->color = BLACK;
+						}
+						else // two black children
+						{
+							sibling->color = RED;
+							if (parent->color == BLACK)
+								_fix_double_black(parent);
+							else
+								parent->color = BLACK;
+						}
+					}
+				}
 			}
 
 			void	_destroy_node(node_pointer node)
@@ -565,9 +676,14 @@ namespace ft
 				return node->parent->left;
 			}
 
-			bool	is_left_child(node_pointer node)
+			bool	_is_left_child(node_pointer node)
 			{
 				return node == node->parent->left;
+			}
+
+			bool	_has_red_child(node_pointer node)
+			{
+				return ((node->left && node->left->color == RED) || (node->right && node->right->color == RED));
 			}
 
 			void	_clear(node_pointer node)
@@ -577,6 +693,26 @@ namespace ft
 				_clear(node->left);
 				_clear(node->right);
 				_destroy_node(node);
+			}
+
+			void	_swap_values(node_pointer x, node_pointer y)
+			{
+				// ????????????????????????????????????
+				// key_type	key;
+				// key_type	*key1;
+				// key_type	*key2;
+				// value_type	tmp;
+
+				// key1 = const_cast<key_type *>(&x->data.first);
+				// key2 = const_cast<key_type *>(&y->data.first);
+
+				// key = *key1;
+				// *key1 = *key2;
+				// *key2 = key;
+
+				// tmp.second = x->data.second;
+				// x->data.second = y->data.second;
+				// y->data.second = tmp.second;
 			}
 
 			node_pointer	_min_node() const

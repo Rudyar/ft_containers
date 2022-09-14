@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/14 11:42:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/14 15:58:54 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ namespace ft
 			typedef typename allocator_type::const_reference				const_reference;
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
-			typedef typename ft::red_black_tree<value_type, key_compare>	tree_type;
+			typedef typename ft::red_black_tree<value_type, key_type, key_compare>	tree_type;
 			////////////////////////////////////////
 			typedef typename tree_type::iterator							iterator;
 			typedef typename tree_type::const_iterator						const_iterator;
