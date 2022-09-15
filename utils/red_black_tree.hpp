@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/14 16:06:30 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/15 12:11:23 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,19 +323,25 @@ namespace ft
 				_comp = _comp_tmp;
 			}
 
-			size_type	delete_node(const_reference val)
+			size_type	delete_node(value_type val)
 			{
 				node_pointer node;
-
+				// std::cout << "Val : " << val.first << std::endl;
 				if (empty())
 					return 0;
 				node = _bst_find(val);
 				if (!node)
+				{
+					// std::cout << "!node\n";
 					return 0;
+				}
 				if (_size == 1)
+				{
+					// std::cout << "clear\n";
 					clear();
+					return 1;
+				}
 				_bst_delete_node(node);
-				// std::cout << "node first : " << node->data.first << std::endl;
 				return 1;
 			}
 
@@ -413,10 +419,15 @@ namespace ft
 				node_pointer child = _bst_replace(node);
 				bool both_black = ((child == NULL || child->color == BLACK) && (node->color == BLACK));
 
+				// std::cout << "node parent : " << parent->data.first << std::endl;
+
 				if (!child) // if !child, node is leaf
 				{
+					// std::cout << "!child" << std::endl;
 					if (node == _root)
+					{
 						_root = NULL;
+					}
 					else
 					{
 						if (both_black)
@@ -434,16 +445,19 @@ namespace ft
 					_destroy_node(node);
 					_size--;
 					_assign_end();
+
 					return;
 				}
 				if (node->left == NULL || node->right == NULL) // if node has 1 child
 				{
+					// std::cout << "1 child" << std::endl;
 					if (node == _root) // Need a check propely and with const
 					{
-						node->data = child->data;
+						_assign_values(node, child); // Recheck !
+						// std::cout << "node == root" << std::endl;
+						_destroy_node(child);
 						node->left = NULL;
 						node->right = NULL;
-						_destroy_node(child);
 					}
 					else
 					{
@@ -460,6 +474,12 @@ namespace ft
 					}
 					_size--;
 					_assign_end();
+					// std::cout << "==============\n";
+					// print_red_black_tree();
+					// std::cout << "==============\n";
+					// std::cout << " max node : " << _max_node()->data.first << std::endl;
+					// std::cout << " _end : " << _end << std::endl;
+					// std::cout << " min node : " << _min_node()->data.first << std::endl;
 					return;
 				}
 				// if node has 2 children, swap node data with child data and recursion
@@ -695,24 +715,36 @@ namespace ft
 				_destroy_node(node);
 			}
 
+			void	_assign_values(node_pointer x, node_pointer y)
+			{
+				key_type* k1;
+				key_type* k2;
+
+				k1 = const_cast<key_type*>(&x->data.first);
+				k2 = const_cast<key_type*>(&y->data.first);
+
+				*k1 = *k2;
+				x->data.second = y->data.second;
+			}
+
 			void	_swap_values(node_pointer x, node_pointer y)
 			{
-				// ????????????????????????????????????
-				// key_type	key;
-				// key_type	*key1;
-				// key_type	*key2;
-				// value_type	tmp;
+				// std::cout << "Swap val\n";
+				key_type	key;
+				key_type	*key1;
+				key_type	*key2;
+				value_type	tmp;
 
-				// key1 = const_cast<key_type *>(&x->data.first);
-				// key2 = const_cast<key_type *>(&y->data.first);
+				key1 = const_cast<key_type *>(&x->data.first);
+				key2 = const_cast<key_type *>(&y->data.first);
 
-				// key = *key1;
-				// *key1 = *key2;
-				// *key2 = key;
+				key = *key1;
+				*key1 = *key2;
+				*key2 = key;
 
-				// tmp.second = x->data.second;
-				// x->data.second = y->data.second;
-				// y->data.second = tmp.second;
+				tmp.second = x->data.second;
+				x->data.second = y->data.second;
+				y->data.second = tmp.second;
 			}
 
 			node_pointer	_min_node() const

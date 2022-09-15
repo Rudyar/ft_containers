@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/14 15:58:54 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/15 12:28:06 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,18 +191,33 @@ namespace ft
 					_tree.insert(*first);
 			}
 
-			// void erase(iterator position)
-			// {
-			// }
+			void erase(iterator position)
+			{
+				erase(position->first);
+			}
 
 			size_type erase(const key_type& k)
 			{
+					// std::cout << "K : " << k << std::endl;
 				return _tree.delete_node(ft::make_pair(k, mapped_type()));
 			}
 
-			// void erase(iterator forst, iterator last)
-			// {
-			// }
+			void erase(iterator first, iterator last)
+			{
+				iterator tmp;
+
+				if (first == begin() && last == end())
+					clear();
+				else
+				{
+					while (first != last)
+					{
+						tmp = first;
+						first++;
+						erase(tmp->first);
+					}
+				}
+			}
 
 			void swap(map& x)
 			{

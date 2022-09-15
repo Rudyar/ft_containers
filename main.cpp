@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/14 15:06:37 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/15 12:27:39 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD__VECTOR    // A commenter pour avoir ft::vector
+#define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
@@ -86,14 +86,17 @@ Use ft::_swap ??
 	__MACRO::map<int,int> map;
 	map.insert(__MACRO::pair<int, int>(1, 1));
 	map.insert(__MACRO::pair<int, int>(2, 2));
-	map.insert(__MACRO::pair<int, int>(3, 3));
-	map.insert(__MACRO::pair<int, int>(5, 5));
-	map.insert(__MACRO::pair<int, int>(4, 4));
+	// map.insert(__MACRO::pair<int, int>(3, 3));
+	// map.insert(__MACRO::pair<int, int>(5, 5));
+	// map.insert(__MACRO::pair<int, int>(4, 4));
 
-	map.printTree();
-	std::cout << std::endl << "-----------------" << std::endl;
-	map.erase(3);
-	map.printTree();
+	print_map(map);
+	// map.printTree();
+	std::cout << std::endl << std::endl << "-----------------" << std::endl;
+	map.erase(map.begin(), --(--map.end()));
+	std::cout << "-----------------" << std::endl << std::endl << std::endl;
+	print_map(map);
+	// map.printTree();
 ////////////////////////////////////////////////////
 	// vector_tests();
 	// stack_tests();
