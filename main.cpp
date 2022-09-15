@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/15 12:27:39 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/15 16:42:41 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD__VECTOR    // A commenter pour avoir ft::vector
+// #define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
 # include "vector.hpp"
 # include "stack.hpp"
@@ -34,6 +34,87 @@
 void vector_tests();
 void stack_tests();
 
+#define T1 int
+#define T2 std::string
+typedef __MACRO::pair<const T1, T2> T3;
+
+void print_map(__MACRO::map<T1, T2> map)
+{
+	if (map.empty())
+	{
+		std::cout << "-----------------" << std::endl;
+		std::cout << "Map empty !" << std::endl;
+		std::cout << "-----------------" << std::endl;
+	}
+	else
+	{
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+		__MACRO::map<T1, T2>::iterator ite = map.end();
+		std::cout << "=====================================" << std::endl;
+		std::cout << "Size : " << map.size() << std::endl;
+		for (; it != ite; it++)
+		{
+
+			// if (it.base()->color == BLACK)
+			// if (it._M_node->_M_color == true)
+				// std::cout << "BLACK : ";
+			// else
+				// std::cout << "RED : ";
+			std::cout << it->second << "\n";
+		}
+		std::cout << std::endl << "=====================================" << std::endl;
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+int	main(void)
+{
+/*
+Delete node rb tree
+Use ft::_swap ??
+*/
+	// std::list<T3> lst;
+	// unsigned int lst_size = 10;
+	// for (unsigned int i = 0; i < lst_size; ++i)
+	// 	lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
+	// __MACRO::map<T1, T2> map(lst.begin(), lst.end());
+
+	// // print_map(map);
+
+	// map.erase(++map.begin());
+	// // print_map(map);
+
+	// map.erase(map.begin());
+	// // print_map(map);
+
+	// map.erase(--map.end());
+	// // print_map(map);
+
+	// map.erase(map.begin(), ++(++(++map.begin())));
+	// print_map(map);
+
+	// map.erase(--(--(--map.end())), map.end());
+	// print_map(map);
+
+
+	__MACRO::map<T1, T2> map;
+	map.insert(__MACRO::pair<T1, T2>(1, "111"));
+	map.insert(__MACRO::pair<T1, T2>(2, "22222222"));
+	map.insert(__MACRO::pair<T1, T2>(3, "33333333333"));
+
+	// map.printTree();
+	// print_map(map);
+	map.erase(++map.begin(), map.end());
+	print_map(map);
+
+////////////////////////////////////////////////////
+	// vector_tests();
+	// stack_tests();
+	return 0;
+}
+
+
 void print_vec(__MACRO::vector<int> vec)
 {
 	if (vec.empty())
@@ -55,53 +136,8 @@ void print_vec(__MACRO::vector<int> vec)
 	}
 }
 
-void print_map(__MACRO::map<int, int> map)
-{
-	if (map.empty())
-	{
-		std::cout << "-----------------" << std::endl;
-		std::cout << "Map empty !" << std::endl;
-		std::cout << "-----------------" << std::endl;
-	}
-	else
-	{
-		__MACRO::map<int, int>::iterator it = map.begin();
-		__MACRO::map<int, int>::iterator ite = map.end();
-		std::cout << "-----------------" << std::endl;
-		std::cout << "Size : " << map.size() << std::endl;
-		for (; it != ite; it++)
-			std::cout << it->second << " ";
-		std::cout << std::endl << "-----------------" << std::endl;
-	}
-}
 
-///////////////////////////////////////////////////////////////////////////////////////////////
 
-int	main(void)
-{
-/*
-Delete node rb tree
-Use ft::_swap ??
-*/
-	__MACRO::map<int,int> map;
-	map.insert(__MACRO::pair<int, int>(1, 1));
-	map.insert(__MACRO::pair<int, int>(2, 2));
-	// map.insert(__MACRO::pair<int, int>(3, 3));
-	// map.insert(__MACRO::pair<int, int>(5, 5));
-	// map.insert(__MACRO::pair<int, int>(4, 4));
-
-	print_map(map);
-	// map.printTree();
-	std::cout << std::endl << std::endl << "-----------------" << std::endl;
-	map.erase(map.begin(), --(--map.end()));
-	std::cout << "-----------------" << std::endl << std::endl << std::endl;
-	print_map(map);
-	// map.printTree();
-////////////////////////////////////////////////////
-	// vector_tests();
-	// stack_tests();
-	return 0;
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 

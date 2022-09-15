@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/15 12:28:06 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/15 16:43:24 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,16 +206,32 @@ namespace ft
 			{
 				iterator tmp;
 
-				if (first == begin() && last == end())
-					clear();
-				else
+				// if (first == begin() && last == end())
+				// 	clear();
+				// else
+				// {
+				// 	while (first != last)
+				// 	{
+				// 		// tmp = first;
+				// 		// first++;
+				// 		erase(first++);
+				// 		// erase(tmp->first);
+				// 	}
+				// }
+				size_t i = 0;
+				tmp = first;
+				while (tmp != last)
 				{
-					while (first != last)
-					{
-						tmp = first;
-						first++;
-						erase(tmp->first);
-					}
+					tmp++;
+					i++;
+				}
+				last--;
+				while (i != 0)
+				{
+					tmp = last;
+					last--;
+					erase(tmp);
+					i--;
 				}
 			}
 

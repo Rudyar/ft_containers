@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/15 12:11:23 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/15 16:47:23 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,8 @@ namespace ft
 					return 1;
 				}
 				_bst_delete_node(node);
+				// _size--;
+				// _assign_end();
 				return 1;
 			}
 
@@ -417,6 +419,7 @@ namespace ft
 			{
 				node_pointer parent = node->parent;
 				node_pointer child = _bst_replace(node);
+				// std::cout << "Child : " << child->data.first << std::endl;
 				bool both_black = ((child == NULL || child->color == BLACK) && (node->color == BLACK));
 
 				// std::cout << "node parent : " << parent->data.first << std::endl;
@@ -445,7 +448,6 @@ namespace ft
 					_destroy_node(node);
 					_size--;
 					_assign_end();
-
 					return;
 				}
 				if (node->left == NULL || node->right == NULL) // if node has 1 child
@@ -453,33 +455,39 @@ namespace ft
 					// std::cout << "1 child" << std::endl;
 					if (node == _root) // Need a check propely and with const
 					{
+						// std::cout << "1 child node == root" << std::endl;
+						// std::cout << "Node val : " << node->data.first << std::endl;
 						_assign_values(node, child); // Recheck !
-						// std::cout << "node == root" << std::endl;
 						_destroy_node(child);
 						node->left = NULL;
 						node->right = NULL;
 					}
 					else
 					{
+						// std::cout << "1 child else" << std::endl;
 						if (_is_left_child(node))
+						{
+							// std::cout << "1" << std::endl;
 							parent->left = child;
+						}
 						else
+						{
+							// std::cout << "2" << std::endl;
 							parent->right = child;
+						}
 						_destroy_node(node);
 						child->parent = parent;
 						if (both_black)
+						{
+
+							// std::cout << "3" << std::endl;
 							_fix_double_black(child);
+						}
 						else
 							child->color = BLACK;
 					}
 					_size--;
 					_assign_end();
-					// std::cout << "==============\n";
-					// print_red_black_tree();
-					// std::cout << "==============\n";
-					// std::cout << " max node : " << _max_node()->data.first << std::endl;
-					// std::cout << " _end : " << _end << std::endl;
-					// std::cout << " min node : " << _min_node()->data.first << std::endl;
 					return;
 				}
 				// if node has 2 children, swap node data with child data and recursion
@@ -498,10 +506,10 @@ namespace ft
 
 			node_pointer	_bst_replace(node_pointer node) // find node that replace the deleted one
 			{
-				if (!node->left && !node->right)
-					return NULL;
 				if (node->left && node->right) // return the most left subtree node
 					return _successor(node->right);
+				if (!node->left && !node->right)
+					return NULL;
 				if (node->left)
 					return node->left;
 				return node->right;
@@ -696,7 +704,7 @@ namespace ft
 				return node->parent->left;
 			}
 
-			bool	_is_left_child(node_pointer node)
+			bool	_is_left_child(node_pointer node) const
 			{
 				return node == node->parent->left;
 			}
@@ -729,7 +737,8 @@ namespace ft
 
 			void	_swap_values(node_pointer x, node_pointer y)
 			{
-				// std::cout << "Swap val\n";
+				std::cout << "Swap val\n";
+
 				key_type	key;
 				key_type	*key1;
 				key_type	*key2;
