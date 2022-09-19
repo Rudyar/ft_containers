@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/08 19:37:07 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/19 15:24:21 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <iostream>
 #include "iterators/VectorIterator.hpp"
 #include "iterators/reverse_iterator.hpp"
-#include "utils/lexicographical_compare.hpp"
+#include "utils/algorithm.hpp"
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
 
@@ -362,7 +362,7 @@ namespace ft
 				return ret;
 			}
 
-			void swap(vector& x)
+			void swap(vector& x) // use ft::_swap??
 			{
 				if (*this == x)
 					return ;

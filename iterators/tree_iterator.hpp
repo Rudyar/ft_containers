@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/16 15:23:07 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/19 15:01:05 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,18 +151,6 @@ namespace ft
 				return (lhs.base() != rhs.base());
 			}
 	};
-
-	// template <typename T, typename N, class Compare>
-	// bool	operator==(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
-	// {
-	// 	return (lhs.base() == rhs.base());
-	// }
-
-	// template <typename T, typename N, class Compare>
-	// bool	operator!=(const tree_iterator<T, N, Compare>& lhs, const tree_iterator<T, N, Compare>& rhs)
-	// {
-	// 	return (lhs.base() != rhs.base());
-	// }
 
 } // namespace ft
 

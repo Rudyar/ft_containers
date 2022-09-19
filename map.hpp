@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/19 10:35:10 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/19 15:24:29 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <functional>
 #include "utils/pair.hpp"
 #include "utils/red_black_tree.hpp"
-#include "utils/lexicographical_compare.hpp"
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
 #include "iterators/reverse_iterator.hpp"
@@ -198,26 +197,12 @@ namespace ft
 
 			size_type erase(const key_type& k)
 			{
-				return _tree.delete_node(ft::make_pair(k, mapped_type()));
+				return _tree.node_erase(ft::make_pair(k, mapped_type()));
 			}
 
 			void erase(iterator first, iterator last)
 			{
-				iterator tmp = first;
-
-				if (first == end()) // ??
-					return ;
-				if (first == begin() && last == end())
-					clear();
-				else
-				{
-					while (first != last)
-					{
-						tmp = first;
-						first++;
-						erase(tmp->first);
-					}
-				}
+				_tree.range_erase(first, last);
 			}
 
 			void swap(map& x)

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/19 10:22:02 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/19 15:09:01 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,45 +66,22 @@ int	main(void)
 Delete node rb tree
 Use ft::_swap ??
 */
-	// std::list<T3> lst;
-	// unsigned int lst_size = 10;
-	// for (unsigned int i = 0; i < lst_size; ++i)
-	// 	lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
-	// __MACRO::map<T1, T2> map(lst.begin(), lst.end());
-
-	// // print_map(map);
-
-	// map.erase(++map.begin());
-	// // print_map(map);
-
-	// map.erase(map.begin());
-	// // print_map(map);
-
-	// map.erase(--map.end());
-	// // print_map(map);
-
-	// map.erase(map.begin(), ++(++(++map.begin())));
-	// print_map(map);
-
-	// map.erase(--(--(--map.end())), map.end());
-	// print_map(map);
-
 
 	__MACRO::map<T1, T2> map;
 	map.insert(__MACRO::pair<T1, T2>(1, "1"));
 	map.insert(__MACRO::pair<T1, T2>(2, "22"));
-	map.insert(__MACRO::pair<T1, T2>(3, "333"));
+	// map.insert(__MACRO::pair<T1, T2>(3, "333"));
 	// map.insert(__MACRO::pair<T1, T2>(4, "4444"));
 	// map.insert(__MACRO::pair<T1, T2>(5, "55555"));
 	// map.insert(__MACRO::pair<T1, T2>(6, "666666"));
 	// map.insert(__MACRO::pair<T1, T2>(7, "7777777"));
 	// map.insert(__MACRO::pair<T1, T2>(8, "88888888"));
 
-	// map.printTree();
 	// print_map(map);
 	// map.erase(2);
 	map.erase(++map.begin(), map.end());
 	// map.erase(3);
+	// map.printTree();
 	print_map(map);
 
 ////////////////////////////////////////////////////
