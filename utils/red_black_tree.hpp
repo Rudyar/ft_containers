@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/15 16:47:23 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/19 10:07:03 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ namespace ft
 
 			void	printHelper(node_pointer root, std::string indent, bool last)
 			{
-				if (root != NULL && root != _end)
+				if (root != NULL)
 				{
 					std::cout << indent;
 					if (last)
@@ -326,6 +326,7 @@ namespace ft
 			size_type	delete_node(value_type val)
 			{
 				node_pointer node;
+
 				// std::cout << "Val : " << val.first << std::endl;
 				if (empty())
 					return 0;
@@ -337,15 +338,20 @@ namespace ft
 				}
 				if (_size == 1)
 				{
-					// std::cout << "clear\n";
 					clear();
 					return 1;
 				}
+				// std::cout << "---------------------" << std::endl;
 				_bst_delete_node(node);
-				// _size--;
-				// _assign_end();
+				// std::cout << "---------------------" << std::endl << std::endl << std::endl;
+				// print_red_black_tree();
 				return 1;
 			}
+
+			// node_pointer	special_delete_node(node_pointer node)
+			// {
+
+			// }
 
 		// Private helpers
 		private :
@@ -353,7 +359,7 @@ namespace ft
 			node_pointer	_bst_find(const_reference to_find) const
 			{
 				node_pointer tmp = _root;
-
+				// std::cout << "_root find" << to_find.first << std::endl;
 				while (tmp != NULL && tmp != _end)
 				{
 					if (_comp(tmp->data.first, to_find.first))
@@ -417,18 +423,17 @@ namespace ft
 
 			void	_bst_delete_node(node_pointer node)
 			{
+				// std::cout << "bst delete node : " << node->data.first << std::endl;
 				node_pointer parent = node->parent;
 				node_pointer child = _bst_replace(node);
-				// std::cout << "Child : " << child->data.first << std::endl;
 				bool both_black = ((child == NULL || child->color == BLACK) && (node->color == BLACK));
-
-				// std::cout << "node parent : " << parent->data.first << std::endl;
 
 				if (!child) // if !child, node is leaf
 				{
 					// std::cout << "!child" << std::endl;
 					if (node == _root)
 					{
+						// std::cout << "node == root 1" << std::endl;
 						_root = NULL;
 					}
 					else
@@ -513,11 +518,22 @@ namespace ft
 				if (node->left)
 					return node->left;
 				return node->right;
+			}
 
+			void	_move_down(node_pointer node, node_pointer parent)
+			{
+				if (node->parent)
+				{
+					if (_is_left_child(node))
+						node->parent->left = parent;
+					else
+						node->parent->right = parent;
+				}
+				parent->parent = node->parent;
+				node->parent = parent;
 			}
 
 			/* Left rotate
-
 			To go from (rotation around 5) :
 			  5
 			/  \
@@ -543,25 +559,38 @@ namespace ft
 	   6    9
 			*/
 
+			// void	_left_rotate(node_pointer node)
+			// {
+			// 	node_pointer tmp = node->right;
+
+			// 	node->right = tmp->left;
+
+			// 	if (tmp->left)
+			// 		tmp->left->parent = node;
+
+			// 	tmp->parent = node->parent;
+
+			// 	if (!node->parent)
+			// 		_root = tmp;
+			// 	else if (node == node->parent->left)
+			// 		node->parent->left = tmp;
+			// 	else
+			// 		node->parent->right = tmp;
+			// 	tmp->left = node;
+			// 	node->parent = tmp;
+			// }
+
 			void	_left_rotate(node_pointer node)
 			{
-				node_pointer tmp = node->right;
+				node_pointer parent = node->right;
 
-				node->right = tmp->left;
-
-				if (tmp->left)
-					tmp->left->parent = node;
-
-				tmp->parent = node->parent;
-
-				if (!node->parent)
-					_root = tmp;
-				else if (node == node->parent->left)
-					node->parent->left = tmp;
-				else
-					node->parent->right = tmp;
-				tmp->left = node;
-				node->parent = tmp;
+				if (node == _root)
+					_root = parent;
+				_move_down(node, parent);
+				node->right = parent->left;
+				if (parent->left)
+					parent->left->parent = node;
+				parent->left = node;
 			}
 
 			/* Right rotate
@@ -591,25 +620,38 @@ namespace ft
 		6	9
 			*/
 
+			// void	_right_rotate(node_pointer node)
+			// {
+			// 	node_pointer tmp = node->left;
+
+			// 	node->left = tmp->right;
+
+			// 	if (tmp->right)
+			// 		tmp->right->parent = node;
+
+			// 	tmp->parent = node->parent;
+
+			// 	if (!node->parent)
+			// 		_root = tmp;
+			// 	else if (node == node->parent->left)
+			// 		node->parent->left = tmp;
+			// 	else
+			// 		node->parent->right = tmp;
+			// 	tmp->right = node;
+			// 	node->parent = tmp;
+			// }
+
 			void	_right_rotate(node_pointer node)
 			{
-				node_pointer tmp = node->left;
+				node_pointer parent = node->left;
 
-				node->left = tmp->right;
-
-				if (tmp->right)
-					tmp->right->parent = node;
-
-				tmp->parent = node->parent;
-
-				if (!node->parent)
-					_root = tmp;
-				else if (node == node->parent->left)
-					node->parent->left = tmp;
-				else
-					node->parent->right = tmp;
-				tmp->right = node;
-				node->parent = tmp;
+				if  (node == _root)
+					_root = parent;
+				_move_down(node, parent);
+				node->left = parent->right;
+				if (parent->right)
+					parent->right->parent = node;
+				parent->right = node;
 			}
 
 			node_pointer	_fix_red_uncle(node_pointer p, node_pointer gp, node_pointer u)
@@ -622,10 +664,12 @@ namespace ft
 
 			void	_fix_double_black(node_pointer node)
 			{
+				// std::cout << "fix double black node : " << node->data.first << std::endl;
 				if (node == _root)
 					return;
 				node_pointer sibling = _sibling(node);
 				node_pointer parent = node->parent;
+				// std::cout << "sibling : " << sibling->data.first << std::endl;
 
 				if(!sibling)
 					_fix_double_black(parent);
@@ -633,6 +677,7 @@ namespace ft
 				{
 					if (sibling->color == RED)
 					{
+						// std::cout << "sib col red\n";
 						parent->color = RED;
 						sibling->color = BLACK;
 						if (_is_left_child(sibling))
@@ -643,8 +688,10 @@ namespace ft
 					}
 					else // sibling black
 					{
+						// std::cout << "sib col black\n";
 						if (_has_red_child(sibling))
 						{
+							// std::cout << "has red child\n";
 							if (sibling->left && sibling->left->color == RED)
 							{
 								if (_is_left_child(sibling)) // left left
@@ -662,14 +709,17 @@ namespace ft
 							}
 							else
 							{
+								// std::cout << "else has red child\n";
 								if (_is_left_child(sibling)) // left right
 								{
+									// std::cout << "1 if else has red child\n";
 									sibling->right->color = parent->color;
 									_left_rotate(sibling);
 									_right_rotate(parent);
 								}
 								else // right right
 								{
+									// std::cout << "else else has red child\n";
 									sibling->right->color = sibling->color;
 									sibling->color = parent->color;
 									_left_rotate(parent);
@@ -679,6 +729,7 @@ namespace ft
 						}
 						else // two black children
 						{
+							// std::cout << "has 2 black child\n";
 							sibling->color = RED;
 							if (parent->color == BLACK)
 								_fix_double_black(parent);
@@ -737,7 +788,7 @@ namespace ft
 
 			void	_swap_values(node_pointer x, node_pointer y)
 			{
-				std::cout << "Swap val\n";
+				// std::cout << "Swap val\n";
 
 				key_type	key;
 				key_type	*key1;

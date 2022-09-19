@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/15 16:43:24 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/19 10:35:10 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,40 +198,25 @@ namespace ft
 
 			size_type erase(const key_type& k)
 			{
-					// std::cout << "K : " << k << std::endl;
 				return _tree.delete_node(ft::make_pair(k, mapped_type()));
 			}
 
 			void erase(iterator first, iterator last)
 			{
-				iterator tmp;
+				iterator tmp = first;
 
-				// if (first == begin() && last == end())
-				// 	clear();
-				// else
-				// {
-				// 	while (first != last)
-				// 	{
-				// 		// tmp = first;
-				// 		// first++;
-				// 		erase(first++);
-				// 		// erase(tmp->first);
-				// 	}
-				// }
-				size_t i = 0;
-				tmp = first;
-				while (tmp != last)
+				if (first == end()) // ??
+					return ;
+				if (first == begin() && last == end())
+					clear();
+				else
 				{
-					tmp++;
-					i++;
-				}
-				last--;
-				while (i != 0)
-				{
-					tmp = last;
-					last--;
-					erase(tmp);
-					i--;
+					while (first != last)
+					{
+						tmp = first;
+						first++;
+						erase(tmp->first);
+					}
 				}
 			}
 

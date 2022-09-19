@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:12:41 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/12 17:47:09 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/16 15:23:07 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ namespace ft
 				if (_current && _current->right)
 				{
 					_current = _current->right;
-					while (_current->left && _current->left != NULL)
+					while (_current->left)
 						_current = _current->left;
 				}
 				else if (_current && _current->parent)

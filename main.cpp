@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/15 16:42:41 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/19 10:22:02 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,7 @@ void print_map(__MACRO::map<T1, T2> map)
 		std::cout << "=====================================" << std::endl;
 		std::cout << "Size : " << map.size() << std::endl;
 		for (; it != ite; it++)
-		{
-
-			// if (it.base()->color == BLACK)
-			// if (it._M_node->_M_color == true)
-				// std::cout << "BLACK : ";
-			// else
-				// std::cout << "RED : ";
 			std::cout << it->second << "\n";
-		}
 		std::cout << std::endl << "=====================================" << std::endl;
 	}
 }
@@ -99,13 +91,20 @@ Use ft::_swap ??
 
 
 	__MACRO::map<T1, T2> map;
-	map.insert(__MACRO::pair<T1, T2>(1, "111"));
-	map.insert(__MACRO::pair<T1, T2>(2, "22222222"));
-	map.insert(__MACRO::pair<T1, T2>(3, "33333333333"));
+	map.insert(__MACRO::pair<T1, T2>(1, "1"));
+	map.insert(__MACRO::pair<T1, T2>(2, "22"));
+	map.insert(__MACRO::pair<T1, T2>(3, "333"));
+	// map.insert(__MACRO::pair<T1, T2>(4, "4444"));
+	// map.insert(__MACRO::pair<T1, T2>(5, "55555"));
+	// map.insert(__MACRO::pair<T1, T2>(6, "666666"));
+	// map.insert(__MACRO::pair<T1, T2>(7, "7777777"));
+	// map.insert(__MACRO::pair<T1, T2>(8, "88888888"));
 
 	// map.printTree();
 	// print_map(map);
+	// map.erase(2);
 	map.erase(++map.begin(), map.end());
+	// map.erase(3);
 	print_map(map);
 
 ////////////////////////////////////////////////////
