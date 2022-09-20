@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/19 15:19:37 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/20 08:46:21 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ enum e_color
 
 namespace ft
 {
-	template <typename T, typename K, class Compare> // T is a pair, K is key_type
+	template <typename T, typename K, class Compare, class Alloc> // T is a pair, K is key_type
 	class red_black_tree
 	{
 		private :
 			typedef T	value_type;
 
-			// Private nested struct, for each nodes
+			// Private struct, for each nodes
 			struct Node
 			{
 				value_type	data;
@@ -59,10 +59,12 @@ namespace ft
 			typedef size_t							size_type;
 			typedef K								key_type;
 			typedef Compare							compare_type;
+			typedef Alloc							allocator_type;
 			typedef value_type*						pointer;
 			typedef	Node*							node_pointer;
 			typedef const value_type&				const_reference;
-			typedef typename std::allocator<Node>	node_allocator;
+			typedef typename allocator_type::template rebind<Node>::other node_allocator;
+			// typedef typename std::allocator<Node>	node_allocator;
 			typedef const Node*						const_node_pointer;
 
 			node_pointer		_root;

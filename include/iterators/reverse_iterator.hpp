@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:28:29 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/09 16:15:15 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/20 10:31:34 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 namespace ft
 {
 	template<typename Iterator>
-	class reverse_iterator : public ft::iterator<ft::random_access_iterator_tag, Iterator>
+	class reverse_iterator
 	{
 		protected:
 			Iterator _current;

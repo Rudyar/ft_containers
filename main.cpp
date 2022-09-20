@@ -6,15 +6,15 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/19 15:09:01 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/20 10:38:27 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD__VECTOR    // A commenter pour avoir ft::vector
+#define STD__VECTOR    // A commenter pour avoir ft::vector
 #ifndef STD__VECTOR
-# include "vector.hpp"
-# include "stack.hpp"
-# include "map.hpp"
+# include "include/vector.hpp"
+# include "include/stack.hpp"
+# include "include/map.hpp"
 # define __MACRO ft
 #else
 # include <vector>
@@ -36,7 +36,6 @@ void stack_tests();
 
 #define T1 int
 #define T2 std::string
-typedef __MACRO::pair<const T1, T2> T3;
 
 void print_map(__MACRO::map<T1, T2> map)
 {
@@ -52,6 +51,7 @@ void print_map(__MACRO::map<T1, T2> map)
 		__MACRO::map<T1, T2>::iterator ite = map.end();
 		std::cout << "=====================================" << std::endl;
 		std::cout << "Size : " << map.size() << std::endl;
+		std::cout << "Max size : " << map.max_size() << std::endl;
 		for (; it != ite; it++)
 			std::cout << it->second << "\n";
 		std::cout << std::endl << "=====================================" << std::endl;
@@ -62,27 +62,22 @@ void print_map(__MACRO::map<T1, T2> map)
 
 int	main(void)
 {
-/*
-Delete node rb tree
-Use ft::_swap ??
-*/
-
+// Virer print tree !!
+// Enrichir les tests de vector & stack
 	__MACRO::map<T1, T2> map;
-	map.insert(__MACRO::pair<T1, T2>(1, "1"));
-	map.insert(__MACRO::pair<T1, T2>(2, "22"));
-	// map.insert(__MACRO::pair<T1, T2>(3, "333"));
-	// map.insert(__MACRO::pair<T1, T2>(4, "4444"));
-	// map.insert(__MACRO::pair<T1, T2>(5, "55555"));
-	// map.insert(__MACRO::pair<T1, T2>(6, "666666"));
-	// map.insert(__MACRO::pair<T1, T2>(7, "7777777"));
-	// map.insert(__MACRO::pair<T1, T2>(8, "88888888"));
+	map.insert(__MACRO::pair<T1, T2> (1, "1"));
+	map.insert(__MACRO::pair<T1, T2> (2, "22"));
+	map.insert(__MACRO::pair<T1, T2> (3, "333"));
+	map.insert(__MACRO::pair<T1, T2> (4, "4444"));
+	map.insert(__MACRO::pair<T1, T2> (5, "55555"));
 
+	__MACRO::map<T1, T2>::reverse_iterator rit = map.rbegin();
+
+	// rit--;
+	// rit--;
+	// rit--;
+	std::cout << "rit : " << rit->first << std::endl;
 	// print_map(map);
-	// map.erase(2);
-	map.erase(++map.begin(), map.end());
-	// map.erase(3);
-	// map.printTree();
-	print_map(map);
 
 ////////////////////////////////////////////////////
 	// vector_tests();
