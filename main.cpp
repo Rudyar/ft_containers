@@ -6,12 +6,12 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 16:15:39 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/20 20:05:49 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD__VECTOR    // A commenter pour avoir ft
-#ifndef STD__VECTOR
+// #define STD    // A commenter pour avoir ft
+#ifndef STD
 # include "include/vector.hpp"
 # include "include/stack.hpp"
 # include "include/map.hpp"
@@ -364,6 +364,55 @@ void	map_tests(void)
 	// 	print_map(map);
 
 	// }
+	// {
+	// 	std::cout << "                          ERASE (key)                      " << std::endl;
+	// 	__MACRO::map<T1, T2> map;
+
+	// 	map.insert(__MACRO::pair<T1, T2> ('1', 1));
+	// 	map.insert(__MACRO::pair<T1, T2> ('2', 22));
+	// 	map.insert(__MACRO::pair<T1, T2> ('3', 333));
+	// 	map.insert(__MACRO::pair<T1, T2> ('4', 4444));
+	// 	map.insert(__MACRO::pair<T1, T2> ('5', 55555));
+	// 	print_map(map);
+	// 	std::cout << "Ret from erase by key : " << map.erase('1') << std::endl;
+	// 	std::cout << "Ret from erase by key : " << map.erase('9') << std::endl;
+	// 	print_map(map);
+	// }
+	// {
+	// 	std::cout << "                          ERASE (range it)                      " << std::endl;
+	// 	__MACRO::map<T1, T2> map;
+
+	// 	map.insert(__MACRO::pair<T1, T2> ('1', 1));
+	// 	map.insert(__MACRO::pair<T1, T2> ('2', 22));
+	// 	map.insert(__MACRO::pair<T1, T2> ('3', 333));
+	// 	map.insert(__MACRO::pair<T1, T2> ('4', 4444));
+	// 	map.insert(__MACRO::pair<T1, T2> ('5', 55555));
+	// 	print_map(map);
+	// 	__MACRO::map<T1, T2>::iterator it = map.begin();
+	// 	__MACRO::map<T1, T2>::iterator ite = map.end();
+	// 	map.erase(++it, --ite);
+	// 	print_map(map);
+	// 	map.erase(map.begin(), map.end());
+	// 	print_map(map);
+	// }
+	{
+		std::cout << "                          SWAP                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+
+		map.insert(__MACRO::pair<T1, T2> ('1', 1));
+		map.insert(__MACRO::pair<T1, T2> ('2', 22));
+		map.insert(__MACRO::pair<T1, T2> ('3', 333));
+		map.insert(__MACRO::pair<T1, T2> ('4', 4444));
+		map.insert(__MACRO::pair<T1, T2> ('5', 55555));
+		print_map(map);
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+		__MACRO::map<T1, T2>::iterator ite = map.end();
+		map.erase(++it, --ite);
+		print_map(map);
+		map.erase(map.begin(), map.end());
+		print_map(map);
+
+	}
 }
 
 
