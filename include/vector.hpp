@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/19 15:24:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/20 12:05:10 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,7 +409,7 @@ namespace ft
 	template <class T, class Allocator>
 	bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y)
 	{
-		return lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
+		return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 	}
 
 	template <class T, class Allocator>

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 08:44:51 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/20 12:06:18 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ namespace ft
 
 			const_reverse_iterator rbegin() const
 			{
-				return const_revser_iterator(_tree.end());
+				return const_reverse_iterator(_tree.end());
 			}
 
 			reverse_iterator rend()

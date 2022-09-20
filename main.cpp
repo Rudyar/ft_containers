@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 10:38:27 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/20 12:35:47 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,55 +33,38 @@
 
 void vector_tests();
 void stack_tests();
+void map_tests();
 
-#define T1 int
-#define T2 std::string
-
-void print_map(__MACRO::map<T1, T2> map)
-{
-	if (map.empty())
-	{
-		std::cout << "-----------------" << std::endl;
-		std::cout << "Map empty !" << std::endl;
-		std::cout << "-----------------" << std::endl;
-	}
-	else
-	{
-		__MACRO::map<T1, T2>::iterator it = map.begin();
-		__MACRO::map<T1, T2>::iterator ite = map.end();
-		std::cout << "=====================================" << std::endl;
-		std::cout << "Size : " << map.size() << std::endl;
-		std::cout << "Max size : " << map.max_size() << std::endl;
-		for (; it != ite; it++)
-			std::cout << it->second << "\n";
-		std::cout << std::endl << "=====================================" << std::endl;
-	}
-}
+#define T1 char
+#define T2 int
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 int	main(void)
 {
 // Virer print tree !!
-// Enrichir les tests de vector & stack
-	__MACRO::map<T1, T2> map;
-	map.insert(__MACRO::pair<T1, T2> (1, "1"));
-	map.insert(__MACRO::pair<T1, T2> (2, "22"));
-	map.insert(__MACRO::pair<T1, T2> (3, "333"));
-	map.insert(__MACRO::pair<T1, T2> (4, "4444"));
-	map.insert(__MACRO::pair<T1, T2> (5, "55555"));
+// Enrichir les tests de vector (checker erase range) & stack
 
-	__MACRO::map<T1, T2>::reverse_iterator rit = map.rbegin();
+	// __MACRO::map<T1, T2> map;
+	// map.insert(__MACRO::pair<T1, T2> (1, "1"));
+	// map.insert(__MACRO::pair<T1, T2> (2, "22"));
+	// map.insert(__MACRO::pair<T1, T2> (3, "333"));
+	// map.insert(__MACRO::pair<T1, T2> (4, "4444"));
+	// map.insert(__MACRO::pair<T1, T2> (5, "55555"));
+
+	// __MACRO::map<T1, T2>::reverse_iterator rit = map.rbegin();
 
 	// rit--;
 	// rit--;
 	// rit--;
-	std::cout << "rit : " << rit->first << std::endl;
+	// std::cout << "rit : " << rit->first << std::endl;
 	// print_map(map);
 
 ////////////////////////////////////////////////////
 	// vector_tests();
 	// stack_tests();
+	map_tests();
+
 	return 0;
 }
 
@@ -107,9 +90,121 @@ void print_vec(__MACRO::vector<int> vec)
 	}
 }
 
+void print_map(__MACRO::map<T1, T2> map)
+{
+	if (map.empty())
+	{
+		std::cout << "-----------------" << std::endl;
+		std::cout << "Map empty !" << std::endl;
+		std::cout << "-----------------" << std::endl;
+	}
+	else
+	{
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+		__MACRO::map<T1, T2>::iterator ite = map.end();
+		std::cout << "=====================================" << std::endl;
+		std::cout << "Size : " << map.size() << std::endl;
+		std::cout << "Max size : " << map.max_size() << std::endl;
+		for (; it != ite; it++)
+			std::cout << it->second << "\n";
+		std::cout << std::endl << "=====================================" << std::endl;
+	}
+}
 
+// Functions from cpp ref for tests
+bool fncomp (char lhs,char rhs) {return lhs<rhs;}
 
+struct classcomp {
+  bool operator() (const char& lhs, const char& rhs) const
+  {return lhs<rhs;}
+};
 
+void	map_tests(void)
+{
+	std::cout << "------------------------------------------------------------------" << std::endl;
+	std::cout << "---------------             MAP TESTS            ---------------" << std::endl;
+	std::cout << "------------------------------------------------------------------" << std::endl;
+	{
+		std::cout << "                          CONSTRUCTORS                      " << std::endl;
+
+		__MACRO::map<T1, T2> first; // Default ctor
+
+		first['a']=10;
+		first['b']=30;
+		first['c']=50;
+		first['d']=70;
+
+		__MACRO::map<T1, T2> second (first.begin(),first.end()); // Range ctor
+
+		__MACRO::map<T1, T2> third (second); // Cpy ctor
+
+		__MACRO::map<T1, T2,classcomp> fourth;                 // add class as Compare
+
+		bool(*fn_pt)(char,char) = fncomp;
+		__MACRO::map<T1, T2, bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+		print_map(first);
+		print_map(second);
+		print_map(third);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          OPERATOR =                      " << std::endl;
+
+		__MACRO::map<T1, T2> first; // Default ctor
+		__MACRO::map<T1, T2> second; // Default ctor
+
+		first['x']=8;
+		first['y']=16;
+		first['z']=32;
+
+		second = first; // second now contains 3 ints from first
+		first = __MACRO::map<T1, T2>();
+		print_map(first);
+		print_map(second);
+	}
+	std::cout << "---------------       MAP ITERATORS TESTS       ---------------" << std::endl << std::endl;
+	{
+		std::cout << "                          BEGIN                      " << std::endl;
+
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+		std::cout << "it begin : " << it->first << std::endl;
+		for (; it != map.end(); it++)
+			std::cout << "it->first : " << it->first << " it->second : " << it->second << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          END                      " << std::endl;
+
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		__MACRO::map<T1, T2>::iterator ite = map.end();
+		std::cout << "ite end : " << ite->first << std::endl;
+		for (; ite != map.begin(); ite--)
+			std::cout << "ite->first : " << ite->first << " ite->second : " << ite->second << std::endl;
+
+		std::cout << "\n Ping pong with ite\n";
+		ite = map.end();
+		std::cout << "ite->first : " << ite->first << " ite->second : " << ite->second << std::endl;
+		ite++;
+		std::cout << "ite->first : " << ite->first << " ite->second : " << ite->second << std::endl;
+		ite++;
+		std::cout << "ite->first : " << ite->first << " ite->second : " << ite->second << std::endl;
+		ite++;
+		std::cout << "ite->first : " << ite->first << " ite->second : " << ite->second << std::endl;
+	}
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 void	stack_tests(void)
@@ -210,6 +305,9 @@ void	stack_tests(void)
 	}
 	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+
 
 void	vector_tests(void)
 {
