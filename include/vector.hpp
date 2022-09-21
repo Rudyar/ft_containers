@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 12:05:10 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/21 12:12:45 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ namespace ft
 			value_type		*_vec;
 
 		public:
-			// Canonical
-			explicit vector(const allocator_type& alloc = allocator_type())
+			explicit vector(const allocator_type& alloc = allocator_type()) // default
 			{
 				_size = 0;
 				_capacity = 0;
@@ -58,7 +57,7 @@ namespace ft
 				_vec = _alloc.allocate(0);
 			}
 
-			explicit vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type())
+			explicit vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type()) // fill
 			{
 				_size = n;
 				_capacity = n;

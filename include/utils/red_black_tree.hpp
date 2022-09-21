@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 08:46:21 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/21 15:09:46 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,23 @@ namespace ft
 				Node(const value_type& p = value_type()) : data(p), left(NULL), right(NULL), parent(NULL) {}
 			};
 
-			typedef size_t							size_type;
-			typedef K								key_type;
-			typedef Compare							compare_type;
-			typedef Alloc							allocator_type;
-			typedef value_type*						pointer;
-			typedef	Node*							node_pointer;
-			typedef const value_type&				const_reference;
-			typedef typename allocator_type::template rebind<Node>::other node_allocator;
-			// typedef typename std::allocator<Node>	node_allocator;
-			typedef const Node*						const_node_pointer;
+			typedef size_t													size_type;
+			typedef K														key_type;
+			typedef Compare													compare_type;
+			typedef Alloc													allocator_type;
+			typedef value_type*												pointer;
+			typedef	Node*													node_pointer;
+			typedef const Node*												const_node_pointer;
+		typedef const value_type&											const_reference;
+			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
 
-			node_pointer		_root;
-			node_pointer		_end;
-			size_type			_size;
-			node_allocator		_node_alloc;
-			compare_type		_comp;
+			node_pointer	_root;
+			node_pointer	_end;
+			size_type		_size;
+			node_allocator	_node_alloc;
+			compare_type	_comp;
 
 		public :
-			// Define Iterators here
 			typedef typename ft::tree_iterator<value_type, node_pointer, compare_type>			iterator;
 			typedef typename ft::tree_iterator<const value_type, node_pointer, compare_type>	const_iterator;
 
@@ -97,6 +95,7 @@ namespace ft
 			node_pointer	create_node(const_reference value = value_type())
 			{
 				node_pointer node = _node_alloc.allocate(1);
+
 				_node_alloc.construct(node, Node(value));
 				node->color = RED;
 				node->left = NULL;
@@ -104,42 +103,6 @@ namespace ft
 				node->parent = NULL;
 				return node;
 			}
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-			void	printHelper(node_pointer root, std::string indent, bool last)
-			{
-				if (root != NULL)
-				{
-					std::cout << indent;
-					if (last)
-					{
-						std::cout << "R---- ";
-						indent += "   ";
-					}
-					else
-					{
-						std::cout << "L---- ";
-						indent += "|  ";
-					}
-
-					std::string sColor = "BLACK";
-					if (root->color == RED)
-						sColor = "RED";
-					std::cout << root->data.second << " (" << sColor << ")" << std::endl;
-					printHelper(root->left, indent, false);
-					printHelper(root->right, indent, true);
-				}
-			}
-
-			void	print_red_black_tree()
-			{
-				if (_root)
-					printHelper(_root, "", true);
-			}
-
-///////////////////////////////////////////////////////////////////////////////////////
-
 
 			// ==================== Capacity
 			bool	empty() const
@@ -179,7 +142,7 @@ namespace ft
 				return const_iterator(_end);
 			}
 
-			compare_type comp() const
+			compare_type	comp() const
 			{
 				return _comp;
 			}
@@ -189,6 +152,7 @@ namespace ft
 			iterator	find(const_reference val)
 			{
 				node_pointer ret = _bst_find(val);
+
 				if (!ret)
 					return end();
 				return iterator(ret);
@@ -197,6 +161,7 @@ namespace ft
 			const_iterator	find(const_reference val) const
 			{
 				node_pointer ret = _bst_find(val);
+
 				if (!ret)
 					return end();
 				return const_iterator(ret);
@@ -205,6 +170,7 @@ namespace ft
 			size_type	count(const_reference val) const
 			{
 				node_pointer ret = _bst_find(val);
+
 				if (!ret)
 					return 0;
 				return 1;
@@ -341,10 +307,8 @@ namespace ft
 					clear();
 					return;
 				}
-
 				for (iterator it = first; it != last; it++)
 					i++;
-
 				while (i)
 				{
 					tmp = _bst_delete_node(tmp);
@@ -358,6 +322,7 @@ namespace ft
 			node_pointer	_bst_find(const_reference to_find) const
 			{
 				node_pointer tmp = _root;
+
 				while (tmp != NULL && tmp != _end)
 				{
 					if (_comp(tmp->data.first, to_find.first))
@@ -472,7 +437,7 @@ namespace ft
 					_assign_end();
 					return ret;
 				}
-				// if node has 2 children, swap node data with child data and recursion
+				// if node has 2 children, swap node data with child data and recursion until node if a leaf or has one child
 				_swap_values(child, node);
 				_bst_delete_node(child);
 				return node; // return node because of the swap
@@ -706,19 +671,19 @@ namespace ft
 				_destroy_node(node);
 			}
 
-			void	_assign_values(node_pointer x, node_pointer y)
+			void	_assign_values(node_pointer x, node_pointer y) // Can't find another way since key_type are const from map erase
 			{
-				key_type* k1;
-				key_type* k2;
+				key_type* key1;
+				key_type* key2;
 
-				k1 = const_cast<key_type*>(&x->data.first);
-				k2 = const_cast<key_type*>(&y->data.first);
+				key1 = const_cast<key_type*>(&x->data.first);
+				key2 = const_cast<key_type*>(&y->data.first);
 
-				*k1 = *k2;
+				*key1 = *key2;
 				x->data.second = y->data.second;
 			}
 
-			void	_swap_values(node_pointer x, node_pointer y)
+			void	_swap_values(node_pointer x, node_pointer y) // Can't find another way since key_type are const from map erase
 			{
 				key_type	key;
 				key_type	*key1;
@@ -770,6 +735,41 @@ namespace ft
 				_end->right = NULL;
 				_end->color = BLACK;
 			}
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+			// void	printHelper(node_pointer root, std::string indent, bool last)
+			// {
+			// 	if (root != NULL)
+			// 	{
+			// 		std::cout << indent;
+			// 		if (last)
+			// 		{
+			// 			std::cout << "R---- ";
+			// 			indent += "   ";
+			// 		}
+			// 		else
+			// 		{
+			// 			std::cout << "L---- ";
+			// 			indent += "|  ";
+			// 		}
+
+			// 		std::string sColor = "BLACK";
+			// 		if (root->color == RED)
+			// 			sColor = "RED";
+			// 		std::cout << root->data.second << " (" << sColor << ")" << std::endl;
+			// 		printHelper(root->left, indent, false);
+			// 		printHelper(root->right, indent, true);
+			// 	}
+			// }
+
+			// void	print_red_black_tree()
+			// {
+			// 	if (_root)
+			// 		printHelper(_root, "", true);
+			// }
+
+///////////////////////////////////////////////////////////////////////////////////////
 	};
 } // namespace ft
 

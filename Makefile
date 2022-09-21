@@ -6,13 +6,14 @@
 #    By: arudy <arudy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 11:24:40 by arudy             #+#    #+#              #
-#    Updated: 2022/08/31 16:52:50 by arudy            ###   ########.fr        #
+#    Updated: 2022/09/21 15:42:13 by arudy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= ft_containers
 
 SRCS	= main.cpp
+# SRCS	= subject_main.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 DEPS	= $(SRCS:.cpp=.d)

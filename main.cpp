@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/21 12:00:02 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/21 15:46:01 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STD    // A commenter pour avoir ft
+// #define STD    // A commenter pour avoir ft
 #ifndef STD
 # include "include/vector.hpp"
 # include "include/stack.hpp"
@@ -31,22 +31,21 @@
 #include <deque>
 #include <list>
 
+#define T1 char
+#define T2 int
+
 void vector_tests();
 void stack_tests();
 void map_tests();
-
-#define T1 char
-#define T2 int
+void print_vec(__MACRO::vector<int> vec);
+void print_map(__MACRO::map<T1, T2> map);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 int	main(void)
 {
-// Virer print tree !!
-// Enrichir les tests de vector (checker erase range) & stack
-// Checker le time de l'exec
-
-////////////////////////////////////////////////////
+	// Recheck friend keywords
+	// Recheck all !
 	vector_tests();
 	stack_tests();
 	map_tests();
@@ -92,8 +91,8 @@ void print_map(__MACRO::map<T1, T2> map)
 		std::cout << "Size : " << map.size() << std::endl;
 		std::cout << "Max size : " << map.max_size() << std::endl;
 		for (; it != ite; it++)
-			std::cout << it->second << "\n";
-		std::cout << "=====================================" << std::endl;
+			std::cout << it->second << " | ";
+		std::cout << std::endl << "=====================================" << std::endl;
 	}
 }
 
@@ -586,6 +585,48 @@ void	map_tests(void)
 
 		std::cout << "upper bound points to: ";
 		std::cout << ret.second->first << " => " << ret.second->second << '\n';
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          RELATIONAL OP                      " << std::endl;
+		__MACRO::map<T1, T2> map, map1, map2;
+
+		map['5'] = 55555;
+		map['0'] = 0;
+		map['9'] = 999999999;
+
+		map1['6'] = 666666;
+		map1['0'] = 0;
+		map1['8'] = 88888888;
+
+		map2 = map;
+		std::cout << "map" << std::endl;
+		print_map(map);
+		std::cout << "map1" << std::endl;
+		print_map(map1);
+		std::cout << "map2" << std::endl;
+		print_map(map2);
+
+		std::cout << "map == map1 = " << (map == map1) << std::endl;
+		std::cout << "map != map1 = " << (map != map1) << std::endl;
+		std::cout << "map < map1 = " << (map < map1) << std::endl;
+		std::cout << "map <= map1 = " << (map <= map1) << std::endl;
+		std::cout << "map > map1 = " << (map > map1) << std::endl;
+		std::cout << "map >= map1 = " << (map >= map1) << std::endl << std::endl;
+
+		std::cout << "map == map2 = " << (map == map2) << std::endl;
+		std::cout << "map != map2 = " << (map != map2) << std::endl;
+		std::cout << "map < map2 = " << (map < map2) << std::endl;
+		std::cout << "map <= map2 = " << (map <= map2) << std::endl;
+		std::cout << "map > map2 = " << (map > map2) << std::endl;
+		std::cout << "map >= map2 = " << (map >= map2) << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          INSERT 1000000 elems                      " << std::endl;
+		__MACRO::map<int, int> map;
+		for (int i = 0; i < 1000000; i++)
+			map[i] = i;
 	}
 }
 
@@ -1130,8 +1171,11 @@ void	vector_tests(void)
 	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
 
 	}
-	std::cout << "\n\n";
-	std::cout << "==================================================================" << std::endl;
-	std::cout << "==================================================================";
-	std::cout << "\n\n\n";
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          INSERT 1000000 elems                      " << std::endl;
+		__MACRO::vector<int> vec;
+		for (int i = 0; i < 1000000; i++)
+			vec.push_back(i);
+	}
 }
