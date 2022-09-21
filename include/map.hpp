@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:09:44 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 12:06:18 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/21 10:45:32 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ namespace ft
 				return _tree.find(ft::make_pair(k, mapped_type()));
 			}
 
-			size_type count(const key_type& k) const // recheck
+			size_type count(const key_type& k) const
 			{
 				return _tree.count(ft::make_pair(k, mapped_type()));
 			}

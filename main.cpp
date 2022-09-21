@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 20:05:49 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/21 12:00:02 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD    // A commenter pour avoir ft
+#define STD    // A commenter pour avoir ft
 #ifndef STD
 # include "include/vector.hpp"
 # include "include/stack.hpp"
@@ -44,25 +44,11 @@ int	main(void)
 {
 // Virer print tree !!
 // Enrichir les tests de vector (checker erase range) & stack
-
-	// __MACRO::map<T1, T2> map;
-	// map.insert(__MACRO::pair<T1, T2> (1, "1"));
-	// map.insert(__MACRO::pair<T1, T2> (2, "22"));
-	// map.insert(__MACRO::pair<T1, T2> (3, "333"));
-	// map.insert(__MACRO::pair<T1, T2> (4, "4444"));
-	// map.insert(__MACRO::pair<T1, T2> (5, "55555"));
-
-	// __MACRO::map<T1, T2>::reverse_iterator rit = map.rbegin();
-
-	// rit--;
-	// rit--;
-	// rit--;
-	// std::cout << "rit : " << rit->first << std::endl;
-	// print_map(map);
+// Checker le time de l'exec
 
 ////////////////////////////////////////////////////
-	// vector_tests();
-	// stack_tests();
+	vector_tests();
+	stack_tests();
 	map_tests();
 
 	return 0;
@@ -107,7 +93,7 @@ void print_map(__MACRO::map<T1, T2> map)
 		std::cout << "Max size : " << map.max_size() << std::endl;
 		for (; it != ite; it++)
 			std::cout << it->second << "\n";
-		std::cout << std::endl << "=====================================" << std::endl;
+		std::cout << "=====================================" << std::endl;
 	}
 }
 
@@ -124,279 +110,265 @@ void	map_tests(void)
 	std::cout << "------------------------------------------------------------------" << std::endl;
 	std::cout << "---------------             MAP TESTS            ---------------" << std::endl;
 	std::cout << "------------------------------------------------------------------" << std::endl;
-	// {
-	// 	std::cout << "                          CONSTRUCTORS                      " << std::endl;
-
-	// 	__MACRO::map<T1, T2> first; // Default ctor
-
-	// 	first['a']=10;
-	// 	first['b']=30;
-	// 	first['c']=50;
-	// 	first['d']=70;
-
-	// 	__MACRO::map<T1, T2> second (first.begin(),first.end()); // Range ctor
-
-	// 	__MACRO::map<T1, T2> third (second); // Cpy ctor
-
-	// 	__MACRO::map<T1, T2,classcomp> fourth;                 // add class as Compare
-
-	// 	bool(*fn_pt)(char,char) = fncomp;
-	// 	__MACRO::map<T1, T2, bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
-	// 	print_map(first);
-	// 	print_map(second);
-	// 	print_map(third);
-	// }
-	// std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
-	// {
-	// 	std::cout << "                          OPERATOR =                      " << std::endl;
-
-	// 	__MACRO::map<T1, T2> first; // Default ctor
-	// 	__MACRO::map<T1, T2> second; // Default ctor
-
-	// 	first['x']=8;
-	// 	first['y']=16;
-	// 	first['z']=32;
-
-	// 	second = first; // second now contains 3 ints from first
-	// 	first = __MACRO::map<T1, T2>();
-	// 	print_map(first);
-	// 	print_map(second);
-	// }
-	// std::cout << "---------------       MAP ITERATORS TESTS       ---------------" << std::endl << std::endl;
-	// {
-	// 	std::cout << "                          BEGIN                      " << std::endl;
-
-	// 	__MACRO::map<T1, T2> map; // Default ctor
-
-	// 	map['w'] = 4;
-	// 	map['x'] = 8;
-	// 	map['y'] = 16;
-	// 	map['z'] = 32;
-
-	// 	__MACRO::map<T1, T2>::iterator it = map.begin();
-	// 	std::cout << "it begin : " << it->first << std::endl;
-	// 	for (; it != map.end(); it++)
-	// 		std::cout << "it->first : " << it->first << " it->second : " << it->second << std::endl;
-
-	// 	std::cout << "\nTest it = const it\n";
-	// 	it = map.begin();
-	// 	__MACRO::map<T1, T2>::const_iterator cit = map.begin();
-	// 	std::cout << "it begin : " << it->first << std::endl;
-	// 	std::cout << "cit begin : " << cit->first << std::endl;
-	// 	std::cout << "it == cit ? : " << (it == cit) << std::endl;
-	// 	cit++;
-	// 	std::cout << "it == cit ? : " << (it == cit) << std::endl;
-
-
-
-	// }
-	// std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
-	// {
-	// 	std::cout << "                          END                      " << std::endl;
-
-	// 	__MACRO::map<T1, T2> map; // Default ctor
-
-	// 	map['w'] = 4;
-	// 	map['x'] = 8;
-	// 	map['y'] = 16;
-	// 	map['z'] = 32;
-
-	// 	__MACRO::map<T1, T2>::iterator ite = map.end();
-	// 	// May be have diff between it from ft and std when pointing to end(), mine is NULL and std is EOT
-	// 	for (; ite != map.begin(); --ite)
-	// 		std::cout << "ite->first : " << ite->first << " ite->second : " << ite->second << std::endl;
-
-
-	// 	std::cout << "\nTest ite = const ite\n";
-	// 	ite = map.end();
-	// 	__MACRO::map<T1, T2>::const_iterator cite = map.end();
-	// 	ite--;
-	// 	cite--;
-	// 	std::cout << "ite : " << ite->first << std::endl;
-	// 	std::cout << "cite : " << cite->first << std::endl;
-	// 	std::cout << "ite == cite ? : " << (ite == cite) << std::endl;
-	// 	cite--;
-	// 	std::cout << "ite == cite ? : " << (ite == cite) << std::endl;
-	// }
-	// std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
-	// {
-	// 	std::cout << "                          RBEGIN & REND                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map; // Default ctor
-
-	// 	map['w'] = 4;
-	// 	map['x'] = 8;
-	// 	map['y'] = 16;
-	// 	map['z'] = 32;
-
-	// 	__MACRO::map<T1, T2>::reverse_iterator rit = map.rbegin();
-	// 	__MACRO::map<T1, T2>::reverse_iterator rite = map.rend();
-	// 	for (; rit != rite; ++rit)
-	// 		std::cout << "rit->first : " << rit->first << " rit->second : " << rit->second << std::endl;
-
-	// 	__MACRO::map<T1, T2>::const_reverse_iterator crit = map.rbegin();
-
-	// 	std::cout << "rit == crit ? : " << (rit == crit) << std::endl;
-	// 	rit = map.rbegin();
-	// 	rit++;
-	// 	crit++;
-	// 	std::cout << "rit == crit ? : " << (rit == crit) << std::endl;
-
-	// }
-	// std::cout << "---------------       MAP CAPACITY TESTS       ---------------" << std::endl << std::endl;
-	// {
-	// 	std::cout << "                          EMPTY                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map; // Default ctor
-
-	// 	std::cout << "Map is empty ? " << map.empty() << std::endl;
-
-	// 	map['w'] = 4;
-	// 	map['x'] = 8;
-	// 	map['y'] = 16;
-	// 	map['z'] = 32;
-
-	// 	std::cout << "Map is empty ? " << map.empty() << std::endl;
-	// }
-	// {
-	// 	std::cout << "                          SIZE                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map; // Default ctor
-
-	// 	std::cout << "Map size : " << map.size() << std::endl;
-
-	// 	map['w'] = 4;
-	// 	map['x'] = 8;
-	// 	map['y'] = 16;
-	// 	map['z'] = 32;
-
-	// 	std::cout << "Map size : " << map.size() << std::endl;
-	// }
-	// {
-	// 	std::cout << "                          MAX_SIZE                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map; // Default ctor
-
-	// 	std::cout << "Map max_size : " << map.max_size() << std::endl;
-
-	// 	map['w'] = 4;
-	// 	map['x'] = 8;
-	// 	map['y'] = 16;
-	// 	map['z'] = 32;
-
-	// 	std::cout << "Map max_size : " << map.max_size() << std::endl;
-	// }
-	// std::cout << "---------------       MAP ELEMENTS ACCES TESTS       ---------------" << std::endl << std::endl;
-	// {
-	// 	std::cout << "                          OP []                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map; // Default ctor
-	// 	map['w'] = 4;
-	// 	map['x'] = 8;
-	// 	map['y'] = 16;
-	// 	map['z'] = 32;
-
-	// 	std::cout << "map['w'] : " << map['w'] << std::endl;
-	// 	std::cout << "map['x'] : " << map['x'] << std::endl;
-	// 	std::cout << "map['y'] : " << map['y'] << std::endl;
-	// 	std::cout << "map['z'] : " << map['z'] << std::endl;
-	// 	std::cout << "map['a'] : " << map['a'] << std::endl;
-	// }
-	std::cout << "---------------       MAP MODIFIERS TESTS       ---------------" << std::endl << std::endl;
-	// {
-	// 	std::cout << "                          INSERT (single param)                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map;
-	// 	map.insert(__MACRO::pair<T1, T2> ('1', 1));
-	// 	map.insert(__MACRO::pair<T1, T2> ('2', 22));
-	// 	map.insert(__MACRO::pair<T1, T2> ('3', 333));
-	// 	map.insert(__MACRO::pair<T1, T2> ('4', 4444));
-	// 	map.insert(__MACRO::pair<T1, T2> ('5', 55555));
-	// 	__MACRO::pair<__MACRO::map<T1, T2>::iterator, bool> ret;
-	// 	ret = map.insert(__MACRO::pair<T1, T2> ('2', 22));
-	// 	if (ret.second == false)
-	// 		std::cout << "Elem : " << ret.first->second << " is already in map\n";
-	// 	print_map(map);
-	// }
-	// {
-	// 	std::cout << "                          INSERT (pos + param)                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map;
-	// 	__MACRO::map<T1, T2>::iterator it = map.begin();
-
-	// 	map.insert(it, __MACRO::pair<T1, T2> ('1', 1));
-	// 	map.insert(it, __MACRO::pair<T1, T2> ('2', 22));
-	// 	map.insert(it, __MACRO::pair<T1, T2> ('3', 333));
-	// 	it++;
-	// 	it++;
-	// 	map.insert(it, __MACRO::pair<T1, T2> ('4', 4444));
-	// 	it--;
-	// 	map.insert(it, __MACRO::pair<T1, T2> ('5', 55555));
-	// 	__MACRO::pair<__MACRO::map<T1, T2>::iterator, bool> ret;
-	// 	ret = map.insert(__MACRO::pair<T1, T2> ('2', 22));
-	// 	if (ret.second == false)
-	// 		std::cout << "Elem : " << ret.first->second << " is already in map\n";
-	// 	print_map(map);
-	// }
-	// {
-	// 	std::cout << "                          INSERT (range it)                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map;
-	// 	__MACRO::map<T1, T2> mapp;
-
-	// 	map.insert(__MACRO::pair<T1, T2> ('1', 1));
-	// 	map.insert(__MACRO::pair<T1, T2> ('2', 22));
-	// 	map.insert(__MACRO::pair<T1, T2> ('3', 333));
-	// 	map.insert(__MACRO::pair<T1, T2> ('4', 4444));
-	// 	map.insert(__MACRO::pair<T1, T2> ('5', 55555));
-	// 	__MACRO::map<T1, T2>::iterator it = map.end();
-	// 	--(--it);
-	// 	mapp.insert(map.begin(), it);
-	// 	print_map(map);
-	// 	print_map(mapp);
-	// }
-	// {
-	// 	std::cout << "                          ERASE (pos)                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map;
-
-	// 	map.insert(__MACRO::pair<T1, T2> ('1', 1));
-	// 	map.insert(__MACRO::pair<T1, T2> ('2', 22));
-	// 	map.insert(__MACRO::pair<T1, T2> ('3', 333));
-	// 	map.insert(__MACRO::pair<T1, T2> ('4', 4444));
-	// 	map.insert(__MACRO::pair<T1, T2> ('5', 55555));
-	// 	print_map(map);
-	// 	__MACRO::map<T1, T2>::iterator it = map.begin();
-	// 	map.erase(it);
-	// 	it = map.begin();
-	// 	map.erase(it);
-	// 	print_map(map);
-
-	// }
-	// {
-	// 	std::cout << "                          ERASE (key)                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map;
-
-	// 	map.insert(__MACRO::pair<T1, T2> ('1', 1));
-	// 	map.insert(__MACRO::pair<T1, T2> ('2', 22));
-	// 	map.insert(__MACRO::pair<T1, T2> ('3', 333));
-	// 	map.insert(__MACRO::pair<T1, T2> ('4', 4444));
-	// 	map.insert(__MACRO::pair<T1, T2> ('5', 55555));
-	// 	print_map(map);
-	// 	std::cout << "Ret from erase by key : " << map.erase('1') << std::endl;
-	// 	std::cout << "Ret from erase by key : " << map.erase('9') << std::endl;
-	// 	print_map(map);
-	// }
-	// {
-	// 	std::cout << "                          ERASE (range it)                      " << std::endl;
-	// 	__MACRO::map<T1, T2> map;
-
-	// 	map.insert(__MACRO::pair<T1, T2> ('1', 1));
-	// 	map.insert(__MACRO::pair<T1, T2> ('2', 22));
-	// 	map.insert(__MACRO::pair<T1, T2> ('3', 333));
-	// 	map.insert(__MACRO::pair<T1, T2> ('4', 4444));
-	// 	map.insert(__MACRO::pair<T1, T2> ('5', 55555));
-	// 	print_map(map);
-	// 	__MACRO::map<T1, T2>::iterator it = map.begin();
-	// 	__MACRO::map<T1, T2>::iterator ite = map.end();
-	// 	map.erase(++it, --ite);
-	// 	print_map(map);
-	// 	map.erase(map.begin(), map.end());
-	// 	print_map(map);
-	// }
 	{
-		std::cout << "                          SWAP                      " << std::endl;
+		std::cout << "                          CONSTRUCTORS                      " << std::endl;
+
+		__MACRO::map<T1, T2> first; // Default ctor
+
+		first['a']=10;
+		first['b']=30;
+		first['c']=50;
+		first['d']=70;
+
+		__MACRO::map<T1, T2> second (first.begin(),first.end()); // Range ctor
+
+		__MACRO::map<T1, T2> third (second); // Cpy ctor
+
+		__MACRO::map<T1, T2,classcomp> fourth;                 // add class as Compare
+
+		bool(*fn_pt)(char,char) = fncomp;
+		__MACRO::map<T1, T2, bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+		print_map(first);
+		print_map(second);
+		print_map(third);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          OPERATOR =                      " << std::endl;
+
+		__MACRO::map<T1, T2> first; // Default ctor
+		__MACRO::map<T1, T2> second; // Default ctor
+
+		first['x']=8;
+		first['y']=16;
+		first['z']=32;
+
+		second = first; // second now contains 3 ints from first
+		first = __MACRO::map<T1, T2>();
+		print_map(first);
+		print_map(second);
+	}
+	std::cout << "---------------       MAP ITERATORS TESTS       ---------------" << std::endl << std::endl;
+	{
+		std::cout << "                          BEGIN                      " << std::endl;
+
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+		std::cout << "it begin : " << it->first << std::endl;
+		for (; it != map.end(); it++)
+			std::cout << "it->first : " << it->first << " it->second : " << it->second << std::endl;
+
+		std::cout << "\nTest it = const it\n";
+		it = map.begin();
+		__MACRO::map<T1, T2>::const_iterator cit = map.begin();
+		std::cout << "it begin : " << it->first << std::endl;
+		std::cout << "cit begin : " << cit->first << std::endl;
+		std::cout << "it == cit ? : " << (it == cit) << std::endl;
+		cit++;
+		std::cout << "it == cit ? : " << (it == cit) << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          END                      " << std::endl;
+
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		__MACRO::map<T1, T2>::iterator ite = map.end();
+		// May be have diff between it from ft and std when pointing to end(), mine is NULL and std is EOT
+		for (; ite != map.begin(); --ite)
+			std::cout << "ite->first : " << ite->first << " ite->second : " << ite->second << std::endl;
+
+
+		std::cout << "\nTest ite = const ite\n";
+		ite = map.end();
+		__MACRO::map<T1, T2>::const_iterator cite = map.end();
+		ite--;
+		cite--;
+		std::cout << "ite : " << ite->first << std::endl;
+		std::cout << "cite : " << cite->first << std::endl;
+		std::cout << "ite == cite ? : " << (ite == cite) << std::endl;
+		cite--;
+		std::cout << "ite == cite ? : " << (ite == cite) << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          RBEGIN & REND                      " << std::endl;
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		__MACRO::map<T1, T2>::reverse_iterator rit = map.rbegin();
+		__MACRO::map<T1, T2>::reverse_iterator rite = map.rend();
+		for (; rit != rite; ++rit)
+			std::cout << "rit->first : " << rit->first << " rit->second : " << rit->second << std::endl;
+
+		__MACRO::map<T1, T2>::const_reverse_iterator crit = map.rbegin();
+
+		std::cout << "rit == crit ? : " << (rit == crit) << std::endl;
+		rit = map.rbegin();
+		rit++;
+		crit++;
+		std::cout << "rit == crit ? : " << (rit == crit) << std::endl;
+
+	}
+	std::cout << "---------------       MAP CAPACITY TESTS       ---------------" << std::endl << std::endl;
+	{
+		std::cout << "                          EMPTY                      " << std::endl;
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		std::cout << "Map is empty ? " << map.empty() << std::endl;
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		std::cout << "Map is empty ? " << map.empty() << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          SIZE                      " << std::endl;
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		std::cout << "Map size : " << map.size() << std::endl;
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		std::cout << "Map size : " << map.size() << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          MAX_SIZE                      " << std::endl;
+		__MACRO::map<T1, T2> map; // Default ctor
+
+		std::cout << "Map max_size : " << map.max_size() << std::endl;
+
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		std::cout << "Map max_size : " << map.max_size() << std::endl;
+	}
+	std::cout << "---------------       MAP ELEMENTS ACCES TESTS       ---------------" << std::endl << std::endl;
+	{
+		std::cout << "                          OP []                      " << std::endl;
+		__MACRO::map<T1, T2> map; // Default ctor
+		map['w'] = 4;
+		map['x'] = 8;
+		map['y'] = 16;
+		map['z'] = 32;
+
+		std::cout << "map['w'] : " << map['w'] << std::endl;
+		std::cout << "map['x'] : " << map['x'] << std::endl;
+		std::cout << "map['y'] : " << map['y'] << std::endl;
+		std::cout << "map['z'] : " << map['z'] << std::endl;
+		std::cout << "map['a'] : " << map['a'] << std::endl;
+	}
+	std::cout << "---------------       MAP MODIFIERS TESTS       ---------------" << std::endl << std::endl;
+	{
+		std::cout << "                          INSERT (single param)                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+		map.insert(__MACRO::pair<T1, T2> ('1', 1));
+		map.insert(__MACRO::pair<T1, T2> ('2', 22));
+		map.insert(__MACRO::pair<T1, T2> ('3', 333));
+		map.insert(__MACRO::pair<T1, T2> ('4', 4444));
+		map.insert(__MACRO::pair<T1, T2> ('5', 55555));
+		__MACRO::pair<__MACRO::map<T1, T2>::iterator, bool> ret;
+		ret = map.insert(__MACRO::pair<T1, T2> ('2', 22));
+		if (ret.second == false)
+			std::cout << "Elem : " << ret.first->second << " is already in map\n";
+		print_map(map);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          INSERT (pos + param)                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+
+		map.insert(it, __MACRO::pair<T1, T2> ('1', 1));
+		map.insert(it, __MACRO::pair<T1, T2> ('2', 22));
+		map.insert(it, __MACRO::pair<T1, T2> ('3', 333));
+		it++;
+		it++;
+		map.insert(it, __MACRO::pair<T1, T2> ('4', 4444));
+		it--;
+		map.insert(it, __MACRO::pair<T1, T2> ('5', 55555));
+		__MACRO::pair<__MACRO::map<T1, T2>::iterator, bool> ret;
+		ret = map.insert(__MACRO::pair<T1, T2> ('2', 22));
+		if (ret.second == false)
+			std::cout << "Elem : " << ret.first->second << " is already in map\n";
+		print_map(map);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          INSERT (range it)                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+		__MACRO::map<T1, T2> mapp;
+
+		map.insert(__MACRO::pair<T1, T2> ('1', 1));
+		map.insert(__MACRO::pair<T1, T2> ('2', 22));
+		map.insert(__MACRO::pair<T1, T2> ('3', 333));
+		map.insert(__MACRO::pair<T1, T2> ('4', 4444));
+		map.insert(__MACRO::pair<T1, T2> ('5', 55555));
+		__MACRO::map<T1, T2>::iterator it = map.end();
+		--(--it);
+		mapp.insert(map.begin(), it);
+		print_map(map);
+		print_map(mapp);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          ERASE (pos)                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+
+		map.insert(__MACRO::pair<T1, T2> ('1', 1));
+		map.insert(__MACRO::pair<T1, T2> ('2', 22));
+		map.insert(__MACRO::pair<T1, T2> ('3', 333));
+		map.insert(__MACRO::pair<T1, T2> ('4', 4444));
+		map.insert(__MACRO::pair<T1, T2> ('5', 55555));
+		print_map(map);
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+		map.erase(it);
+		it = map.begin();
+		map.erase(it);
+		print_map(map);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          ERASE (key)                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+
+		map.insert(__MACRO::pair<T1, T2> ('1', 1));
+		map.insert(__MACRO::pair<T1, T2> ('2', 22));
+		map.insert(__MACRO::pair<T1, T2> ('3', 333));
+		map.insert(__MACRO::pair<T1, T2> ('4', 4444));
+		map.insert(__MACRO::pair<T1, T2> ('5', 55555));
+		print_map(map);
+		std::cout << "Ret from erase by key : " << map.erase('1') << std::endl;
+		std::cout << "Ret from erase by key : " << map.erase('9') << std::endl;
+		print_map(map);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          ERASE (range it)                      " << std::endl;
 		__MACRO::map<T1, T2> map;
 
 		map.insert(__MACRO::pair<T1, T2> ('1', 1));
@@ -411,12 +383,215 @@ void	map_tests(void)
 		print_map(map);
 		map.erase(map.begin(), map.end());
 		print_map(map);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          SWAP (member function)                      " << std::endl;
+		__MACRO::map<T1, T2> foo;
+		__MACRO::map<T1, T2> bar;
 
+		foo['1'] = 1;
+		foo['2'] = 22;
+
+		bar['7'] = 7777777;
+		bar['8'] = 88888888;
+		bar['9'] = 999999999;
+
+		std::cout << "Print foo before swap\n";
+		print_map(foo);
+		std::cout << "Print bar before swap\n";
+		print_map(bar);
+		foo.swap(bar);
+		std::cout << "Print foo after swap\n";
+		print_map(foo);
+		std::cout << "Print bar after swap\n";
+		print_map(bar);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          SWAP (function template)                      " << std::endl;
+		__MACRO::map<T1, T2> foo;
+		__MACRO::map<T1, T2> bar;
+
+		foo['1'] = 1;
+		foo['2'] = 22;
+
+		bar['7'] = 7777777;
+		bar['8'] = 88888888;
+		bar['9'] = 999999999;
+
+		std::cout << "Print foo before swap\n";
+		print_map(foo);
+		std::cout << "Print bar before swap\n";
+		print_map(bar);
+		swap(foo, bar);
+		std::cout << "Print foo after swap\n";
+		print_map(foo);
+		std::cout << "Print bar after swap\n";
+		print_map(bar);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          CLEAR                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+
+		map['1'] = 1;
+		map['2'] = 22;
+		map['3'] = 333;
+		map['4'] = 4444;
+		map['5'] = 55555;
+
+		std::cout << "Print map before clear\n";
+		print_map(map);
+		map.clear();
+		std::cout << "Print map after clear\n";
+		print_map(map);
+		map['6'] = 666666;
+		map['7'] = 7777777;
+		map['8'] = 88888888;
+		std::cout << "Print map after add some elem\n";
+		print_map(map);
+	}
+	std::cout << "---------------       MAP OBSERVERS TESTS       ---------------" << std::endl << std::endl;
+	{
+		std::cout << "                          KEY_COMP                      " << std::endl;
+		// Key comp return copy object used by the container
+		__MACRO::map<T1, T2> map;
+		__MACRO::map<T1, T2>::key_compare comp = map.key_comp();
+
+		map['1'] = 1;
+		map['2'] = 22;
+		map['3'] = 333;
+		map['4'] = 4444;
+		map['5'] = 55555;
+
+		std::cout << "Map contains :\n";
+
+		char highest = map.rbegin()->first;
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+
+		while (comp((*it++).first, highest))
+			std::cout << "it first : " << it->first << " it second : " << it->second << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          VALUE_COMP                      " << std::endl;
+		// Val comp return object to compare two keys
+		__MACRO::map<T1, T2> map;
+
+		map['1'] = 1;
+		map['2'] = 22;
+		map['3'] = 333;
+		map['4'] = 4444;
+		map['5'] = 55555;
+
+		std::cout << "Map contains :\n";
+
+		__MACRO::pair<T1, T2> highest = *map.rbegin();
+		__MACRO::map<T1, T2>::iterator it = map.begin();
+
+		while (map.value_comp()(*it++, highest))
+			std::cout << "it first : " << it->first << " it second : " << it->second << std::endl;
+	}
+	std::cout << "---------------       MAP OPERATIONS TESTS       ---------------" << std::endl << std::endl;
+	{
+		std::cout << "                          FIND                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+
+		map['1'] = 1;
+		map['2'] = 22;
+		map['3'] = 333;
+		map['4'] = 4444;
+		map['5'] = 55555;
+		__MACRO::map<T1, T2>::iterator it = map.find('5');
+		std::cout << "Classic Iterator\n";
+
+		if (it != map.end())
+			std::cout << it->first << " found in map\n";
+		else
+			std::cout << "Not found in map\n";
+		it = map.find('0');
+		if (it != map.end())
+			std::cout << it->first << " found in map\n";
+		else
+			std::cout << "Not found in map\n";
+
+		std::cout << "Const Iterator\n";
+
+		__MACRO::map<T1, T2>::const_iterator cit = map.find('1');
+		if (cit != map.end())
+			std::cout << cit->first << " found in map\n";
+		else
+			std::cout << "Not found in map\n";
+		cit = map.find('9');
+		if (cit != map.end())
+			std::cout << cit->first << " found in map\n";
+		else
+			std::cout << "Not found in map\n";
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          COUNT                      " << std::endl;
+		__MACRO::map<T1, T2> map;
+
+		map['1'] = 1;
+		map['2'] = 22;
+		map['3'] = 333;
+		map['4'] = 4444;
+		map['5'] = 55555;
+
+		for (char c = '1'; c < '9'; c++)
+		{
+			if (map.count(c) > 0)
+				std::cout << c << " is an element of map\n";
+			else
+				std::cout << c << " is not an element of map\n";
+		}
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          LOWER & UPPER BOUNDS                      " << std::endl;
+		// Lower ret it to first elem whose key is not going before k, end() if all keys go before k
+		// Upper ret it to first elem whose key is going after k
+		__MACRO::map<T1, T2> map;
+		__MACRO::map<T1, T2>::iterator itlow, itup;
+
+		map['1'] = 1;
+		map['2'] = 22;
+		map['3'] = 333;
+		map['4'] = 4444;
+		map['5'] = 55555;
+		itlow = map.lower_bound('2');
+		itup = map.upper_bound('4');
+
+		std::cout << "Erase from lower_bound (2) to upper_bound(4)\n";
+		map.erase(itlow, itup);
+		print_map(map);
+	}
+	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
+	{
+		std::cout << "                          EQUAL_RANGE                      " << std::endl;
+		// Ret pair of it that includes elems which have key == k
+		__MACRO::map<T1, T2> map;
+		__MACRO::pair<__MACRO::map<T1, T2>::iterator, __MACRO::map<T1, T2>::iterator> ret;
+
+		map['1'] = 1;
+		map['2'] = 22;
+		map['3'] = 333;
+		map['4'] = 4444;
+		map['5'] = 55555;
+		ret = map.equal_range('3');
+		std::cout << "lower bound points to: ";
+		std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+		std::cout << "upper bound points to: ";
+		std::cout << ret.second->first << " => " << ret.second->second << '\n';
 	}
 }
 
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 void	stack_tests(void)
@@ -518,6 +693,9 @@ void	stack_tests(void)
 	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
 
