@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:44:17 by arudy             #+#    #+#             */
-/*   Updated: 2022/08/22 15:52:15 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/22 10:32:22 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft
 		operator T() { return v; }
 	};
 
-		// true and false type implementation
+	// true and false type implementation
 	typedef integral_constant<bool, true>	true_type;
 	typedef integral_constant<bool, false>	false_type;
 
@@ -57,9 +57,6 @@ namespace ft
 	template <>
 	struct is_integral<long int> : public true_type {};
 
-	// template <>
-	// struct is_integral<long long int> : public true_type {}; C++98 doesnt support long long with -pedantic
-
 	template <>
 	struct is_integral<unsigned char> : public true_type {};
 
@@ -71,6 +68,9 @@ namespace ft
 
 	template <>
 	struct is_integral<unsigned long int> : public true_type {};
+
+	// template <>
+	// struct is_integral<long long int> : public true_type {}; C++98 doesnt support long long with -pedantic
 
 	// template <>
 	// struct is_integral<unsigned long long int> : public true_type {}; C++98 doesnt support long long with -pedantic

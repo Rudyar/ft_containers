@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/21 15:46:01 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/22 11:20:20 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ int	main(void)
 {
 	// Recheck friend keywords
 	// Recheck all !
-	vector_tests();
-	stack_tests();
+	// Recheck map insert pos + param
+
+
+	// vector_tests();
+	// stack_tests();
 	map_tests();
 
 	return 0;
@@ -80,7 +83,7 @@ void print_map(__MACRO::map<T1, T2> map)
 	if (map.empty())
 	{
 		std::cout << "-----------------" << std::endl;
-		std::cout << "Map empty !" << std::endl;
+		std::cout << "map empty !" << std::endl;
 		std::cout << "-----------------" << std::endl;
 	}
 	else
@@ -229,42 +232,42 @@ void	map_tests(void)
 		std::cout << "                          EMPTY                      " << std::endl;
 		__MACRO::map<T1, T2> map; // Default ctor
 
-		std::cout << "Map is empty ? " << map.empty() << std::endl;
+		std::cout << "map is empty ? " << map.empty() << std::endl;
 
 		map['w'] = 4;
 		map['x'] = 8;
 		map['y'] = 16;
 		map['z'] = 32;
 
-		std::cout << "Map is empty ? " << map.empty() << std::endl;
+		std::cout << "map is empty ? " << map.empty() << std::endl;
 	}
 	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
 	{
 		std::cout << "                          SIZE                      " << std::endl;
 		__MACRO::map<T1, T2> map; // Default ctor
 
-		std::cout << "Map size : " << map.size() << std::endl;
+		std::cout << "map size : " << map.size() << std::endl;
 
 		map['w'] = 4;
 		map['x'] = 8;
 		map['y'] = 16;
 		map['z'] = 32;
 
-		std::cout << "Map size : " << map.size() << std::endl;
+		std::cout << "map size : " << map.size() << std::endl;
 	}
 	std::cout << "------------------------------------------------------------------" << std::endl << std::endl;
 	{
 		std::cout << "                          MAX_SIZE                      " << std::endl;
 		__MACRO::map<T1, T2> map; // Default ctor
 
-		std::cout << "Map max_size : " << map.max_size() << std::endl;
+		std::cout << "map max_size : " << map.max_size() << std::endl;
 
 		map['w'] = 4;
 		map['x'] = 8;
 		map['y'] = 16;
 		map['z'] = 32;
 
-		std::cout << "Map max_size : " << map.max_size() << std::endl;
+		std::cout << "map max_size : " << map.max_size() << std::endl;
 	}
 	std::cout << "---------------       MAP ELEMENTS ACCES TESTS       ---------------" << std::endl << std::endl;
 	{
@@ -303,7 +306,9 @@ void	map_tests(void)
 		__MACRO::map<T1, T2>::iterator it = map.begin();
 
 		map.insert(it, __MACRO::pair<T1, T2> ('1', 1));
+		it = map.begin();
 		map.insert(it, __MACRO::pair<T1, T2> ('2', 22));
+		it = map.begin();
 		map.insert(it, __MACRO::pair<T1, T2> ('3', 333));
 		it++;
 		it++;
@@ -464,7 +469,7 @@ void	map_tests(void)
 		map['4'] = 4444;
 		map['5'] = 55555;
 
-		std::cout << "Map contains :\n";
+		std::cout << "map contains :\n";
 
 		char highest = map.rbegin()->first;
 		__MACRO::map<T1, T2>::iterator it = map.begin();
@@ -484,7 +489,7 @@ void	map_tests(void)
 		map['4'] = 4444;
 		map['5'] = 55555;
 
-		std::cout << "Map contains :\n";
+		std::cout << "map contains :\n";
 
 		__MACRO::pair<T1, T2> highest = *map.rbegin();
 		__MACRO::map<T1, T2>::iterator it = map.begin();

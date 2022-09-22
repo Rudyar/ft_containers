@@ -6,13 +6,14 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:02:18 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 15:54:27 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/22 12:00:39 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 	// https://m.cplusplus.com/reference/iterator/iterator/
 	// https://m.cplusplus.com/reference/iterator/iterator_traits/
-	
+	// page 516 iso c++ 98
+
 #ifndef ITERATOR_TRAITS_HPP
 #define ITERATOR_TRAITS_HPP
 

@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/21 12:12:45 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/22 09:38:48 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,21 +361,13 @@ namespace ft
 				return ret;
 			}
 
-			void swap(vector& x) // use ft::_swap??
+			void swap(vector& x)
 			{
 				if (*this == x)
 					return ;
-				size_type		tmp_size = x._size;
-				size_type		tmp_capacity = x._capacity;
-				T				*tmp_vec = x._vec;
-
-				x._size = _size;
-				x._capacity = _capacity;
-				x._vec = _vec;
-
-				_size = tmp_size;
-				_capacity = tmp_capacity;
-				_vec = tmp_vec;
+				ft::_swap(_size, x._size);
+				ft::_swap(_capacity, x._capacity);
+				ft::_swap(_vec, x._vec);
 			}
 
 			void clear()

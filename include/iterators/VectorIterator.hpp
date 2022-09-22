@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:01:24 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/02 15:57:30 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/22 10:00:01 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,14 @@ namespace ft
 			typedef typename ft::iterator_traits<Iterator>::reference			reference;
 
 			VectorIterator() : _current() {}
+
 			explicit VectorIterator(Iterator x) : _current(x) {}
+
 			VectorIterator(const VectorIterator &x) : _current(x._current) {}
-			template<typename Iter> VectorIterator(const VectorIterator<Iter> &x) : _current(x.base()) {}
+
+			template<typename Iter> // Allow it to const_it conversion
+			VectorIterator(const VectorIterator<Iter> &x) : _current(x.base()) {}
+
 			VectorIterator	operator=(VectorIterator const &src)
 			{
 				if (*this == src)
