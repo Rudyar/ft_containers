@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/21 15:09:46 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/26 11:12:22 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace ft
 			typedef value_type*												pointer;
 			typedef	Node*													node_pointer;
 			typedef const Node*												const_node_pointer;
-		typedef const value_type&											const_reference;
+			typedef const value_type&										const_reference;
 			typedef typename allocator_type::template rebind<Node>::other	node_allocator;
 
 			node_pointer	_root;

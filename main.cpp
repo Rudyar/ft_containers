@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/22 11:20:20 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/26 11:20:23 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void print_map(__MACRO::map<T1, T2> map);
 int	main(void)
 {
 	// Recheck friend keywords
-	// Recheck all !
-	// Recheck map insert pos + param
+	// Recheck rebind
+	// /swap const map ??
 
 
 	// vector_tests();
