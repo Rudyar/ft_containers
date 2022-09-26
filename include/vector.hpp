@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:31:14 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/22 09:38:48 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/26 17:23:20 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,11 +169,11 @@ namespace ft
 			void resize(size_type n, T c = T())
 			{
 				if (n > max_size())
-					throw(std::length_error("vector : resize"));
+					throw(std::length_error("vector::resize"));
 				if (n <= size())
 				{
 					for (; _size > n ; _size--)
-						_alloc.destroy(&_vec[_size]);
+						_alloc.destroy(&_vec[_size - 1]);
 				}
 				else
 				{
@@ -198,7 +198,7 @@ namespace ft
 			void reserve(size_type n)
 			{
 				if (n > max_size())
-					throw(std::length_error("vector : reserve"));
+					throw(std::length_error("vector::reserve"));
 				if (n > capacity())
 				{
 					T	*tmp;
@@ -229,14 +229,14 @@ namespace ft
 			const_reference at(size_type n) const
 			{
 				if (n < 0 || n >= size())
-					throw(std::out_of_range("vector : at const"));
+					throw(std::out_of_range("vector::at const"));
 				return *(_vec + n);
 			}
 
 			reference at(size_type n)
 			{
 				if (n < 0 || n >= size())
-					throw(std::out_of_range("vector : at"));
+					throw(std::out_of_range("vector::at"));
 				return *(_vec + n);
 			}
 
@@ -347,6 +347,7 @@ namespace ft
 						_alloc.destroy(it.base());
 						_alloc.construct(it.base(), *(it + 1));
 					}
+					_alloc.destroy(it.base());
 					_size--;
 				}
 				return ret;

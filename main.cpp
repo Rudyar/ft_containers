@@ -6,11 +6,11 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:25:13 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/26 11:20:23 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/26 18:04:47 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define STD    // A commenter pour avoir ft
+#define STD    // A commenter pour avoir ft
 #ifndef STD
 # include "include/vector.hpp"
 # include "include/stack.hpp"
@@ -40,17 +40,18 @@ void map_tests();
 void print_vec(__MACRO::vector<int> vec);
 void print_map(__MACRO::map<T1, T2> map);
 
+using namespace std;
+#include "include/mazoise/test_utils.hpp"
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 int	main(void)
 {
 	// Recheck friend keywords
 	// Recheck rebind
-	// /swap const map ??
 
-
-	// vector_tests();
-	// stack_tests();
+	vector_tests();
+	stack_tests();
 	map_tests();
 
 	return 0;
