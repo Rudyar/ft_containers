@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 10:28:29 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/20 10:31:34 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/27 10:33:33 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 
 			reverse_iterator(const reverse_iterator &x) : _current(x._current) {}
 
-			template<typename Iter>
+			template<typename Iter> // Allow it to const_it conversion
 			reverse_iterator(const reverse_iterator<Iter> &x) : _current(x.base()) {}
 
 			reverse_iterator&	operator=(reverse_iterator const &src)

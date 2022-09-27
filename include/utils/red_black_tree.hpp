@@ -6,7 +6,7 @@
 /*   By: arudy <arudy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 10:32:46 by arudy             #+#    #+#             */
-/*   Updated: 2022/09/26 11:12:22 by arudy            ###   ########.fr       */
+/*   Updated: 2022/09/27 10:22:22 by arudy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ namespace ft
 		private :
 			typedef T	value_type;
 
-			// Private struct, for each nodes
+			// Private nested struct, for each nodes
 			struct Node
 			{
 				value_type	data;
